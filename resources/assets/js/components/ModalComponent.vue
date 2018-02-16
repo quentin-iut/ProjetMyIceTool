@@ -14,8 +14,8 @@
                         Sélectionnez les {{ name }} :
                         <ul>
                             <li v-for="d in collection">
-                                <input type="checkbox" name="data" v-bind:value="d.id" :checked="check(d.id)" ref="inputs"> {{ d.libelle}}
-                                <input type="number" v-if="name === 'constituants'">
+                                <input type="checkbox" name="data" v-bind:value="d.id" :checked="check(d.id)" ref="inputs" v-bind:data-libelle="d.libelle"> {{ d.libelle}}
+								<input type="number" v-if="name === 'constituants'" v-on:input="checkPoids">
                             </li>
                         </ul>
                     </div>
@@ -62,16 +62,25 @@ export default {
 			if(this.name === 'constituants') {
 				if(this.required()) return
 			}
-			axios.post(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, {
-			body: this.getChecked()
-			})
-			.then(res => {
-				if(res.data.success) {
-					axios.get(`api/cascades/${$cascade.data().cascade.id}/details`)
-					.then(res => $cascade.data().cascade = res.data)
-				}
-			})
-			.catch(e => console.error(e));
+			fetch(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, {
+				method: "POST",
+				headers: {
+      				'Content-Type': 'application/json'
+    			},
+    			body: JSON.stringify(this.getChecked())
+			}).then(res => res.json())
+			.then(data => fetch(`api/cascades/${$cascade.data().cascade.id}/details`)
+				.then(res => res.json())
+				.then(data =>  $cascade.data().cascade = data))
+				.catch(e => console.error(e))
+			// axios.post(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, this.getChecked())
+			// .then(res => {
+			// 	if(res.data.success) {
+			// 		axios.get(`api/cascades/${$cascade.data().cascade.id}/details`)
+			// 		.then(res => $cascade.data().cascade = res.data)
+			// 	}
+			// })
+			// .catch(e => console.error(e));
 		},
 		getChecked() {
 			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
@@ -89,70 +98,66 @@ export default {
 		required() {
 			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
 			let error = false
-			let total = 0
+			let btnDismiss = inputs[0].form.modifier
 			inputs.forEach(el => {
 				let inputPoids = el.nextElementSibling
 				let spanError = document.createElement('span')
 				spanError.textContent = 'Veuillez remplir ce champs !'
 			
-				if(inputPoids.value === '') {
+				if(inputPoids.value === '' || inputPoids.value === '0') {
 					if(inputPoids.nextElementSibling === null) {
 						inputPoids.after(spanError)
 					}
 					error = true
 				} else {
-					total += inputPoids.value
 					if(inputPoids.nextElementSibling !== null) {
 						inputPoids.nextElementSibling.remove()
 					}
 				}
 			})
 			if(error) {
-				inputs[0].form.modifier.dataset.dismiss = ''
+				btnDismiss.dataset.dismiss = ''
 			} else {
-				inputs[0].form.modifier.dataset.dismiss = 'modal'
-				console.log(total)
-				if(total < 100) {
-					this.$refs.inputs.forEach(el => {
-						if(el.nextSimbling === 'autres') {
-							el.nextElementSibling.value = 100 - total
-						}
-					})
-				} else if(total > 100) {
-					let errorPoids = document.createElement('span')
-					errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%'
-					inputs[0].form.modifier.before(errorPoids)
-					inputs[0].form.modifier.dataset.dismiss = ''
-				}
+				btnDismiss.dataset.dismiss = 'modal'
 			}
 			return error
-		}
-	},
-	checkPoids() {
-		let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
-		let total = 0
-		inputs.forEach(el => {
-			let inputPoids = el.nextElementSibling
-			total += parseFloat(inputPoids.value)
-		})
-		if(total < 100) {
+		},
+		checkPoids() {
+			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
+			let total = 0
+			let inputOther
 			this.$refs.inputs.forEach(el => {
-				if(el.nextSimbling === 'autres') {
-					el.nextElementSibling.value = 100 - total
+				if(el.dataset.libelle === 'autres') {
+					inputOther = el.nextElementSibling
 				}
 			})
-		} else if(total > 100) {
-			let errorPoids = document.createElement('span')
-			errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%'
-			inputs[0].form.modifier.before(errorPoids)
-			inputs[0].form.modifier.dataset.dismiss = ''
-		} else {
-			inputs[0].form.modifier.dataset.dismiss = 'modal'
+			inputs.forEach(el => {
+				let inputPoids = el.nextElementSibling
+				if(inputPoids.value !== '') {
+					total += parseFloat(inputPoids.value)
+				}
+			})
+			let btnUpdate = inputs[0].form.modifier
+			if(total < 100) {
+				inputOther.value = 100 - total
+			} else if(total > 100) {
+				let errorPoids = document.createElement('span')
+				errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%'
+				if(btnUpdate.previousElementSibling === null) {
+					btnUpdate.before(errorPoids)
+					btnUpdate.disabled = true
+				}
+				inputOther.value = ''
+			} else {
+				inputOther.value = ''
+				btnUpdate.previousElementSibling.remove()
+				btnUpdate.disabled = false
+			}
 		}
 	},
 	updated() {
 		this.$refs.inputs.forEach(el => {
-			if(el.nextSimbling === 'autres') {
+			if(el.dataset.libelle === 'autres') {
 				el.disabled = true
 				el.nextElementSibling.readOnly = true
 			}

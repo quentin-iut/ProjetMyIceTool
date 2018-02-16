@@ -43630,25 +43630,31 @@ var _data = {
 			if (this.name === 'constituants') {
 				if (this.required()) return;
 			}
-			// axios.post(`api/cascade/${$cascade.data().cascade.id}/${this.name}/update`, {
-			// body: this.getChecked()
-			// })
-			// .then(res => {
-			// 	if(res.data.success) {
-			// 		axios.get(`api/cascade/${$cascade.data().cascade.id}/details`)
-			// 		.then(res => $cascade.data().cascade = res.data)
-			// 	}
-			// })
-			console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-			fetch("api/cascade/" + $cascade.data().cascade.id + "/" + this.name + "/update", {
-				method: 'post',
+			fetch("api/cascades/" + $cascade.data().cascade.id + "/" + this.name + "/update", {
+				method: "POST",
 				headers: {
-					'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+					'Content-Type': 'application/json'
 				},
-				body: this.getChecked()
+				body: JSON.stringify(this.getChecked())
+			}).then(function (res) {
+				return res.json();
+			}).then(function (data) {
+				return fetch("api/cascades/" + $cascade.data().cascade.id + "/details").then(function (res) {
+					return res.json();
+				}).then(function (data) {
+					return $cascade.data().cascade = data;
+				});
 			}).catch(function (e) {
 				return console.error(e);
 			});
+			// axios.post(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, this.getChecked())
+			// .then(res => {
+			// 	if(res.data.success) {
+			// 		axios.get(`api/cascades/${$cascade.data().cascade.id}/details`)
+			// 		.then(res => $cascade.data().cascade = res.data)
+			// 	}
+			// })
+			// .catch(e => console.error(e));
 		},
 		getChecked: function getChecked() {
 			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
@@ -43666,58 +43672,66 @@ var _data = {
 		required: function required() {
 			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
 			var error = false;
-			var total = 0;
+			var btnDismiss = inputs[0].form.modifier;
 			inputs.forEach(function (el) {
 				var inputPoids = el.nextElementSibling;
 				var spanError = document.createElement('span');
 				spanError.textContent = 'Veuillez remplir ce champs !';
 
-				if (inputPoids.value === '') {
+				if (inputPoids.value === '' || inputPoids.value === '0') {
 					if (inputPoids.nextElementSibling === null) {
 						inputPoids.after(spanError);
 					}
 					error = true;
 				} else {
-					total += inputPoids.value;
 					if (inputPoids.nextElementSibling !== null) {
 						inputPoids.nextElementSibling.remove();
 					}
 				}
 			});
 			if (error) {
-				inputs[0].form.modifier.dataset.dismiss = '';
+				btnDismiss.dataset.dismiss = '';
 			} else {
-				inputs[0].form.modifier.dataset.dismiss = 'modal';
-				console.log(total);
-				if (total < 100) {
-					this.$refs.inputs.forEach(function (el) {
-						if (el.nextSimbling === 'autres') {
-							el.nextElementSibling.value = 100 - total;
-						}
-					});
-				} else if (total > 100) {
-					var errorPoids = document.createElement('span');
-					errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
-					inputs[0].form.modifier.before(errorPoids);
-					inputs[0].form.modifier.dataset.dismiss = '';
-				}
+				btnDismiss.dataset.dismiss = 'modal';
 			}
 			return error;
+		},
+		checkPoids: function checkPoids() {
+			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+			var total = 0;
+			var inputOther = void 0;
+			this.$refs.inputs.forEach(function (el) {
+				if (el.dataset.libelle === 'autres') {
+					inputOther = el.nextElementSibling;
+				}
+			});
+			inputs.forEach(function (el) {
+				var inputPoids = el.nextElementSibling;
+				if (inputPoids.value !== '') {
+					total += parseFloat(inputPoids.value);
+				}
+			});
+			var btnUpdate = inputs[0].form.modifier;
+			if (total < 100) {
+				inputOther.value = 100 - total;
+			} else if (total > 100) {
+				var errorPoids = document.createElement('span');
+				errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
+				if (btnUpdate.previousElementSibling === null) {
+					btnUpdate.before(errorPoids);
+					btnUpdate.disabled = true;
+				}
+				inputOther.value = '';
+			} else {
+				inputOther.value = '';
+				btnUpdate.previousElementSibling.remove();
+				btnUpdate.disabled = false;
+			}
 		}
-	},
-	checkPoids: function checkPoids() {
-		var total = 0;
-		var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
-		inputs.forEach(function (el) {
-			var inputPoids = el.nextElementSibling;
-
-			if (inputPoids.value === '') {} else {}
-		});
-		console.log(total);
 	},
 	updated: function updated() {
 		this.$refs.inputs.forEach(function (el) {
-			if (el.nextSimbling === 'autres') {
+			if (el.dataset.libelle === 'autres') {
 				el.disabled = true;
 				el.nextElementSibling.readOnly = true;
 			}
@@ -43757,9 +43771,9 @@ var render = function() {
           _c("form", [
             _c("div", { staticClass: "modal-body" }, [
               _vm._v(
-                "\n                      Sélectionnez les " +
+                "\n                        Sélectionnez les " +
                   _vm._s(_vm.name) +
-                  " :\n                      "
+                  " :\n                        "
               ),
               _c(
                 "ul",
@@ -43768,16 +43782,19 @@ var render = function() {
                     _c("input", {
                       ref: "inputs",
                       refInFor: true,
-                      attrs: { type: "checkbox", name: "data" },
+                      attrs: {
+                        type: "checkbox",
+                        name: "data",
+                        "data-libelle": d.libelle
+                      },
                       domProps: { value: d.id, checked: _vm.check(d.id) }
                     }),
-                    _vm._v(
-                      " " +
-                        _vm._s(d.libelle) +
-                        "\n                              "
-                    ),
+                    _vm._v(" " + _vm._s(d.libelle) + "\n\t\t\t\t\t\t\t\t"),
                     _vm.name === "constituants"
-                      ? _c("input", { attrs: { type: "number" } })
+                      ? _c("input", {
+                          attrs: { type: "number" },
+                          on: { input: _vm.checkPoids }
+                        })
                       : _vm._e()
                   ])
                 })
