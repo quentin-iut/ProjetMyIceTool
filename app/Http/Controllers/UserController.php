@@ -9,10 +9,10 @@ use Auth;
 class UserController extends Controller
 {
 
-    public function getUsers() {
-        header("Access-Control-Allow-Origin: *");
-        return User::all();
-    }
+    // public function getUsers() {
+    //     header("Access-Control-Allow-Origin: *");
+    //     return User::all();
+    // }
 
     public function getUser($user_id) {
         header("Access-Control-Allow-Origin: *");

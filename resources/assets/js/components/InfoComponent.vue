@@ -12,7 +12,7 @@
 				<li><strong>Type de fin de vie: </strong><span data-id="type_fin_vie.libelle">{{ cascade.type_fin_vie.libelle }}</span></li>
 				<li><strong>Type de glace: </strong><span data-id="type_glace.libelle">{{ cascade.type_glace.libelle }}</span></li>
 				<li><strong>Orientation: </strong><span data-id="orientation.libelle">{{ cascade.orientation.libelle }}</span></li>
-				<li><strong>Niveau: </strong><span data-id="cascade.niveau.libelle">{{ cascade.niveau.libelle }}</span></li>
+				<li><strong>Niveau: </strong><span data-id="niveau.libelle">{{ cascade.niveau.libelle }}</span></li>
 				<li>
 					<strong checkbox>Constituants</strong>:
 					<ul>

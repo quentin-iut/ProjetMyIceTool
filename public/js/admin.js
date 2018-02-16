@@ -189,7 +189,6 @@ function clickSpan(span) {
         }
     }
     input.value = value
-    
 
     input.addEventListener('blur', function () {
         eventInput(this)
@@ -200,7 +199,6 @@ function clickSpan(span) {
         }
     })
     span.parentElement.appendChild(input)
-    //span.parentElement.removeChild(span)
     span.className += ' hidden'
 
     input.focus()

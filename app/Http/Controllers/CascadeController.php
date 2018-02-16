@@ -11,6 +11,7 @@ class CascadeController extends Controller
     public function getCascades() {
         header("Access-Control-Allow-Origin: *");
         return Cascade::all();
+        // return Cascade::where('nom', 'like', '%auzet%')->get();
     }
 
     public function getCascade($cascade_id) {
@@ -93,7 +94,8 @@ class CascadeController extends Controller
 
     public function updateConstituants(Request $req, $cascade_id) {
         $c = $this->getCascade($cascade_id);
-        $c->constituants()->sync($req->all()['body']);
-        return response()->json([ 'success' => true ]);
+
+        // $c->constituants()->sync($req->all()['body']);
+        return response()->json([ 'success' => $req->all()]);
     }
 }

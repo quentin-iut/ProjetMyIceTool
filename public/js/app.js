@@ -43428,7 +43428,7 @@ var render = function() {
         _vm._v(" "),
         _c("li", [
           _c("strong", [_vm._v("Niveau: ")]),
-          _c("span", { attrs: { "data-id": "cascade.niveau.libelle" } }, [
+          _c("span", { attrs: { "data-id": "niveau.libelle" } }, [
             _vm._v(_vm._s(_vm.cascade.niveau.libelle))
           ])
         ]),
@@ -43598,54 +43598,131 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var _data = {
-  name: "",
-  collection: [{
-    id: 0,
-    libelle: ""
-  }]
+	name: "",
+	collection: [{
+		id: 0,
+		libelle: ""
+	}]
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "modal",
-  data: function data() {
-    return _data;
-  },
+	name: "modal",
+	data: function data() {
+		return _data;
+	},
 
-  methods: {
-    check: function check(id) {
-      if (typeof $cascade !== "undefined") {
-        find = false;
-        $cascade.data().cascade[this.name].forEach(function (el) {
-          if (el.id === id) {
-            find = true;
-          }
-        });
-        return find;
-      }
-    },
-    updateData: function updateData() {
-      this.getChecked();
-      axios.post("api/cascade/" + $cascade.data().cascade.id + "/" + this.name + "/update", {
-        body: this.getChecked()
-      }).then(function (res) {
-        if (res.data.success) {
-          axios.get("api/cascade/" + $cascade.data().cascade.id + "/details").then(function (res) {
-            return $cascade.data().cascade = res.data;
-          });
-        }
-      }).catch(function (e) {
-        return console.error(e);
-      });
-    },
-    getChecked: function getChecked() {
-      var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
-      return inputs.map(function (el) {
-        return el.value;
-      });
-    }
-  }
+	methods: {
+		check: function check(id) {
+			if (typeof $cascade !== "undefined") {
+				find = false;
+				$cascade.data().cascade[this.name].forEach(function (el) {
+					if (el.id === id) {
+						find = true;
+					}
+				});
+				return find;
+			}
+		},
+		updateData: function updateData() {
+			if (this.name === 'constituants') {
+				if (this.required()) return;
+			}
+			// axios.post(`api/cascade/${$cascade.data().cascade.id}/${this.name}/update`, {
+			// body: this.getChecked()
+			// })
+			// .then(res => {
+			// 	if(res.data.success) {
+			// 		axios.get(`api/cascade/${$cascade.data().cascade.id}/details`)
+			// 		.then(res => $cascade.data().cascade = res.data)
+			// 	}
+			// })
+			console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+			fetch("api/cascade/" + $cascade.data().cascade.id + "/" + this.name + "/update", {
+				method: 'post',
+				headers: {
+					'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+				},
+				body: this.getChecked()
+			}).catch(function (e) {
+				return console.error(e);
+			});
+		},
+		getChecked: function getChecked() {
+			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+			if (this.name === 'constituants') {
+				return inputs.map(function (el) {
+					return { id: el.value, poids: el.nextElementSibling.value };
+				});
+			} else {
+				var _inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+				return _inputs.map(function (el) {
+					return el.value;
+				});
+			}
+		},
+		required: function required() {
+			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+			var error = false;
+			var total = 0;
+			inputs.forEach(function (el) {
+				var inputPoids = el.nextElementSibling;
+				var spanError = document.createElement('span');
+				spanError.textContent = 'Veuillez remplir ce champs !';
+
+				if (inputPoids.value === '') {
+					if (inputPoids.nextElementSibling === null) {
+						inputPoids.after(spanError);
+					}
+					error = true;
+				} else {
+					total += inputPoids.value;
+					if (inputPoids.nextElementSibling !== null) {
+						inputPoids.nextElementSibling.remove();
+					}
+				}
+			});
+			if (error) {
+				inputs[0].form.modifier.dataset.dismiss = '';
+			} else {
+				inputs[0].form.modifier.dataset.dismiss = 'modal';
+				console.log(total);
+				if (total < 100) {
+					this.$refs.inputs.forEach(function (el) {
+						if (el.nextSimbling === 'autres') {
+							el.nextElementSibling.value = 100 - total;
+						}
+					});
+				} else if (total > 100) {
+					var errorPoids = document.createElement('span');
+					errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
+					inputs[0].form.modifier.before(errorPoids);
+					inputs[0].form.modifier.dataset.dismiss = '';
+				}
+			}
+			return error;
+		}
+	},
+	checkPoids: function checkPoids() {
+		var total = 0;
+		var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+		inputs.forEach(function (el) {
+			var inputPoids = el.nextElementSibling;
+
+			if (inputPoids.value === '') {} else {}
+		});
+		console.log(total);
+	},
+	updated: function updated() {
+		this.$refs.inputs.forEach(function (el) {
+			if (el.nextSimbling === 'autres') {
+				el.disabled = true;
+				el.nextElementSibling.readOnly = true;
+			}
+		});
+	}
 });
 
 /***/ }),
@@ -43689,12 +43766,19 @@ var render = function() {
                 _vm._l(_vm.collection, function(d) {
                   return _c("li", [
                     _c("input", {
+                      ref: "inputs",
+                      refInFor: true,
                       attrs: { type: "checkbox", name: "data" },
                       domProps: { value: d.id, checked: _vm.check(d.id) }
                     }),
                     _vm._v(
-                      " " + _vm._s(d.libelle) + "\n                          "
-                    )
+                      " " +
+                        _vm._s(d.libelle) +
+                        "\n                              "
+                    ),
+                    _vm.name === "constituants"
+                      ? _c("input", { attrs: { type: "number" } })
+                      : _vm._e()
                   ])
                 })
               )
@@ -43705,7 +43789,11 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-success",
-                  attrs: { type: "button", "data-dismiss": "modal" },
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "modal",
+                    name: "modifier"
+                  },
                   on: {
                     click: function($event) {
                       _vm.updateData()
