@@ -15,7 +15,7 @@ class UserController extends Controller
     // }
 
     public function getUser($user_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         if(!Auth::check() || Auth::user()->id != $user_id) return response()->json(['error' => 'Not authorized.'],403);
 
         return User::findOrFail($user_id);
@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function getUserFavoris($user_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
 
         $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
@@ -43,7 +43,7 @@ class UserController extends Controller
     }
 
     public function getUserLangue($user_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
 
         $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
@@ -53,7 +53,7 @@ class UserController extends Controller
     }
 
     public function getUserNiveau($user_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
 
         $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {

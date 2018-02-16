@@ -39,7 +39,7 @@ class Cascade extends Marker {
         this.$marker.addListener('click', () => {
             map.$maps.panTo(this.position)
             if (this.new === false) {
-                getFile(`api/cascade/${this.cascade.id}/details`, (cascadeInfo) => {
+                getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
                     $app.data().show = true
                     $cascade.data().cascade = cascadeInfo
                 })

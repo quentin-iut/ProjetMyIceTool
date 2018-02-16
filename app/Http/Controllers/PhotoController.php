@@ -8,12 +8,12 @@ use App\Photo;
 class PhotoController extends Controller
 {
     public function getPhotos() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Photo::all();
     }
 
     public function getPhoto($photo_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Photo::findOrFail($photo_id);
     }
 

@@ -76,7 +76,7 @@ class Zone {
         this.$rectangle.addListener('click', () => {
             map.$maps.panTo(this.northEast)
             if (this.new === false) {
-                getFile(`api/zone/${this.zone.id}/details`, (zoneInfo) => {
+                getFile(`api/zones/${this.zone.id}`, (zoneInfo) => {
                     // $app.data().show = true
                     // $cascade.data().cascade = cascadeInfo
                 })

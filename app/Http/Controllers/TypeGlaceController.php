@@ -8,12 +8,12 @@ use App\TypeGlace;
 class TypeGlaceController extends Controller
 {
     public function getTypeGlaces() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return TypeGlace::all();
     }
 
     public function getTypeGlace($typeGlace_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return TypeGlace::findOrFail($typeGlace_id);
     }
 

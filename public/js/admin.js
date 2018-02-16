@@ -77,7 +77,7 @@ Cascade.prototype.addEvent = function () {
         tlp.$tooltip.content.children[0].value = this
 
         if (this.new == false) {
-            getFile(`api/cascade/${this.cascade.id}/details`, (cascadeInfo) => {
+            getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
                 $app.data().show = true
                 $cascade.data().cascade = cascadeInfo
             })
@@ -100,7 +100,7 @@ Zone.prototype.addEvent = function () {
         tlp.$tooltip.setPosition(this.northEast)
 
         if (this.new == false) {
-            getFile(`api/zone/${this.zone.id}`, (zoneInfo) => {
+            getFile(`api/zones/${this.zone.id}`, (zoneInfo) => {
                 // $app.data().show = true
                 // $cascade.data().cascade = cascadeInfo
             })

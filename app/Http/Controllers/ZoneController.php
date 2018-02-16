@@ -9,17 +9,17 @@ use DB;
 class ZoneController extends Controller
 {
     public function getZones() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Zone::all();
     }
 
     public function getZone($zone_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Zone::findOrFail($zone_id);
     }
 
     public function getMaxId() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Zone::find(DB::table('zones')->max('id'));
     }
 

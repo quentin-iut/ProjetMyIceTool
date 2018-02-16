@@ -9,38 +9,38 @@ use DB;
 class CascadeController extends Controller
 {
     public function getCascades() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Cascade::all();
         // return Cascade::where('nom', 'like', '%auzet%')->get();
     }
 
     public function getCascade($cascade_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Cascade::findOrFail($cascade_id);
     }
 
     public function getCascadeDetails($cascade_id) {
         $c = $this->getCascade($cascade_id);
 
-        $c->load('constituants');
-        
-        // $c->commentaires = $c->commentaires;
-        // $c->constituants = $c->constituants;
-        $c->images = $c->images;
-        $c->niveau = $c->niveau;
-        $c->orientation = $c->orientation;
-        $c->pays = $c->pays;
-        $c->structure = $c->structure;
-        $c->supports = $c->supports;
-        $c->typeFinVie = $c->typeFinVie;
-        $c->typeGlace = $c->typeGlace;
-        $c->zones = $c->zones;
+        $c->load(
+            'constituants',
+            'images',
+            'niveau',
+            'orientation',
+            'pays',
+            'structure',
+            'supports',
+            'typeFinVie',
+            'typeGlace',
+            'zones'
+
+        );
 
         return $c;
     }
 
     public function getMaxId() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Cascade::find(DB::table('cascades')->max('id'));
     }
 

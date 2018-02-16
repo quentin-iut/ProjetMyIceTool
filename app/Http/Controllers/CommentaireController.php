@@ -8,12 +8,12 @@ use App\Commentaire;
 class CommentaireController extends Controller
 {
     public function getCommentaires() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Commentaire::all();
     }
 
     public function getCommentaire($commentaire_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Commentaire::findOrFail($commentaire_id);
     }
 

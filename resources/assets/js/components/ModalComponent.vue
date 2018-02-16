@@ -62,12 +62,12 @@ export default {
 			if(this.name === 'constituants') {
 				if(this.required()) return
 			}
-			axios.post(`api/cascade/${$cascade.data().cascade.id}/${this.name}/update`, {
+			axios.post(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, {
 			body: this.getChecked()
 			})
 			.then(res => {
 				if(res.data.success) {
-					axios.get(`api/cascade/${$cascade.data().cascade.id}/details`)
+					axios.get(`api/cascades/${$cascade.data().cascade.id}/details`)
 					.then(res => $cascade.data().cascade = res.data)
 				}
 			})
