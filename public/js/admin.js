@@ -223,9 +223,6 @@ function eventInput(input) {
             $cascade.data().cascade[id[0]] = input.value
         }
 
-        // span.onclick = function () {
-        //     clickSpan(this)
-        // }
         // updateVille(this.parentElement.firstChild.textContent, this.value)
         input.parentElement.removeChild(input)
         span.className -=  ' hidden'
