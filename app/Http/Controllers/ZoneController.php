@@ -24,10 +24,10 @@ class ZoneController extends Controller
     }
 
     public function getZoneCascades($zone_id) {
-        return self::getZone($zone_id)->cascades;
+        return $this->getZone($zone_id)->cascades;
     }
 
     public function getZoneReleves($zone_id) {
-        return self::getZone($zone_id)->releves;
+        return $this->getZone($zone_id)->releves;
     }
 }

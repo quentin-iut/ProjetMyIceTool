@@ -18,6 +18,6 @@ class PhotoController extends Controller
     }
 
     public function getPhotoCommentaire($photo_id) {
-        return self::getPhoto($photo_id)->commentaire;
+        return $this->getPhoto($photo_id)->commentaire;
     }
 }

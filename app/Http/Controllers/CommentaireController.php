@@ -18,10 +18,10 @@ class CommentaireController extends Controller
     }
 
     public function getCommmentaireCascade($commentaire_id) {
-        return self::getCommentaire($commentaire_id)->cascade;
+        return $this->getCommentaire($commentaire_id)->cascade;
     }
 
     public function getCommentairePhotos($commentaire_id) {
-        return self::getCommentaire($commentaire_id)->photos;
+        return $this->getCommentaire($commentaire_id)->photos;
     }
 }

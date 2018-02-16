@@ -18,10 +18,10 @@ class NiveauController extends Controller
     }
 
     public function getNiveauCascades($niveau_id) {
-        return self::getNiveau($niveau_id)->cascades;
+        return $this->getNiveau($niveau_id)->cascades;
     }
 
     public function getNiveauUsers($niveau_id) {
-        return self::getNiveau($niveau_id)->users;
+        return $this->getNiveau($niveau_id)->users;
     }
 }

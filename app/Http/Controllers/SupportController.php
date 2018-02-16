@@ -18,6 +18,6 @@ class SupportController extends Controller
     }
 
     public function getSupportCascades($support_id) {
-        return self::getSupport($support_id)->cascades;
+        return $this->getSupport($support_id)->cascades;
     }
 }

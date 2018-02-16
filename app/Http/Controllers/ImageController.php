@@ -18,6 +18,6 @@ class ImageController extends Controller
     }
 
     public function getImageCascade($image_id) {
-        return self::getImage($image_id)->cascade;
+        return $this->getImage($image_id)->cascade;
     }
 }

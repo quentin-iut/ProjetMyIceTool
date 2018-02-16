@@ -18,6 +18,6 @@ class PaysController extends Controller
     }
 
     public function getPaysCascades($pays_id) {
-        return self::getPays($pays_id)->cascades;
+        return $this->getPays($pays_id)->cascades;
     }
 }

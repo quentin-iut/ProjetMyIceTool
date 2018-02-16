@@ -18,6 +18,6 @@ class ReleveController extends Controller
     }
 
     public function getReleveZone($releve_id) {
-        return self::getReleve($releve_id)->zone;
+        return $this->getReleve($releve_id)->zone;
     }
 }

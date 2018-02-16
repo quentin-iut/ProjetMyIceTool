@@ -18,6 +18,6 @@ class ConstituantController extends Controller
     }
 
     public function getConstituantCascades($constituant_id) {
-        return self::getConstituant($constituant_id)->cascades;
+        return $this->getConstituant($constituant_id)->cascades;
     }
 }

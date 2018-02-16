@@ -18,6 +18,6 @@ class TypeGlaceController extends Controller
     }
 
     public function getTypeGlaceCascades($typeGlace_id) {
-        return self::getTypeGlace($typeGlace_id)->cascades;
+        return $this->getTypeGlace($typeGlace_id)->cascades;
     }
 }

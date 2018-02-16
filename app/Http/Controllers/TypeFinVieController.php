@@ -18,6 +18,6 @@ class TypeFinVieController extends Controller
     }
 
     public function getTypeFinVieCascades($typeFinVie_id) {
-        return self::getTypeFinVie($typeFinVie_id)->cascades;
+        return $this->getTypeFinVie($typeFinVie_id)->cascades;
     }
 }

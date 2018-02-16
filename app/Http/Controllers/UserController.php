@@ -22,7 +22,7 @@ class UserController extends Controller
     }
 
     public function getUserDetails($user_id) {
-        $u = self::getUser($user_id);
+        $u = $this->getUser($user_id);
 
         if(!method_exists($u, 'getData')) {
             $u->favoris = $u->cascades;
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function getUserFavoris($user_id) {
         header("Access-Control-Allow-Origin: *");
 
-        $u =  self::getUser($user_id);
+        $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
             $u->cascades;
         }
@@ -45,7 +45,7 @@ class UserController extends Controller
     public function getUserLangue($user_id) {
         header("Access-Control-Allow-Origin: *");
 
-        $u =  self::getUser($user_id);
+        $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
             $u->langue;
         }
@@ -55,7 +55,7 @@ class UserController extends Controller
     public function getUserNiveau($user_id) {
         header("Access-Control-Allow-Origin: *");
 
-        $u =  self::getUser($user_id);
+        $u =  $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
             $u->niveau;
         }

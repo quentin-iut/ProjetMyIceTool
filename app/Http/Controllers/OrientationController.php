@@ -18,6 +18,6 @@ class OrientationController extends Controller
     }
 
     public function getOrientationCascades($orientation_id) {
-        return self::getOrientation($orientation_id)->cascades;
+        return $this->getOrientation($orientation_id)->cascades;
     }
 }
