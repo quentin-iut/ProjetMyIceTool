@@ -8350,6 +8350,11 @@ button.close {
   }
 }
 
+.brand {
+  width: 100px;
+  margin-top: -6px;
+}
+
 .material-icons {
   cursor: pointer;
 }

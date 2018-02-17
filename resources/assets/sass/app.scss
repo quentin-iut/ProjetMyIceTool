@@ -8,6 +8,11 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+.brand {
+    width: 100px;
+    margin-top: -6px;
+}
+
 .material-icons {
     cursor: pointer;
 }

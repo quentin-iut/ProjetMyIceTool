@@ -30,7 +30,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="{{ asset('img/logo.png')}}" alt="My Ice Tool" class="brand">
                     </a>
                 </div>
 
