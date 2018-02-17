@@ -92,6 +92,16 @@ Cascade.prototype.addEvent = function () {
     })
 }
 
+Cascade.prototype.update = function () {
+    fetch(`api/cascades/${this.cascade.id}/update`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.cascade)
+    }).catch(e => console.error(e))
+}
+
 Zone.prototype.addEvent = function () {
     this.$rectangle.addListener('click', () => {
         map.$maps.panTo(this.northEast)
@@ -163,16 +173,18 @@ function clickSpan(span) {
     edit = true    
     var value = span.textContent
     var input = document.createElement('input')
+    
+    input.dataset.id = span.dataset.id
+    inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies']
 
-    if (span.dataset.id === 'lat' || span.dataset.id === 'lng') {
-
-        if(span.dataset.id === 'lat') {
-            input.dataset.id = 'lat'
-        } else if(span.dataset.id === 'lng') {
-            input.dataset.id = 'lng'
-        }
-
+    if (inputTypeNumber.includes(input.dataset.id)) {
         input.type = 'number'
+        if (input.dataset.id === 'lat' || input.dataset.id === 'lng') {
+            input.step = 0.01
+        }
+    }
+    
+    if (span.dataset.id === 'lat' || span.dataset.id === 'lng') {
         input.oninput = function () {
             let c = markers.cascades[$cascade.data().cascade.id]
             if (input.dataset.id === 'lat') {
@@ -213,15 +225,20 @@ function eventInput(input) {
         } else {
             span = input.parentElement.children[1]
         }
-
+        
+        let c = markers.cascades[$cascade.data().cascade.id]
         let id = span.dataset.id.split('.')
         if(id.length > 1) {
             $cascade.data().cascade[id[0]][id[1]] = input.value
         } else {
             $cascade.data().cascade[id[0]] = input.value
+            if (input.type === "number") {
+                c.cascade[id[0]] = parseFloat(input.value)
+            } else {
+                c.cascade[id[0]] = input.value
+            }
         }
-
-        // updateVille(this.parentElement.firstChild.textContent, this.value)
+        c.update()
         input.parentElement.removeChild(input)
         span.className -=  ' hidden'
         

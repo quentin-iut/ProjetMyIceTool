@@ -43271,6 +43271,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var _data = {
 	cascade: {
@@ -43387,7 +43388,7 @@ var render = function() {
         _c("li", [
           _c("strong", [_vm._v("Niveau engagement: ")]),
           _c("span", { attrs: { "data-id": "niveau_engagement" } }, [
-            _vm._v(_vm._s(_vm.cascade.niveau_engement))
+            _vm._v(_vm._s(_vm.cascade.niveau_engagement))
           ])
         ]),
         _vm._v(" "),
@@ -43416,6 +43417,13 @@ var render = function() {
           _c("strong", [_vm._v("Type de glace: ")]),
           _c("span", { attrs: { "data-id": "type_glace.libelle" } }, [
             _vm._v(_vm._s(_vm.cascade.type_glace.libelle))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("strong", [_vm._v("Structure: ")]),
+          _c("span", { attrs: { "data-id": "structure.libelle" } }, [
+            _vm._v(_vm._s(_vm.cascade.structure.libelle))
           ])
         ]),
         _vm._v(" "),
@@ -43647,14 +43655,6 @@ var _data = {
 			}).catch(function (e) {
 				return console.error(e);
 			});
-			// axios.post(`api/cascades/${$cascade.data().cascade.id}/${this.name}/update`, this.getChecked())
-			// .then(res => {
-			// 	if(res.data.success) {
-			// 		axios.get(`api/cascades/${$cascade.data().cascade.id}/details`)
-			// 		.then(res => $cascade.data().cascade = res.data)
-			// 	}
-			// })
-			// .catch(e => console.error(e));
 		},
 		getChecked: function getChecked() {
 			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
@@ -43697,6 +43697,11 @@ var _data = {
 			return error;
 		},
 		checkPoids: function checkPoids() {
+			var notChecked = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:not(:checked)'));
+			notChecked.forEach(function (el) {
+				el.nextElementSibling.value = '';
+			});
+
 			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
 			var total = 0;
 			var inputOther = void 0;
@@ -43708,12 +43713,19 @@ var _data = {
 			inputs.forEach(function (el) {
 				var inputPoids = el.nextElementSibling;
 				if (inputPoids.value !== '') {
+					if (inputPoids.nextElementSibling !== null) {
+						inputPoids.nextElementSibling.remove();
+					}
 					total += parseFloat(inputPoids.value);
 				}
 			});
 			var btnUpdate = inputs[0].form.modifier;
 			if (total < 100) {
 				inputOther.value = 100 - total;
+				if (btnUpdate.previousElementSibling !== null) {
+					btnUpdate.previousElementSibling.remove();
+				}
+				btnUpdate.disabled = false;
 			} else if (total > 100) {
 				var errorPoids = document.createElement('span');
 				errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
@@ -43724,7 +43736,9 @@ var _data = {
 				inputOther.value = '';
 			} else {
 				inputOther.value = '';
-				btnUpdate.previousElementSibling.remove();
+				if (btnUpdate.previousElementSibling !== null) {
+					btnUpdate.previousElementSibling.remove();
+				}
 				btnUpdate.disabled = false;
 			}
 		}
@@ -43787,7 +43801,8 @@ var render = function() {
                         name: "data",
                         "data-libelle": d.libelle
                       },
-                      domProps: { value: d.id, checked: _vm.check(d.id) }
+                      domProps: { value: d.id, checked: _vm.check(d.id) },
+                      on: { change: _vm.checkPoids }
                     }),
                     _vm._v(" " + _vm._s(d.libelle) + "\n\t\t\t\t\t\t\t\t"),
                     _vm.name === "constituants"

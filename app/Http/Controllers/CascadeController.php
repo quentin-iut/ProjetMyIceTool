@@ -9,13 +9,11 @@ use DB;
 class CascadeController extends Controller
 {
     public function getCascades() {
-        // header("Access-Control-Allow-Origin: *");
         return Cascade::all();
         // return Cascade::where('nom', 'like', '%auzet%')->get();
     }
 
     public function getCascade($cascade_id) {
-        // header("Access-Control-Allow-Origin: *");
         return Cascade::findOrFail($cascade_id);
     }
 
@@ -40,7 +38,6 @@ class CascadeController extends Controller
     }
 
     public function getMaxId() {
-        // header("Access-Control-Allow-Origin: *");
         return Cascade::find(DB::table('cascades')->max('id'));
     }
 
@@ -104,7 +101,26 @@ class CascadeController extends Controller
         $c = $this->getCascade($cascade_id);
         $supports = $req->all();
         
-        // $c->supports()->sync($req->all()['body']);
+        $c->supports()->sync($req->all());
         return response()->json([ 'success' => true ]);
+    }
+
+    public function update(Request $req, $cascade_id) {
+        $c = $this->getCascade($cascade_id);
+        $c->nom = $req->input('nom');
+        $c->nombre_voies = $req->input('nombre_voies');
+        $c->altitude_minimum = $req->input('altitude_minimum');
+        $c->hauteur = $req->input('hauteur');
+        $c->niveau_engagement = $req->input('niveau_engagement');
+        $c->lat = $req->input('lat');
+        $c->lng = $req->input('lng');
+        $c->type_fin_vie_id = $req->input('type_fin_vie_id');
+        $c->type_glace_id = $req->input('type_glace_id');
+        $c->structure_id = $req->input('structure_id');
+        $c->orientation_id = $req->input('orientation_id');
+        $c->niveau_id = $req->input('niveau_id');
+        $c->save();
+
+        return response()->json([ 'success' => $c ]);
     }
 }

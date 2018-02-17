@@ -6,11 +6,12 @@
 				<li><strong>Nombre voies: </strong><span data-id="nombre_voies">{{ cascade.nombre_voies}}</span></li>
 				<li><strong>Altitude minimum: </strong><span data-id="altitude_minimum">{{ cascade.altitude_minimum }}</span></li>
 				<li><strong>Hauteur: </strong><span data-id="hauteur">{{ cascade.hauteur }}</span></li>
-				<li><strong>Niveau engagement: </strong><span data-id="niveau_engagement">{{ cascade.niveau_engement }}</span></li>
+				<li><strong>Niveau engagement: </strong><span data-id="niveau_engagement">{{ cascade.niveau_engagement }}</span></li>
 				<li><strong>Lat: </strong><span data-id="lat">{{ cascade.lat }}</span></li>
 				<li><strong>Lng: </strong><span data-id="lng">{{ cascade.lng }}</span></li>
 				<li><strong>Type de fin de vie: </strong><span data-id="type_fin_vie.libelle">{{ cascade.type_fin_vie.libelle }}</span></li>
 				<li><strong>Type de glace: </strong><span data-id="type_glace.libelle">{{ cascade.type_glace.libelle }}</span></li>
+				<li><strong>Structure: </strong><span data-id="structure.libelle">{{ cascade.structure.libelle }}</span></li>
 				<li><strong>Orientation: </strong><span data-id="orientation.libelle">{{ cascade.orientation.libelle }}</span></li>
 				<li><strong>Niveau: </strong><span data-id="niveau.libelle">{{ cascade.niveau.libelle }}</span></li>
 				<li>
