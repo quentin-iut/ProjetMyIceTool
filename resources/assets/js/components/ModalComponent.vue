@@ -115,50 +115,51 @@ export default {
 			return error
 		},
 		checkPoids() {
-			let notChecked = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:not(:checked)'))
-			notChecked.forEach(el => {
-				el.nextElementSibling.value = ''
-			})
+			if(this.name === 'constituants') {
+				let notChecked = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:not(:checked)'))
+				notChecked.forEach(el => {
+					el.nextElementSibling.value = ''
+				})
 
-
-			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
-			let total = 0
-			let inputOther
-			this.$refs.inputs.forEach(el => {
-				if(el.dataset.libelle === 'autres') {
-					inputOther = el.nextElementSibling
-				}
-			})
-			inputs.forEach(el => {
-				let inputPoids = el.nextElementSibling
-				if(inputPoids.value !== '') {
-					if(inputPoids.nextElementSibling !== null) {
-						inputPoids.nextElementSibling.remove()
+				let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
+				let total = 0
+				let inputOther
+				this.$refs.inputs.forEach(el => {
+					if(el.dataset.libelle === 'autres') {
+						inputOther = el.nextElementSibling
 					}
-					total += parseFloat(inputPoids.value)
+				})
+				inputs.forEach(el => {
+					let inputPoids = el.nextElementSibling
+					if(inputPoids.value !== '') {
+						if(inputPoids.nextElementSibling !== null) {
+							inputPoids.nextElementSibling.remove()
+						}
+						total += parseFloat(inputPoids.value)
+					}
+				})
+				let btnUpdate = inputs[0].form.modifier
+				if(total < 100) {
+					inputOther.value = 100 - total
+					if(btnUpdate.previousElementSibling !== null) {
+						btnUpdate.previousElementSibling.remove()
+					}
+					btnUpdate.disabled = false
+				} else if(total > 100) {
+					let errorPoids = document.createElement('span')
+					errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%'
+					if(btnUpdate.previousElementSibling === null) {
+						btnUpdate.before(errorPoids)
+						btnUpdate.disabled = true
+					}
+					inputOther.value = ''
+				} else {
+					inputOther.value = ''
+					if(btnUpdate.previousElementSibling !== null) {
+						btnUpdate.previousElementSibling.remove()
+					}
+					btnUpdate.disabled = false
 				}
-			})
-			let btnUpdate = inputs[0].form.modifier
-			if(total < 100) {
-				inputOther.value = 100 - total
-				if(btnUpdate.previousElementSibling !== null) {
-					btnUpdate.previousElementSibling.remove()
-				}
-				btnUpdate.disabled = false
-			} else if(total > 100) {
-				let errorPoids = document.createElement('span')
-				errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%'
-				if(btnUpdate.previousElementSibling === null) {
-					btnUpdate.before(errorPoids)
-					btnUpdate.disabled = true
-				}
-				inputOther.value = ''
-			} else {
-				inputOther.value = ''
-				if(btnUpdate.previousElementSibling !== null) {
-					btnUpdate.previousElementSibling.remove()
-				}
-				btnUpdate.disabled = false
 			}
 		}
 	},

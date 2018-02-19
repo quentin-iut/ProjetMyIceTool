@@ -51,24 +51,24 @@ Route::get('/api/constituants', 'ConstituantController@getConstituants')->name('
 // Route::get('/api/constituants/{constituant_id}', 'ConstituantController@getConstituant')->name('Constituant');
 // Route::get('/api/constituants/{constituant_id}/cascades', 'ConstituantController@getConstituantCascades')->name('ConstituantCascades');
 
-// // Image
+// Image
 // Route::get('/api/images', 'ImageController@getImages')->name('Images');
 // Route::get('/api/images/{image_id}', 'ImageController@getImage')->name('Image');
 // Route::get('/api/images/{image_id}/cascade', 'ImageController@getImageCascade')->name('ImageCascade');
 
-// // Langue
-// Route::get('/api/langues', 'LangueController@getLangues')->name('Langues');
+// Langue
+Route::get('/api/langues', 'LangueController@getLangues')->name('Langues');
 // Route::get('/api/langues/{langue_id}', 'LangueController@getLangue')->name('Langue');
 // Route::get('/api/langues/{langue_id}/users', 'LangueController@getLangueUsers')->name('LangueUsers');
 
-// // Niveau
-// Route::get('/api/niveaux', 'NiveauController@getNiveaux')->name('Niveaux');
+// Niveau
+Route::get('/api/niveaux', 'NiveauController@getNiveaux')->name('Niveaux');
 // Route::get('/api/niveaux/{niveau_id}', 'NiveauController@getNiveau')->name('Niveau');
 // Route::get('/api/niveaux/{niveau_id}/users', 'NiveauController@getNiveauUsers')->name('NiveauUsers');
 // Route::get('/api/niveaux/{niveau_id}/cascades', 'NiveauController@getNiveauCascades')->name('NiveauCascades');
 
-// // Orientation
-// Route::get('/api/orientations', 'OrientationController@getOrientations')->name('Orientations');
+// Orientation
+Route::get('/api/orientations', 'OrientationController@getOrientations')->name('Orientations');
 // Route::get('/api/orientations/{orientation_id}', 'OrientationController@getOrientation')->name('Orientation');
 // Route::get('/api/orientations/{orientation_id}/cascades', 'OrientationController@getOrientationCascades')->name('OrientationCascades');
 
@@ -87,8 +87,8 @@ Route::get('/api/constituants', 'ConstituantController@getConstituants')->name('
 // Route::get('/api/releves/{releve_id}', 'ReleveController@getReleve')->name('Releve');
 // Route::get('/api/releves/{releve_id}/zone', 'ReleveController@getReleveZone')->name('ReleveZone');
 
-// // Strucure
-// Route::get('/api/structures', 'StructureController@getStructures')->name('Structures');
+// Strucure
+Route::get('/api/structures', 'StructureController@getStructures')->name('Structures');
 // Route::get('/api/structures/{structure_id}', 'StructureController@getStructure')->name('Structure');
 // Route::get('/api/structures/{structure_id}/cascades', 'StructureController@getStructureCascades')->name('StructureCascades');
 
@@ -97,13 +97,13 @@ Route::get('/api/supports', 'SupportController@getSupports')->name('Supports');
 // Route::get('/api/supports/{support_id}', 'SupportController@getSupport')->name('Support');
 // Route::get('/api/supports/{support_id}/cascades', 'SupportController@getSupportCascades')->name('SupportCascades');
 
-// // TypeFinVie
-// Route::get('/api/typeFinVies', 'TypeFinVieController@getTypeFinVies')->name('TypeFinVies');
+// TypeFinVie
+Route::get('/api/type_fin_vies', 'TypeFinVieController@getTypeFinVies')->name('TypeFinVies');
 // Route::get('/api/typeFinVies/{typeFinVie_id}', 'TypeFinVieController@getTypeFinVie')->name('TypeFinVie');
 // Route::get('/api/typeFinVies/{typeFinVie_id}/cascades', 'TypeFinVieController@getTypeFinVieCascades')->name('TypeFinVieCascades');
 
-// // TypeGlace
-// Route::get('/api/typeGlaces', 'TypeGlaceController@getTypeGlaces')->name('TypeGlaces');
+// TypeGlace
+Route::get('/api/type_glaces', 'TypeGlaceController@getTypeGlaces')->name('TypeGlaces');
 // Route::get('/api/typeGlaces/{typeGlace_id}', 'TypeGlaceController@getTypeGlace')->name('TypeGlace');
 // Route::get('/api/typeGlaces/{typeGlace_id}/cascades', 'TypeGlaceController@getTypeGlaceCascades')->name('TypeGlaceCascades');
 

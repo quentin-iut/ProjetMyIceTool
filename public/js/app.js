@@ -43697,49 +43697,51 @@ var _data = {
 			return error;
 		},
 		checkPoids: function checkPoids() {
-			var notChecked = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:not(:checked)'));
-			notChecked.forEach(function (el) {
-				el.nextElementSibling.value = '';
-			});
+			if (this.name === 'constituants') {
+				var notChecked = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:not(:checked)'));
+				notChecked.forEach(function (el) {
+					el.nextElementSibling.value = '';
+				});
 
-			var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
-			var total = 0;
-			var inputOther = void 0;
-			this.$refs.inputs.forEach(function (el) {
-				if (el.dataset.libelle === 'autres') {
-					inputOther = el.nextElementSibling;
-				}
-			});
-			inputs.forEach(function (el) {
-				var inputPoids = el.nextElementSibling;
-				if (inputPoids.value !== '') {
-					if (inputPoids.nextElementSibling !== null) {
-						inputPoids.nextElementSibling.remove();
+				var inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'));
+				var total = 0;
+				var inputOther = void 0;
+				this.$refs.inputs.forEach(function (el) {
+					if (el.dataset.libelle === 'autres') {
+						inputOther = el.nextElementSibling;
 					}
-					total += parseFloat(inputPoids.value);
+				});
+				inputs.forEach(function (el) {
+					var inputPoids = el.nextElementSibling;
+					if (inputPoids.value !== '') {
+						if (inputPoids.nextElementSibling !== null) {
+							inputPoids.nextElementSibling.remove();
+						}
+						total += parseFloat(inputPoids.value);
+					}
+				});
+				var btnUpdate = inputs[0].form.modifier;
+				if (total < 100) {
+					inputOther.value = 100 - total;
+					if (btnUpdate.previousElementSibling !== null) {
+						btnUpdate.previousElementSibling.remove();
+					}
+					btnUpdate.disabled = false;
+				} else if (total > 100) {
+					var errorPoids = document.createElement('span');
+					errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
+					if (btnUpdate.previousElementSibling === null) {
+						btnUpdate.before(errorPoids);
+						btnUpdate.disabled = true;
+					}
+					inputOther.value = '';
+				} else {
+					inputOther.value = '';
+					if (btnUpdate.previousElementSibling !== null) {
+						btnUpdate.previousElementSibling.remove();
+					}
+					btnUpdate.disabled = false;
 				}
-			});
-			var btnUpdate = inputs[0].form.modifier;
-			if (total < 100) {
-				inputOther.value = 100 - total;
-				if (btnUpdate.previousElementSibling !== null) {
-					btnUpdate.previousElementSibling.remove();
-				}
-				btnUpdate.disabled = false;
-			} else if (total > 100) {
-				var errorPoids = document.createElement('span');
-				errorPoids.textContent = 'Le poids de tous les éléments dépasse 100%';
-				if (btnUpdate.previousElementSibling === null) {
-					btnUpdate.before(errorPoids);
-					btnUpdate.disabled = true;
-				}
-				inputOther.value = '';
-			} else {
-				inputOther.value = '';
-				if (btnUpdate.previousElementSibling !== null) {
-					btnUpdate.previousElementSibling.remove();
-				}
-				btnUpdate.disabled = false;
 			}
 		}
 	},

@@ -1,15 +1,16 @@
 let edit = false
 
-Marker.prototype.valid = function () {
+Marker.prototype.valid = function() {
     edit = false
     tlp.$tooltip.close()
     this.$marker.setOptions({
         editable: false,
         draggable: false
     })
+    this.update()
 }
 
-Marker.prototype.edit = function () {
+Marker.prototype.edit = function() {
     edit = true
     this.$marker.setOptions({
         editable: true,
@@ -17,14 +18,14 @@ Marker.prototype.edit = function () {
     })
 }
 
-Marker.prototype.delete = function () {
+Marker.prototype.delete = function() {
     edit = false
     tlp.$tooltip.close()
     this.remove()
 }
 
 
-Zone.prototype.valid = function () {
+Zone.prototype.valid = function() {
     edit = false
     tlp.$tooltip.close()
     this.$rectangle.setOptions({
@@ -33,7 +34,7 @@ Zone.prototype.valid = function () {
     })
 }
 
-Zone.prototype.edit = function () {
+Zone.prototype.edit = function() {
     edit = true
     this.$rectangle.setOptions({
         editable: true,
@@ -41,22 +42,22 @@ Zone.prototype.edit = function () {
     })
 }
 
-Zone.prototype.delete = function () {
+Zone.prototype.delete = function() {
     edit = false
     tlp.$tooltip.close()
     this.remove()
 }
 
-Map.prototype.addEvent = function () {
-    this.$maps.addListener('bounds_changed', throttle(function () {
+Map.prototype.addEvent = function() {
+    this.$maps.addListener('bounds_changed', throttle(function() {
         if (!edit) {
-            getFile(`api/zones`, function (data) {
+            getFile(`api/zones`, function(data) {
                 data.forEach(zone => {
                     Zone.check(zone)
                 })
             })
 
-            getFile(`api/cascades`, function (data) {
+            getFile(`api/cascades`, function(data) {
                 data.forEach(cascade => {
                     Cascade.check(cascade)
                 })
@@ -69,7 +70,7 @@ map = new Map()
 let tlp = new Tooltip()
 let drawing = new Drawing()
 
-Cascade.prototype.addEvent = function () {
+Cascade.prototype.addEvent = function() {
     this.$marker.addListener('click', () => {
         map.$maps.panTo(this.position)
 
@@ -86,13 +87,15 @@ Cascade.prototype.addEvent = function () {
         }
     })
 
-    this.$marker.addListener('position_changed', () => {  
+    this.$marker.addListener('position_changed', () => {
+        this.cascade.lat = this.lat
+        this.cascade.lng = this.lng
         $cascade.data().cascade.lat = this.lat
         $cascade.data().cascade.lng = this.lng
     })
 }
 
-Cascade.prototype.update = function () {
+Cascade.prototype.update = function() {
     fetch(`api/cascades/${this.cascade.id}/update`, {
         method: 'post',
         headers: {
@@ -102,7 +105,7 @@ Cascade.prototype.update = function () {
     }).catch(e => console.error(e))
 }
 
-Zone.prototype.addEvent = function () {
+Zone.prototype.addEvent = function() {
     this.$rectangle.addListener('click', () => {
         map.$maps.panTo(this.northEast)
         tlp.$tooltip.open(map.$maps, this.$rectangle)
@@ -124,7 +127,7 @@ Zone.prototype.addEvent = function () {
     })
 }
 
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', function(e) {
     if (document.getElementById('polygone') !== null) {
         var polygone = document.getElementById('polygone').value
         var code = (e.keyCode ? e.keyCode : e.which)
@@ -157,7 +160,7 @@ document.querySelectorAll('strong[checkbox]').forEach(el => {
     span.textContent = 'mode_edit'
     span.setAttribute('data-toggle', 'modal')
     span.setAttribute('data-target', '#edit')
-    span.onclick = function () {
+    span.onclick = function() {
         let name = this.parentElement.textContent
         name = name.slice(0, name.length - 9).toLowerCase()
         $modal.data().name = name
@@ -170,66 +173,99 @@ document.querySelectorAll('strong[checkbox]').forEach(el => {
 
 function clickSpan(span) {
     markers.cascades[$cascade.data().cascade.id].valid()
-    edit = true    
+    edit = true
     var value = span.textContent
-    var input = document.createElement('input')
-    
-    input.dataset.id = span.dataset.id
-    inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies']
 
-    if (inputTypeNumber.includes(input.dataset.id)) {
-        input.type = 'number'
-        if (input.dataset.id === 'lat' || input.dataset.id === 'lng') {
-            input.step = 0.01
-        }
-    }
-    
-    if (span.dataset.id === 'lat' || span.dataset.id === 'lng') {
-        input.oninput = function () {
-            let c = markers.cascades[$cascade.data().cascade.id]
-            if (input.dataset.id === 'lat') {
-                c.$marker.setPosition(new google.maps.LatLng(
-                    input.value,
-                    c.lng
-                ))
-            } else if(input.dataset.id === 'lng') {
-                c.$marker.setPosition(new google.maps.LatLng(
-                    c.lat,
-                    input.value
-                ))
+    let id = span.dataset.id
+    if (id.split('.').length < 2) {
+        var input = document.createElement('input')
+
+        input.dataset.id = span.dataset.id
+        inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies']
+
+        if (inputTypeNumber.includes(input.dataset.id)) {
+            input.type = 'number'
+            if (input.dataset.id === 'lat' || input.dataset.id === 'lng') {
+                input.step = 0.01
+                input.oninput = function() {
+                    let c = markers.cascades[$cascade.data().cascade.id]
+                    if (input.dataset.id === 'lat') {
+                        c.$marker.setPosition(new google.maps.LatLng(
+                            input.value,
+                            c.lng
+                        ))
+                    } else if (input.dataset.id === 'lng') {
+                        c.$marker.setPosition(new google.maps.LatLng(
+                            c.lat,
+                            input.value
+                        ))
+                    }
+                }
             }
         }
-    }
-    input.value = value
+        input.value = value
 
-    input.addEventListener('blur', function () {
-        eventInput(this)
-    })
-    input.addEventListener('keydown', function (e) {
-        if (e.keyCode === 13) {
-            this.blur()
+        input.addEventListener('blur', function() {
+            eventInput(this)
+        })
+        input.addEventListener('keydown', function(e) {
+            if (e.keyCode === 13) {
+                this.blur()
+            }
+        })
+        span.parentElement.appendChild(input)
+        
+        input.focus()
+    } else if(id.split('.').length > 1) {
+        let field
+        if(id.split('.')[0] === 'niveau') {
+            field = id.split('.')[0] + 'x'
+        } else {
+            field = id.split('.')[0] + 's'
         }
-    })
-    span.parentElement.appendChild(input)
-    span.className += ' hidden'
+        getFile(`api/${field}`, (data)=> {
+            let select = document.createElement('select')
+            data.forEach(el => {
+                let option = document.createElement('option')
+                option.textContent = el.libelle
+                option.value = el.id
 
-    input.focus()
+                select.appendChild(option)
+            })
+            select.selectedIndex = $cascade.data().cascade[`${id.split('.')[0]}_id`] - 1
+            span.parentElement.appendChild(select)
+            select.focus()
+
+            select.addEventListener('blur', function() {
+                eventInput(this)
+            })
+            select.addEventListener('keydown', function(e) {
+                if (e.keyCode === 13) {
+                    this.blur()
+                }
+            })
+        })
+    }
+    
+    span.className += ' hidden'
 }
 
 function eventInput(input) {
     if (input.value.length != 0) {
         edit = false
         let span
-        if(input.parentElement.children.length < 3) {
+        if (input.parentElement.children.length < 3) {
             span = input.parentElement.children[0]
         } else {
             span = input.parentElement.children[1]
         }
-        
+
         let c = markers.cascades[$cascade.data().cascade.id]
         let id = span.dataset.id.split('.')
-        if(id.length > 1) {
-            $cascade.data().cascade[id[0]][id[1]] = input.value
+        if (id.length > 1) {
+            $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
+            $cascade.data().cascade[id[0]].libelle = input.children[input.selectedIndex].text
+
         } else {
             $cascade.data().cascade[id[0]] = input.value
             if (input.type === "number") {
@@ -240,7 +276,7 @@ function eventInput(input) {
         }
         c.update()
         input.parentElement.removeChild(input)
-        span.className -=  ' hidden'
-        
+        span.className -= ' hidden'
+
     }
 }
