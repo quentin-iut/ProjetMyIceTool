@@ -26,12 +26,14 @@ class Cascade extends Marker {
             markers.cascades[this.cascade.id] = this
         } else {
             this.new = true
-            getFile(`api/cascades/max/id`, (c) => {
-                this.cascade = {
-                    id: c.id + 1
-                }
-                markers.cascades[this.cascade.id] = this
-            })
+            fetch(`api/cascades`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lat: this.lat, lng: this.lng})
+            }).then(res => res.json())
+                .then(data => this.cascade = data)
         }
         this.addEvent()
     }
