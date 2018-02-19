@@ -121,6 +121,16 @@ class CascadeController extends Controller
         $c->niveau_id = $req->input('niveau_id');
         $c->save();
 
-        return response()->json([ 'success' => $c ]);
+        return response()->json([ $c ]);
+    }
+
+    public function insert(Request $req) {
+        $c = New Cascade();
+        $c->lat = $req->input('lat');
+        $c->lng = $req->input('lng');
+        $c->save();
+
+        $c = $this->getCascade($c->id);
+        return $c;
     }
 }

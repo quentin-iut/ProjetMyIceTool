@@ -39,6 +39,7 @@ Route::get('/api/cascades/max/id', 'CascadeController@getMaxId')->name('CascadeM
 Route::post('/api/cascades/{cascade_id}/constituants/update', 'CascadeController@updateConstituants')->name('CascadeUpdateConstituants');
 Route::post('/api/cascades/{cascade_id}/supports/update', 'CascadeController@updateSupports')->name('CascadeUpdateSupports');
 Route::post('/api/cascades/{cascade_id}/update', 'CascadeController@update')->name('CascadeUpdate');
+Route::post('/api/cascades','CascadeController@insert')->name('CascadeInsert');
 
 // // Commentaire
 // Route::get('/api/commentaires', 'CommentaireController@getCommentaires')->name('Commentaires');
