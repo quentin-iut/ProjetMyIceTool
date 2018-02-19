@@ -23,13 +23,14 @@ class Cascade extends Marker {
         if (args.cascade !== undefined) {
             this.new = false
             this.cascade = args.cascade
-            markers.cascades[args.cascade.id] = this
+            markers.cascades[this.cascade.id] = this
         } else {
             this.new = true
             getFile(`api/cascades/max/id`, (c) => {
                 this.cascade = {
                     id: c.id + 1
                 }
+                markers.cascades[this.cascade.id] = this
             })
         }
         this.addEvent()
