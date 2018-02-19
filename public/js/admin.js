@@ -263,6 +263,7 @@ function eventInput(input) {
         let c = markers.cascades[$cascade.data().cascade.id]
         let id = span.dataset.id.split('.')
         if (id.length > 1) {
+            c.cascade[`${id[0]}_id`] = input.selectedIndex + 1
             $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
             $cascade.data().cascade[id[0]].libelle = input.children[input.selectedIndex].text
 
