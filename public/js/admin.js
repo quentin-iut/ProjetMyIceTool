@@ -83,65 +83,9 @@ Cascade.prototype.addEvent = function() {
                 $cascade.data().cascade = cascadeInfo
             })
         } else {
-            let c = {
-                id: this.cascade.id,
-                nom : 'Nom de la cascade',
-                nombre_voies: 'entrez une valeur',
-                altitude_minimum: 'entrez une valeur',
-                hauteur: 'entrez une valeur',
-                niveau_engagement: 'entrez une valeur',
-                lat: 'entrez une valeur',
-                lng: 'entrez une valeur',
-                commentaires: [{
-                    id: 0,
-                    libelle: '',
-                    date: ''
-                }],
-                constituants: [{
-                    id:0,
-                    libelle: ''
-                }],
-                images: [{
-                    id:0,
-                    libelle: '',
-                    date: '',
-                    url: ''
-                }],
-                niveau: {
-                    id: 1,
-                    libelle: 'selectionnez une valeur'
-                },
-                orientation: {
-                    id: 0,
-                    libelle: 'selectionnez une valeur'
-                },
-                pays: {
-                    id: 0,
-                    code: '',
-                    resume: ''
-                },
-                structure: {
-                    id: 0,
-                    libelle: 'selectionnez une valeur'
-                },
-                supports: [{
-                    id: 0,
-                    libelle: ''
-                }],
-                type_fin_vie: {
-                    id: 0,
-                    libelle: 'selectionnez une valeur'
-                },
-                type_glace : {
-                    id: 0,
-                    libelle: 'selectionnez une valeur'
-                },
-                zones: [{
-                    id: 0,
-                    nom: 0
-                }]
-            }
-            $cascade.data().cascade = c
+            $cascade.data().cascade.id = this.id
+            $cascade.data().cascade.lat = this.lat
+            $cascade.data().cascade.lng = this.lng
             $app.data().show = true
         }
     })

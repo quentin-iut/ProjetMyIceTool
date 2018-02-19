@@ -60,13 +60,13 @@
 var data =  {
 	cascade: {
 		id: 0,
-		nom : 'Nom de la cascade',
-		nombre_voies: 0,
-		altitude_minimum: 0,
-		hauteur: 0,
-		niveau_engagement: '0',
-		lat: 0,
-		lng: 0,
+		nom : 'entrez une valeur',
+		nombre_voies: 'entrez une valeur',
+		altitude_minimum: 'entrez une valeur',
+		hauteur: 'entrez une valeur',
+		niveau_engagement: 'entrez une valeur',
+		lat: 'entrez une valeur',
+		lng: 'entrez une valeur',
 		commentaires: [{
 			id: 0,
 			libelle: '',
@@ -83,12 +83,12 @@ var data =  {
 			url: ''
 		}],
 		niveau: {
-			id: 0,
-			libelle: ''
+			id: 1,
+			libelle: 'selectionnez une valeur'
 		},
 		orientation: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		pays: {
 			id: 0,
@@ -97,7 +97,7 @@ var data =  {
 		},
 		structure: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		supports: [{
 			id: 0,
@@ -105,11 +105,11 @@ var data =  {
 		}],
 		type_fin_vie: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		type_glace : {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		zones: [{
 			id: 0,
