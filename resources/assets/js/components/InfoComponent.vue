@@ -60,11 +60,11 @@
 var data =  {
 	cascade: {
 		id: 0,
-		nom : '',
+		nom : 'Nom de la cascade',
 		nombre_voies: 0,
 		altitude_minimum: 0,
 		hauteur: 0,
-		niveau_engagement: '',
+		niveau_engagement: '0',
 		lat: 0,
 		lng: 0,
 		commentaires: [{

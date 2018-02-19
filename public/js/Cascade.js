@@ -26,7 +26,7 @@ class Cascade extends Marker {
             markers.cascades[args.cascade.id] = this
         } else {
             this.new = true
-            getFile(`api/cascades/max`, (c) => {
+            getFile(`api/cascades/max/id`, (c) => {
                 this.cascade = {
                     id: c.id + 1
                 }

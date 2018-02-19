@@ -83,7 +83,8 @@ Cascade.prototype.addEvent = function() {
                 $cascade.data().cascade = cascadeInfo
             })
         } else {
-
+            $cascade.data().cascade.id = this.cascade.id
+            $app.data().show = true
         }
     })
 

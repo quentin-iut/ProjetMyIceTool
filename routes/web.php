@@ -35,7 +35,7 @@ Route::get('/api/cascades/{cascade_id}/constituants', 'CascadeController@getCasc
 // Route::get('/api/cascades/{cascade_id}/typeGlace', 'CascadeController@getCascadeTypeGlace')->name('CascadeTypeGlace');
 // Route::get('/api/cascades/{cascade_id}/users', 'CascadeController@getCascadeUsers')->name('CascadeUsers');
 // Route::get('/api/cascades/{cascade_id}/zones', 'CascadeController@getCascadeZones')->name('CascadeZones');
-Route::get('/api/cascades/max', 'CascadeController@getMaxId')->name('CascadeMaxId');
+Route::get('/api/cascades/max/id', 'CascadeController@getMaxId')->name('CascadeMaxId');
 Route::post('/api/cascades/{cascade_id}/constituants/update', 'CascadeController@updateConstituants')->name('CascadeUpdateConstituants');
 Route::post('/api/cascades/{cascade_id}/supports/update', 'CascadeController@updateSupports')->name('CascadeUpdateSupports');
 Route::post('/api/cascades/{cascade_id}/update', 'CascadeController@update')->name('CascadeUpdate');
