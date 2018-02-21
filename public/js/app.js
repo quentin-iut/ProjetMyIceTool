@@ -43635,6 +43635,8 @@ var _data = {
 			}
 		},
 		updateData: function updateData() {
+			var _this = this;
+
 			if (this.name === 'constituants') {
 				if (this.required()) return;
 			}
@@ -43647,7 +43649,7 @@ var _data = {
 			}).then(function (res) {
 				return res.json();
 			}).then(function (data) {
-				return console.log(data);
+				$cascade.data().cascade[_this.name] = data;
 			}).catch(function (e) {
 				return console.error(e);
 			});

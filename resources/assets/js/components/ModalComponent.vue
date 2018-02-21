@@ -69,7 +69,9 @@ export default {
     			},
     			body: JSON.stringify(this.getChecked())
 			}).then(res => res.json())
-			.then(data => console.log(data))
+			.then(data => {
+				$cascade.data().cascade[this.name] = data
+			})
 				.catch(e => console.error(e))
 		},
 		getChecked() {

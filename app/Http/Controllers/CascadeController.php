@@ -102,7 +102,7 @@ class CascadeController extends Controller
         $supports = $req->all();
         
         $c->supports()->sync($req->all());
-        return response()->json([ 'success' => true ]);
+        return $c->supports;
     }
 
     public function update(Request $req, $cascade_id) {
