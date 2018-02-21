@@ -49,8 +49,11 @@ class AuthController extends Controller {
         if ($authUser) {
             return $authUser;
         }
+        $nom = explode(" ", $user->name)[1];
+        $prenom = explode(" ", $user->name)[0];
         return User::create([
-            'name'     => $user->name,
+            'nom' => $nom,
+            'prenom' => $prenom,
             'email'    => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id
