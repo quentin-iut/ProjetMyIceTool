@@ -43650,6 +43650,7 @@ var _data = {
 				return res.json();
 			}).then(function (data) {
 				$cascade.data().cascade[_this.name] = data;
+				console.log(data);
 			}).catch(function (e) {
 				return console.error(e);
 			});

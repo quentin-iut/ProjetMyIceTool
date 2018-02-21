@@ -71,6 +71,7 @@ export default {
 			}).then(res => res.json())
 			.then(data => {
 				$cascade.data().cascade[this.name] = data
+				console.log(data)
 			})
 				.catch(e => console.error(e))
 		},
