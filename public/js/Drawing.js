@@ -35,10 +35,11 @@ class Drawing {
                         break
                     }
                 case 'marker': {
-                        tlp.$tooltip.open(map.$maps, event.overlay)
-                        tlp.$tooltip.content.children[0].value = new Cascade(event.overlay)
-                        break
-                    }
+                    let newCascade = new Cascade(event.overlay)
+                    tlp.$tooltip.open(map.$maps, event.overlay)
+                    tlp.$tooltip.content.children[0].value = newCascade
+                    break
+                }
             }
             this.$drawingManager.setDrawingMode()
         })

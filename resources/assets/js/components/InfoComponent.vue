@@ -74,7 +74,7 @@ var data =  {
 		}],
 		constituants: [{
 			id:0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		}],
 		images: [{
 			id:0,
@@ -101,7 +101,7 @@ var data =  {
 		},
 		supports: [{
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		}],
 		type_fin_vie: {
 			id: 0,

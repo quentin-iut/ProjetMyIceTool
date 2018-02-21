@@ -94,7 +94,7 @@ class CascadeController extends Controller
         $constituants = $req->all();
 
         // $c->constituants()->sync($req->all()['body']);
-        return response()->json([ 'success' => true]);
+        return response()->json([ 'success' => $c->constituants]);
     }
 
     public function updateSupports(Request $req, $cascade_id) {

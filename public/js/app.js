@@ -43276,13 +43276,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var _data = {
 	cascade: {
 		id: 0,
-		nom: 'Nom de la cascade',
-		nombre_voies: 0,
-		altitude_minimum: 0,
-		hauteur: 0,
-		niveau_engagement: '0',
-		lat: 0,
-		lng: 0,
+		nom: 'entrez une valeur',
+		nombre_voies: 'entrez une valeur',
+		altitude_minimum: 'entrez une valeur',
+		hauteur: 'entrez une valeur',
+		niveau_engagement: 'entrez une valeur',
+		lat: 'entrez une valeur',
+		lng: 'entrez une valeur',
 		commentaires: [{
 			id: 0,
 			libelle: '',
@@ -43290,7 +43290,7 @@ var _data = {
 		}],
 		constituants: [{
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		}],
 		images: [{
 			id: 0,
@@ -43299,12 +43299,12 @@ var _data = {
 			url: ''
 		}],
 		niveau: {
-			id: 0,
-			libelle: ''
+			id: 1,
+			libelle: 'selectionnez une valeur'
 		},
 		orientation: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		pays: {
 			id: 0,
@@ -43313,19 +43313,19 @@ var _data = {
 		},
 		structure: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		supports: [{
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		}],
 		type_fin_vie: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		type_glace: {
 			id: 0,
-			libelle: ''
+			libelle: 'selectionnez une valeur'
 		},
 		zones: [{
 			id: 0,
@@ -43647,11 +43647,7 @@ var _data = {
 			}).then(function (res) {
 				return res.json();
 			}).then(function (data) {
-				return fetch("api/cascades/" + $cascade.data().cascade.id + "/details").then(function (res) {
-					return res.json();
-				}).then(function (data) {
-					return $cascade.data().cascade = data;
-				});
+				return console.log(data);
 			}).catch(function (e) {
 				return console.error(e);
 			});

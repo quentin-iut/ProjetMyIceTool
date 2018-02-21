@@ -69,9 +69,7 @@ export default {
     			},
     			body: JSON.stringify(this.getChecked())
 			}).then(res => res.json())
-			.then(data => fetch(`api/cascades/${$cascade.data().cascade.id}/details`)
-				.then(res => res.json())
-				.then(data =>  $cascade.data().cascade = data))
+			.then(data => console.log(data))
 				.catch(e => console.error(e))
 		},
 		getChecked() {
