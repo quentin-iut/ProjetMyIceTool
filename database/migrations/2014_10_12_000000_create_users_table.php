@@ -17,8 +17,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('nom',20);
             $table->string('prenom',20);
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
             $table->string('telephone',20);
             $table->boolean('abonne')->default(false);
             $table->boolean('alert')->default(false);
