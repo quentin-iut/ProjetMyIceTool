@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->boolean('abonne')->default(false);
             $table->boolean('alert')->default(false);
             $table->boolean('isAdmin')->default(false);
-            $table->string('facebook_id')->nullable();
-            $table->string('google_id')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->integer('cascade_id')->unsigned()->nullable();
             $table->integer('niveau_id')->unsigned();
             $table->integer('langue_id')->unsigned();

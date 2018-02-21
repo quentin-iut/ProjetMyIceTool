@@ -122,3 +122,9 @@ Route::get('/api/zones/{zone_id}', 'ZoneController@getZone')->name('Zone');
 Route::get('/api/zones/{zone_id}/cascades', 'ZoneController@getZoneCascades')->name('ZoneCascades');
 Route::get('/api/zones/{zone_id}/releves', 'ZoneController@getZoneReleves')->name('ZoneReleves');
 Route::get('/api/zones/max', 'ZoneController@getMaxId')->name('ZoneMaxId');
+
+
+
+// OAuth Routes
+Route::get('/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('/{provider}/callback', 'Auth\AuthController@handleProviderCallback');

@@ -22,8 +22,8 @@ class User extends Authenticatable
         'telephone',
         'abonne',
         'alert',
-        'facebook_id',
-        'google_id',
+        'provider',
+        'provider_id',
         'zone_id',
         'niveau_id',
         'langue_id'
