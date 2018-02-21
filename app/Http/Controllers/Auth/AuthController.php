@@ -2,9 +2,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Auth;
 use Socialite;
-use App\User;
 
 
 class AuthController extends Controller {
@@ -33,7 +33,9 @@ class AuthController extends Controller {
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
-        return redirect($this->redirectTo);
+        //dd($this);
+        return redirect()->route('home');
+        
     }
 
     /**

@@ -19,15 +19,15 @@ class CreateUsersTable extends Migration
             $table->string('prenom',20);
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
-            $table->string('telephone',20);
+            $table->string('telephone',20)->nullable();
             $table->boolean('abonne')->default(false);
             $table->boolean('alert')->default(false);
             $table->boolean('isAdmin')->default(false);
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
             $table->integer('cascade_id')->unsigned()->nullable();
-            $table->integer('niveau_id')->unsigned();
-            $table->integer('langue_id')->unsigned();
+            $table->integer('niveau_id')->unsigned()->nullable();
+            $table->integer('langue_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
 
