@@ -61,4 +61,15 @@ class UserController extends Controller
         }
         return $u;
     }
+
+    public function check(Request $req) {
+        $u = User::where('email','=', $req->input('email'))
+                ->where('password', '=' , bcrypt($req->input('password')))
+                ->get();
+        if(count($u) > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

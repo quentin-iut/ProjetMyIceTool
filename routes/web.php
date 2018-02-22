@@ -115,6 +115,8 @@ Route::get('/api/users/{user_id}/favoris', 'UserController@getUserFavoris')->nam
 Route::get('/api/users/{user_id}/langue', 'UserController@getUserLangue')->name('UserLangue');
 Route::get('/api/users/{user_id}/niveau', 'UserController@getUserNiveau')->name('UserNiveau');
 
+Route::post('api/login', 'UserController@check')->name('CheckUser');
+
 // Zone
 Route::get('/api/zones', 'ZoneController@getZones')->name('Zones');
 Route::get('/api/zones/{zone_id}', 'ZoneController@getZone')->name('Zone');
