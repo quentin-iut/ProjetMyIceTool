@@ -72,14 +72,16 @@ export default {
 			.then(data => {
 				$cascade.data().cascade[this.name] = data
 				console.log(data)
-			})
-				.catch(e => console.error(e))
+			}).catch(e => console.error(e))
 		},
 		getChecked() {
 			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))
 			if(this.name === 'constituants') {
 				return inputs.map(el => {
-					return {id: el.value, poids: el.nextElementSibling.value}
+					return {
+						id: el.value,
+						poids: el.nextElementSibling.value
+					}
 				})
 			} else {
 				let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))

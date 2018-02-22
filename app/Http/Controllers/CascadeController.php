@@ -37,10 +37,6 @@ class CascadeController extends Controller
         return $c;
     }
 
-    public function getMaxId() {
-        return Cascade::find(DB::table('cascades')->max('id'));
-    }
-
     public function getCascadeCommentaires($cascade_id) {
         return $this->getCascade($cascade_id)->commentaires;
     }
@@ -93,14 +89,13 @@ class CascadeController extends Controller
         $c = $this->getCascade($cascade_id);
         $constituantsReq = $req->all();
 
-        // $constituants;
-        // foreach($constituantsReq as $constituant) {
-        //     $constituant->id;
-        // }
-        
+        $constituants;
+        foreach($constituantsReq as $constituant) {
+            $constituants[] = $constituant['id'] => [ 'poids' => $constituant['poids']];
+        }
 
         // $c->constituants()->sync($req->all()['body']);
-        return $constituantsReq;
+        return $c->constituants;
     }
 
     public function updateSupports(Request $req, $cascade_id) {
@@ -138,5 +133,10 @@ class CascadeController extends Controller
 
         $c = $this->getCascade($c->id);
         return $c;
+    }
+
+
+    public function delete(Request $req) {
+        Cascade::destroy($req->all()[0]);
     }
 }

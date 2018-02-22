@@ -22,6 +22,14 @@ Marker.prototype.delete = function() {
     edit = false
     tlp.$tooltip.close()
     this.remove()
+    $app.data().show = false
+    fetch(`api/cascades/delete`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.cascade.id)
+    }).catch((e) => console.error(e))
 }
 
 
@@ -32,6 +40,7 @@ Zone.prototype.valid = function() {
         editable: false,
         draggable: false
     })
+    this.update()
 }
 
 Zone.prototype.edit = function() {
@@ -46,6 +55,14 @@ Zone.prototype.delete = function() {
     edit = false
     tlp.$tooltip.close()
     this.remove()
+    $app.data().showZone = false
+    fetch(`api/zones/delete`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.zone.id)
+    }).catch((e) => console.error(e))
 }
 
 Map.prototype.addEvent = function() {
@@ -80,6 +97,7 @@ Cascade.prototype.addEvent = function() {
         if (this.new == false) {
             getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
                 $app.data().show = true
+                $app.data().showZone = false
                 $cascade.data().cascade = cascadeInfo
             })
         } else {
@@ -87,6 +105,7 @@ Cascade.prototype.addEvent = function() {
             $cascade.data().cascade.lat = this.lat
             $cascade.data().cascade.lng = this.lng
             $app.data().show = true
+            $app.data().showZone = false
         }
     })
 
@@ -116,18 +135,43 @@ Zone.prototype.addEvent = function() {
         tlp.$tooltip.setPosition(this.northEast)
 
         if (this.new == false) {
-            getFile(`api/zones/${this.zone.id}`, (zoneInfo) => {
-                // $app.data().show = true
-                // $cascade.data().cascade = cascadeInfo
-            })
+            $zone.data().zone = this.zone
         } else {
+            $zone.data().zone.id = this.zone.id
+
+            $zone.data().zone.latNE = this.northEastLat
+            $zone.data().zone.lngNE = this.northEastLng
+            $zone.data().zone.latSW = this.southWestLat
+            $zone.data().zone.lngSW = this.southWestLng
 
         }
+        $app.data().show = false
+        $app.data().showZone = true
     })
 
     this.$rectangle.addListener('bounds_changed', () => {
         tlp.$tooltip.setPosition(this.northEast)
+
+        this.zone.latNE = this.northEastLat
+        this.zone.lngNE = this.northEastLng
+        this.zone.latSW = this.southWestLat
+        this.zone.lngSW = this.southWestLng
+
+        $zone.data().zone.latNE = this.northEastLat
+        $zone.data().zone.lngNE = this.northEastLng
+        $zone.data().zone.latSW = this.southWestLat
+        $zone.data().zone.lngSW = this.southWestLng
     })
+}
+
+Zone.prototype.update = function() {
+    fetch(`api/zones/${this.zone.id}/update`, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.zone)
+    }).catch(e => console.error(e))
 }
 
 document.addEventListener('keydown', function(e) {
@@ -175,8 +219,12 @@ document.querySelectorAll('strong[checkbox]').forEach(el => {
 })
 
 function clickSpan(span) {
-    markers.cascades[$cascade.data().cascade.id].valid()
     edit = true
+    try {
+        markers.cascades[$cascade.data().cascade.id].valid()
+    } catch(e) {
+        rectangles[$zone.data().zone.id].valid()
+    }
     var value = span.textContent
 
     let id = span.dataset.id
@@ -184,26 +232,14 @@ function clickSpan(span) {
         var input = document.createElement('input')
 
         input.dataset.id = span.dataset.id
-        inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies']
+        inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies', 'latNE', 'lngNE', 'latSW', 'lngSW']
 
         if (inputTypeNumber.includes(input.dataset.id)) {
             input.type = 'number'
             if (input.dataset.id === 'lat' || input.dataset.id === 'lng') {
-                input.step = 0.01
-                input.oninput = function() {
-                    let c = markers.cascades[$cascade.data().cascade.id]
-                    if (input.dataset.id === 'lat') {
-                        c.$marker.setPosition(new google.maps.LatLng(
-                            input.value,
-                            c.lng
-                        ))
-                    } else if (input.dataset.id === 'lng') {
-                        c.$marker.setPosition(new google.maps.LatLng(
-                            c.lat,
-                            input.value
-                        ))
-                    }
-                }
+                moveMarker(input)
+            } else if(input.dataset.id === 'latNE' || input.dataset.id === 'lngNE' || input.dataset.id === 'latSW' || input.dataset.id === 'lngSW') {
+                moveRectangle(input)
             }
         }
         input.value = value
@@ -263,24 +299,98 @@ function eventInput(input) {
             span = input.parentElement.children[1]
         }
 
-        let c = markers.cascades[$cascade.data().cascade.id]
+        let f
+        try {
+            f = markers.cascades[$cascade.data().cascade.id]
+            f.valid()
+        } catch (e) {
+            f = rectangles[$zone.data().zone.id]
+        }
+        
         let id = span.dataset.id.split('.')
-        if (id.length > 1) {
-            c.cascade[`${id[0]}_id`] = input.selectedIndex + 1
-            $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
-            $cascade.data().cascade[id[0]].libelle = input.children[input.selectedIndex].text
-
-        } else {
-            $cascade.data().cascade[id[0]] = input.value
-            if (input.type === "number") {
-                c.cascade[id[0]] = parseFloat(input.value)
+        if(f instanceof Cascade) {
+            if (id.length > 1) {
+                f.cascade[`${id[0]}_id`] = input.selectedIndex + 1
+                $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
+                $cascade.data().cascade[id[0]].libelle = input.children[input.selectedIndex].text
+    
             } else {
-                c.cascade[id[0]] = input.value
+                $cascade.data().cascade[id[0]] = input.value
+                if (input.type === "number") {
+                    f.cascade[id[0]] = parseFloat(input.value)
+                } else {
+                    f.cascade[id[0]] = input.value
+                }
+            }
+        } else {
+            $zone.data().zone[id[0]] = input.value
+            if (input.type === "number") {
+                f.zone[id[0]] = parseFloat(input.value)
+            } else {
+                f.zone[id[0]] = input.value
             }
         }
-        c.update()
+
+        f.update()
         input.parentElement.removeChild(input)
         span.className -= ' hidden'
 
+    }
+}
+
+
+
+function moveMarker(input) {
+    input.step = 0.01
+    input.oninput = function() {
+        let c = markers.cascades[$cascade.data().cascade.id]
+        if (input.dataset.id === 'lat') {
+            c.$marker.setPosition(new google.maps.LatLng(
+                input.value,
+                c.lng
+            ))
+        } else if (input.dataset.id === 'lng') {
+            c.$marker.setPosition(new google.maps.LatLng(
+                c.lat,
+                input.value
+            ))
+        }
+    }
+}
+
+function moveRectangle(input) {
+    input.step = 0.01
+    input.oninput = function() {
+        let z = rectangles[$zone.data().zone.id]
+        switch(input.dataset.id) {
+            case 'latNE': {
+                z.$rectangle.setBounds(new google.maps.LatLngBounds(
+                    z.southWest,
+                    new google.maps.LatLng(input.value, z.northEastLng)
+                ))
+                break
+            }
+            case 'lngNE': {
+                z.$rectangle.setBounds(new google.maps.LatLngBounds(
+                    z.southWest,
+                    new google.maps.LatLng(z.northEastLat, input.value)
+                ))
+                break
+            }
+            case 'latSW': {
+                z.$rectangle.setBounds(new google.maps.LatLngBounds(
+                    new google.maps.LatLng(input.value, z.southWestLng),
+                    z.northEast
+                ))
+                break
+            }
+            case 'lngSW': {
+                z.$rectangle.setBounds(new google.maps.LatLngBounds(
+                    new google.maps.LatLng(z.southWestLat, input.value),
+                    z.northEast
+                ))
+                break
+            }
+        }
     }
 }

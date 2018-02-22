@@ -30,11 +30,23 @@ class Zone {
             rectangles[args.zone.id] = this
         } else {
             this.new = true
-            getFile(`api/zones/max`, (z) => {
-                this.zone = {
-                    id: z.id + 1
-                }
-            })
+            edit = true
+            fetch(`api/zones`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    latNE: this.northEastLat,
+                    lngNE: this.northEastLng,
+                    latSW: this.southWestLat,
+                    lngSW: this.southWestLng
+                })
+            }).then(res => res.json())
+                .then(data => {
+                    this.zone = data
+                    rectangles[this.zone.id] = this
+                })
         }
         this.addEvent()
     }
@@ -76,10 +88,9 @@ class Zone {
         this.$rectangle.addListener('click', () => {
             map.$maps.panTo(this.northEast)
             if (this.new === false) {
-                getFile(`api/zones/${this.zone.id}`, (zoneInfo) => {
-                    // $app.data().show = true
-                    // $cascade.data().cascade = cascadeInfo
-                })
+                $app.data().show = false
+                $app.data().showZone = true
+                $zone.data().zone = this.zone
             }
         })
     }
