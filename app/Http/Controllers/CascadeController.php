@@ -91,7 +91,7 @@ class CascadeController extends Controller
 
         $constituants;
         foreach($constituantsReq as $constituant) {
-            $constituants[] = $constituant['id'] => [ 'poids' => $constituant['poids']];
+            // $constituants[] = $constituant['id'] => [ 'poids' => $constituant['poids']];
         }
 
         // $c->constituants()->sync($req->all()['body']);
