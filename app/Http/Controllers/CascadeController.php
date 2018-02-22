@@ -100,7 +100,7 @@ class CascadeController extends Controller
         
 
         // $c->constituants()->sync($req->all()['body']);
-        return response()->json([ $constituantsReq ]);
+        return $constituantsReq;
     }
 
     public function updateSupports(Request $req, $cascade_id) {
@@ -127,7 +127,7 @@ class CascadeController extends Controller
         $c->niveau_id = $req->input('niveau_id');
         $c->save();
 
-        return response()->json([ $c ]);
+        return $c;
     }
 
     public function insert(Request $req) {

@@ -26,6 +26,7 @@ class Cascade extends Marker {
             markers.cascades[this.cascade.id] = this
         } else {
             this.new = true
+            edit = true
             fetch(`api/cascades`, {
                 method: 'post',
                 headers: {
@@ -33,7 +34,10 @@ class Cascade extends Marker {
                 },
                 body: JSON.stringify({ lat: this.lat, lng: this.lng})
             }).then(res => res.json())
-                .then(data => this.cascade = data)
+                .then(data => {
+                    this.cascade = data
+                    markers.cascades[this.cascade.id] = this
+                })
         }
         this.addEvent()
     }
