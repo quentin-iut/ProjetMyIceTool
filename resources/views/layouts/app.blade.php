@@ -44,8 +44,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="#">Devenir admin</a></li>
+                            <li><a href="{{ route('login') }}">Connexion</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -95,6 +95,30 @@
             <script src="{{ asset('js/admin.js') }}"></script>
         @endif
     @endauth
-    
+
+
+    <div>
+        <nav class="navbar navbar-default navbar-static-top footer">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('img/logo.png')}}" alt="My Ice Tool" class="brand">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                    <!-- Left side of navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">© My Ice Tool</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Conditions</a></li>
+                        <li><a href="#">Politique de confidentialité</a></li>
+                        <li><a href="#">Plan du site</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
 </body>
 </html>
