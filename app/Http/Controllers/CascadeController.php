@@ -89,12 +89,12 @@ class CascadeController extends Controller
         $c = $this->getCascade($cascade_id);
         $constituantsReq = $req->all();
 
-        $constituants;
+        $sync_const;
         foreach($constituantsReq as $constituant) {
-            // $constituants[] = $constituant['id'] => [ 'poids' => $constituant['poids']];
+            $sync_const[$constituant['id']] = ['poids' => $constituant['poids']];
         }
 
-        // $c->constituants()->sync($req->all()['body']);
+        $c->constituants()->sync($sync_const);
         return $c->constituants;
     }
 
