@@ -96,17 +96,15 @@ Cascade.prototype.addEvent = function() {
 
         if (this.new == false) {
             getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
-                $app.data().show = true
-                $app.data().showZone = false
                 $cascade.data().cascade = cascadeInfo
             })
         } else {
             $cascade.data().cascade.id = this.cascade.id
             $cascade.data().cascade.lat = this.lat
             $cascade.data().cascade.lng = this.lng
-            $app.data().show = true
-            $app.data().showZone = false
         }
+        $app.data().show = true
+        $app.data().showZone = false
     })
 
     this.$marker.addListener('position_changed', () => {
@@ -143,7 +141,6 @@ Zone.prototype.addEvent = function() {
             $zone.data().zone.lngNE = this.northEastLng
             $zone.data().zone.latSW = this.southWestLat
             $zone.data().zone.lngSW = this.southWestLng
-
         }
         $app.data().show = false
         $app.data().showZone = true
@@ -152,6 +149,7 @@ Zone.prototype.addEvent = function() {
     this.$rectangle.addListener('bounds_changed', () => {
         tlp.$tooltip.setPosition(this.northEast)
 
+        
         this.zone.latNE = this.northEastLat
         this.zone.lngNE = this.northEastLng
         this.zone.latSW = this.southWestLat
