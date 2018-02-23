@@ -16,8 +16,8 @@ class CascadeController extends Controller
         return Cascade::findOrFail($cascade_id);
     }
     
-    public function getCascadeByName($cascade_name) {
-        return Cascade::where('nom', 'like', '%' . $cascade_name . '%')->get();
+    public function getCascadeByName(Request $req) {
+        return Cascade::where('nom', 'like', '%' . $req->input('name') . '%')->get();
     }
 
     public function getCascadeDetails($cascade_id) {

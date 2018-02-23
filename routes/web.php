@@ -23,7 +23,7 @@ Auth::routes();
 Route::get('/api/cascades', 'CascadeController@getCascades')->name('Cascades');
 Route::get('/api/cascades/{cascade_id}', 'CascadeController@getCascade')->name('Cascade');
 Route::get('/api/cascades/{cascade_id}/details', 'CascadeController@getCascadeDetails')->name('CascadeDatails');
-// Route::get('/api/cascades/{cascade_id}/commentaires', 'CascadeController@getCascadeCommentaires')->name('CascadeCommentaires');
+Route::get('/api/cascades/{cascade_id}/commentaires', 'CascadeController@getCascadeCommentaires')->name('CascadeCommentaires');
 Route::get('/api/cascades/{cascade_id}/constituants', 'CascadeController@getCascadeConstituants')->name('CascadeConstituants');
 // Route::get('/api/cascades/{cascade_id}/images', 'CascadeController@getCascadeImages')->name('CascadeImages');
 // Route::get('/api/cascades/{cascade_id}/niveau', 'CascadeController@getCascadeNiveau')->name('CascadeNiveau');
@@ -40,7 +40,7 @@ Route::post('/api/cascades/{cascade_id}/supports/update', 'CascadeController@upd
 Route::post('/api/cascades/{cascade_id}/update', 'CascadeController@update')->name('CascadeUpdate');
 Route::post('/api/cascades','CascadeController@insert')->name('CascadeInsert');
 Route::post('api/cascades/delete', 'CascadeController@delete')->name('CascadeDelete');
-Route::post('api/cascades/names/{cascade_nom}')->name('CascadesByName');
+Route::post('api/cascades/name')->name('CascadesByName');
 
 // // Commentaire
 // Route::get('/api/commentaires', 'CommentaireController@getCommentaires')->name('Commentaires');
