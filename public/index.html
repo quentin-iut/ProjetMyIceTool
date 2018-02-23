@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+
+        <input type="email" name="email">
+        <input type="password" name="p">
+
+        <input type="button" value="Send" onclick="send(this.form)">
+    </form>
+    
+    <script>
+        function send(f) {
+            fetch('http://myicetool/api/login', {
+            method: "POST",
+				headers: {
+      				'Content-Type': 'application/json'
+    			},
+    			body: JSON.stringify({email: f.email.value, password: f.p.value})
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+        }
+        
+    </script>
+</body>
+</html>
