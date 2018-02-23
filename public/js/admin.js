@@ -99,9 +99,25 @@ Cascade.prototype.addEvent = function() {
                 $cascade.data().cascade = cascadeInfo
             })
         } else {
+            $cascade.data().cascade.nom = 'entrez une valeur'
+            $cascade.data().cascade.nombre_voies = 'entrez une valeur'
+            $cascade.data().cascade.altitude_minimum = 'entrez une valeur'
+            $cascade.data().cascade.hauteur = 'entrez une valeur'
+            $cascade.data().cascade.niveau_engagement = 'entrez une valeur'
+            $cascade.data().cascade.commentaires = []
+            $cascade.data().cascade.constituants = [{ id:0, libelle: 'selectionnez une valeur' }]
+            $cascade.data().cascade.images = [{ id:0, libelle: '', date: '', url: '' }]
+            $cascade.data().cascade.niveau = { id: 0, libelle: 'selectionnez une valeur' }
+            $cascade.data().cascade.orientation = { id: 0, libelle: 'selectionnez une valeur' }
+            $cascade.data().cascade.structure = { id: 0, libelle: 'selectionnez une valeur' }
+            $cascade.data().cascade.supports = [{ id: 0, libelle: 'selectionnez une valeur' }]
+            $cascade.data().cascade.type_fin_vie = { id: 0, libelle: 'selectionnez une valeur' }
+            $cascade.data().cascade.type_glace = { id: 0, libelle: 'selectionnez une valeur' }
             $cascade.data().cascade.id = this.cascade.id
             $cascade.data().cascade.lat = this.lat
             $cascade.data().cascade.lng = this.lng
+
+            this.new = false
         }
         $app.data().show = true
         $app.data().showZone = false
@@ -115,14 +131,15 @@ Cascade.prototype.addEvent = function() {
     })
 }
 
-Cascade.prototype.update = function() {
+Cascade.prototype.update = function () {
     fetch(`api/cascades/${this.cascade.id}/update`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.cascade)
-    }).catch(e => console.error(e))
+    }).then(data => this.cascade = data)
+    .catch(e => console.error(e))
 }
 
 Zone.prototype.addEvent = function() {
@@ -136,7 +153,7 @@ Zone.prototype.addEvent = function() {
             $zone.data().zone = this.zone
         } else {
             $zone.data().zone.id = this.zone.id
-
+            $zone.data().zone.nom = "Entrez une valeur"
             $zone.data().zone.latNE = this.northEastLat
             $zone.data().zone.lngNE = this.northEastLng
             $zone.data().zone.latSW = this.southWestLat
@@ -148,7 +165,6 @@ Zone.prototype.addEvent = function() {
 
     this.$rectangle.addListener('bounds_changed', () => {
         tlp.$tooltip.setPosition(this.northEast)
-
         
         this.zone.latNE = this.northEastLat
         this.zone.lngNE = this.northEastLng
@@ -169,7 +185,8 @@ Zone.prototype.update = function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.zone)
-    }).catch(e => console.error(e))
+    }).then(data => this.zone = data)
+    .catch(e => console.error(e))
 }
 
 document.addEventListener('keydown', function(e) {
@@ -282,8 +299,7 @@ function clickSpan(span) {
                 }
             })
         })
-    }
-    
+    }  
     span.className += ' hidden'
 }
 
@@ -300,7 +316,9 @@ function eventInput(input) {
         let f
         try {
             f = markers.cascades[$cascade.data().cascade.id]
-            f.valid()
+            if (!f) {
+                throw new Exception()
+            }
         } catch (e) {
             f = rectangles[$zone.data().zone.id]
         }
@@ -328,7 +346,6 @@ function eventInput(input) {
                 f.zone[id[0]] = input.value
             }
         }
-
         f.update()
         input.parentElement.removeChild(input)
         span.className -= ' hidden'

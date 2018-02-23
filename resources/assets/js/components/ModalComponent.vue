@@ -69,10 +69,7 @@ export default {
     			},
     			body: JSON.stringify(this.getChecked())
 			}).then(res => res.json())
-			.then(data => {
-				$cascade.data().cascade[this.name] = data
-				console.log(data)
-			}).catch(e => console.error(e))
+			.then(data => $cascade.data().cascade[this.name] = data).catch(e => console.error(e))
 		},
 		getChecked() {
 			let inputs = Array.prototype.slice.call(document.querySelectorAll('input[type="checkbox"]:checked'))

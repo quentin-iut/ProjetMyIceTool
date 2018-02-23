@@ -34,7 +34,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
             
-                        <div class="col-md-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <div style="margin-top: 16px;margin-bottom: 16px;">
                             <div class="lineOverall">
                                 <span class="line">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                             <div class="col-md-4 col-md-offset-4">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -57,7 +57,7 @@
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <div class="col-md-4 col-md-offset-4">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Mot de passe" required>
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
