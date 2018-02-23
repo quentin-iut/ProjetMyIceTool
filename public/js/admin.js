@@ -138,7 +138,8 @@ Cascade.prototype.update = function () {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.cascade)
-    }).then(data => this.cascade = data)
+    }).then(res => res.json())
+    .then(data => this.cascade = data)
     .catch(e => console.error(e))
 }
 
@@ -185,7 +186,7 @@ Zone.prototype.update = function() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.zone)
-    }).then(data => this.zone = data)
+    }).then(res => res.json())
     .catch(e => console.error(e))
 }
 
