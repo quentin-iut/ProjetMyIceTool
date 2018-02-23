@@ -97,27 +97,20 @@
     @endauth
 
 
-    <div>
-        <nav class="navbar navbar-default navbar-static-top footer">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ asset('img/logo.png')}}" alt="My Ice Tool" class="brand">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left side of navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">© My Ice Tool</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Conditions</a></li>
-                        <li><a href="#">Politique de confidentialité</a></li>
-                        <li><a href="#">Plan du site</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <div class="footer">
+        <div class="footer-left">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{ asset('img/logo.png')}}" alt="My Ice Tool" class="brand">
+        </a>
+        <p>© My Ice Tool</p>
+        </div>
+        <div class="footer-right">
+            <ul>
+                <li><a href="#">Conditions</a></li>
+                <li><a href="#">Politique de confidentialité</a></li>
+                <li><a href="#">Plan du site</a></li>
+            </ul>
+        </div>
     </div>
 
 </body>
