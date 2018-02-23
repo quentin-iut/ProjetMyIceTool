@@ -10,11 +10,14 @@ class CascadeController extends Controller
 {
     public function getCascades() {
         return Cascade::all();
-        // return Cascade::where('nom', 'like', '%auzet%')->get();
     }
-
+    
     public function getCascade($cascade_id) {
         return Cascade::findOrFail($cascade_id);
+    }
+    
+    public function getCascadeByName($cascade_name) {
+        return Cascade::where('nom', 'like', '%' . $cascade_name . '%')->get();
     }
 
     public function getCascadeDetails($cascade_id) {

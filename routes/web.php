@@ -40,6 +40,8 @@ Route::post('/api/cascades/{cascade_id}/supports/update', 'CascadeController@upd
 Route::post('/api/cascades/{cascade_id}/update', 'CascadeController@update')->name('CascadeUpdate');
 Route::post('/api/cascades','CascadeController@insert')->name('CascadeInsert');
 Route::post('api/cascades/delete', 'CascadeController@delete')->name('CascadeDelete');
+Route::post('api/cascades/names/{cascade_nom}')->name('CascadesByName');
+
 // // Commentaire
 // Route::get('/api/commentaires', 'CommentaireController@getCommentaires')->name('Commentaires');
 // Route::get('/api/commentaires/{commentaire_id}', 'CommentaireController@getCommentaire')->name('Commentaire');
