@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cascade;
+use App\Commentaire;
 use DB;
 
 class CascadeController extends Controller
@@ -141,5 +142,18 @@ class CascadeController extends Controller
 
     public function delete(Request $req) {
         Cascade::destroy($req->all()[0]);
+    }
+
+    public function insertComments(Request $req, $cascade_id) {
+        $commentaire = New Commentaire();
+        $commentaire->libelle = $req->input('contenu');
+
+        $commentaire->user_id = $req->input('user_id');
+
+        $commentaire->cascade_id = $cascade_id;
+        $commentaire->date = date('Y-m-d');
+
+        $commentaire->save();
+        return $commentaire;
     }
 }
