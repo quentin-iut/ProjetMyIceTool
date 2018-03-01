@@ -25,6 +25,7 @@ class CascadeController extends Controller
         $c = $this->getCascade($cascade_id);
 
         $c->load(
+            'commentaires',
             'constituants',
             'images',
             'niveau',
@@ -35,7 +36,6 @@ class CascadeController extends Controller
             'typeFinVie',
             'typeGlace',
             'zones'
-
         );
 
         return $c;
