@@ -34,7 +34,7 @@
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
             
-                        <div class="col-md-12 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                         <div style="margin-top: 16px;margin-bottom: 16px;">
                             <div class="lineOverall">
                                 <span class="line">

@@ -8656,3 +8656,7 @@ hr {
   font-family: Helvetica, sans-serif;
 }
 
+form.form-horizontal {
+  margin-top: 90px;
+}
+
