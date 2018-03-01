@@ -144,7 +144,7 @@ class CascadeController extends Controller
         Cascade::destroy($req->all()[0]);
     }
 
-    public function insertComments(Request $req, $cascade_id) {
+    public function insertComment(Request $req, $cascade_id) {
         $commentaire = New Commentaire();
         $commentaire->libelle = $req->input('contenu');
 
