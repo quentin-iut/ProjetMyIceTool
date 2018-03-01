@@ -8656,3 +8656,33 @@ hr {
   font-family: Helvetica, sans-serif;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+  -webkit-text-fill-color: #5d5d5d !important;
+  font-weight: 100 !important;
+}
+
+.afficheMDP {
+  color: #76bcca !important;
+  border: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  font-weight: 100;
+}
+
+.connexion {
+  background-color: #fa5c62 !important;
+  border-color: #fa5c62 !important;
+  width: 100%;
+}
+
+.forgetMDP {
+  color: #76bcca !important;
+  font-weight: 100;
+  width: 100%;
+}
+
+.inscription {
+  color: #76bcca !important;
+}
+
