@@ -47,6 +47,7 @@ Route::post('/api/cascades/name', 'CascadeController@getCascadesByName')->name('
 // Route::get('/api/commentaires/{commentaire_id}', 'CommentaireController@getCommentaire')->name('Commentaire');
 // Route::get('/api/commentaires/{commentaire_id}/cascade', 'CommentaireController@getCommentaireCascade')->name('CommentaireCascade');
 // Route::get('/api/commentaires/{commentaire_id}/photos', 'CommentaireController@getCommentairePhotos')->name('CommentairePhotos');
+Route::get('/api/commentaires/{commentaire_id}/user', 'CommentaireController@getUserCommentaire')->name('CommentaireUser');
 
 // // Constituant
 Route::get('/api/constituants', 'ConstituantController@getConstituants')->name('Constituants');

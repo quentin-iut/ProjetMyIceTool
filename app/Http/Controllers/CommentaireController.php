@@ -24,4 +24,8 @@ class CommentaireController extends Controller
     public function getCommentairePhotos($commentaire_id) {
         return $this->getCommentaire($commentaire_id)->photos;
     }
+
+    public function getUserCommentaire($commentaire_id) {
+        return $this->getCommentaire($commentaire_id)->user;
+    }
 }
