@@ -16,11 +16,6 @@ class UserController extends Controller
         return User::findOrFail($user_id);
     }
 
-    public function getNameUser($user_id) {
-        $u = User::findOrFail($user_id);
-        return response()->json([ 'name' => $u->nom]);
-    }
-
     public function getUserDetails($user_id) {
         $u = $this->getUser($user_id);
         if(!method_exists($u, 'getData')) {
