@@ -112,6 +112,7 @@ Route::get('/api/type_glaces', 'TypeGlaceController@getTypeGlaces')->name('TypeG
 // // User
 // Route::get('/api/users', 'UserController@getUsers')->name('Users');
 Route::get('/api/users/{user_id}', 'UserController@getUser')->name('User');
+Route::get('/api/users/{user_id}/name', 'UserController@getNameUser')->name('NameUser');
 Route::get('/api/users/{user_id}/details', 'UserController@getUserDetails')->name('UserDetails');
 Route::get('/api/users/{user_id}/favoris', 'UserController@getUserFavoris')->name('UserFavoris');
 Route::get('/api/users/{user_id}/langue', 'UserController@getUserLangue')->name('UserLangue');
