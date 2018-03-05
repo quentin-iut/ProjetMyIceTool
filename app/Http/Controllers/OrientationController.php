@@ -8,16 +8,16 @@ use App\Orientation;
 class OrientationController extends Controller
 {
     public function getOrientations() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Orientation::all();
     }
 
     public function getOrientation($orientation_id) {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Orientation::findOrFail($orientation_id);
     }
 
     public function getOrientationCascades($orientation_id) {
-        return self::getOrientation($orientation_id)->cascades;
+        return $this->getOrientation($orientation_id)->cascades;
     }
 }

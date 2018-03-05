@@ -23,14 +23,21 @@ class Cascade extends Marker {
         if (args.cascade !== undefined) {
             this.new = false
             this.cascade = args.cascade
-            markers.cascades[args.cascade.id] = this
+            markers.cascades[this.cascade.id] = this
         } else {
             this.new = true
-            getFile(`api/cascades/max`, (c) => {
-                this.cascade = {
-                    id: c.id + 1
-                }
-            })
+            edit = true
+            fetch(`api/cascades`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ lat: this.lat, lng: this.lng})
+            }).then(res => res.json())
+                .then(data => {
+                    this.cascade = data
+                    markers.cascades[this.cascade.id] = this
+                })
         }
         this.addEvent()
     }
@@ -39,7 +46,8 @@ class Cascade extends Marker {
         this.$marker.addListener('click', () => {
             map.$maps.panTo(this.position)
             if (this.new === false) {
-                getFile(`api/cascade/${this.cascade.id}/details`, (cascadeInfo) => {
+                getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
+                    $app.data().showZone = false
                     $app.data().show = true
                     $cascade.data().cascade = cascadeInfo
                 })

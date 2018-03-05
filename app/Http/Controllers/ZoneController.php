@@ -9,25 +9,52 @@ use DB;
 class ZoneController extends Controller
 {
     public function getZones() {
-        header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: *");
         return Zone::all();
     }
 
     public function getZone($zone_id) {
-        header("Access-Control-Allow-Origin: *");
         return Zone::findOrFail($zone_id);
     }
 
-    public function getMaxId() {
-        header("Access-Control-Allow-Origin: *");
-        return Zone::find(DB::table('zones')->max('id'));
-    }
-
     public function getZoneCascades($zone_id) {
-        return self::getZone($zone_id)->cascades;
+        return $this->getZone($zone_id)->cascades;
     }
 
     public function getZoneReleves($zone_id) {
-        return self::getZone($zone_id)->releves;
+        return $this->getZone($zone_id)->releves;
     }
+
+
+    public function update(Request $req, $zone_id) {
+        $z = $this->getZone($zone_id);
+        $z->nom = $req->input('nom');
+        $z->latNE = $req->input('latNE');
+        $z->lngNE = $req->input('lngNE');
+
+        $z->latSW = $req->input('latSW');
+        $z->lngSW = $req->input('lngSW');
+
+        $z->save();
+
+        return $z;
+    }
+
+    public function insert(Request $req) {
+        $z = New Zone();
+
+        $z->latNE = $req->input('latNE');
+        $z->lngNE = $req->input('lngNE');
+        $z->latSW = $req->input('latSW');
+        $z->lngSW = $req->input('lngSW');
+        $z->save();
+
+        $z = $this->getZone($z->id);
+        return $z;
+    }
+
+    public function delete(Request $req) {
+        Zone::destroy($req->all()[0]);
+    }
+
 }

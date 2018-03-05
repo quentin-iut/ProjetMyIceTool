@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cascade extends Model
 {
+    public $timestamps = false;
     public function commentaires() {
         return $this->hasMany('App\Commentaire');
     }

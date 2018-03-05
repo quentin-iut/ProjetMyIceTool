@@ -15,11 +15,11 @@ class CreateZonesTable extends Migration
     {
         Schema::create('zones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom', 20);
-            $table->float('latNE', 16, 14);
-            $table->float('lngNE', 16, 14);
-            $table->float('latSW', 16, 14);
-            $table->float('lngSW', 16, 14);
+            $table->string('nom', 20)->nullable();
+            $table->float('latNE', 16, 14)->nullable();
+            $table->float('lngNE', 16, 14)->nullable();
+            $table->float('latSW', 16, 14)->nullable();
+            $table->float('lngSW', 16, 14)->nullable();
         });
     }
 

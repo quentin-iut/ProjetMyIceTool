@@ -1,12 +1,13 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+.brand {
+    width: 130px;
+    margin-top: -6px;
+}
 
 .material-icons {
     cursor: pointer;
@@ -19,7 +20,7 @@
 }
 
 .info {
-	position: absolute;
+    position: absolute;
     top: 110px;
     background: #fff;
     height: 840px;
@@ -36,22 +37,23 @@
 }
 
 .toggle-button {
-  	width: 23px;
-  	height: 48px;
-  	cursor: pointer;
-  	background: #fefefe url(../../../public/img/arrow-icon.png) 7px center/7px 10px no-repeat;
+    width: 23px;
+    height: 48px;
+    cursor: pointer;
+    background: #fefefe url(../../../public/img/arrow-icon.png) 7px center/7px 10px no-repeat;
     border: 0;
     box-shadow: 4px 0 20px -3px rgba(0, 0, 0, 0.3);
     border-left: 1px solid #d4d4d4;
 }
 
 *:focus {
-	outline: none;
+    outline: none;
 }
 
 .info li {
     margin: 5px 0;
 }
+
 .info input {
     border: 0;
     border-bottom: 1px solid #4285f4;
@@ -69,7 +71,6 @@ nav.navbar.navbar-default.navbar-static-top {
     border: 0;
     margin: 0;
 }
-
 
 .controls {
     margin-top: 10px;
@@ -108,6 +109,7 @@ nav.navbar.navbar-default.navbar-static-top {
     bottom: 0;
 }
 
+
 /*style the box*/
 
 .gm-style .gm-style-iw {
@@ -122,6 +124,7 @@ nav.navbar.navbar-default.navbar-static-top {
     padding-left: 10px;
     display: block !important;
 }
+
 .gm-style-pbc+div+div div+div+div+div div+div div div+div+div {
     /* height: 30px!important; */
     background-color: #f6f6f6 !important;
@@ -131,7 +134,6 @@ nav.navbar.navbar-default.navbar-static-top {
 .gm-style .gm-style-iw {
     overflow: visible;
 }
-
 
 
 /*style the arrow*/
@@ -168,4 +170,127 @@ nav.navbar.navbar-default.navbar-static-top {
 
 .tlp a:active {
     color: #4370b9;
+}
+
+
+/*CUSTOM CSS*/
+
+@media (min-width: 1200px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.footer {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left p {
+    color: #777;
+}
+
+.footer-right li {
+    display: inline-block;
+    padding: 5px;
+}
+
+.footer-right a {
+    color: #777;
+}
+
+.footer-right a:hover {
+    text-decoration: none;
+}
+
+@media (max-width: 500px) {
+    .footer {
+        flex-direction: column;
+    }
+    .footer-right li {
+        display: block;
+    }
+}
+
+.panel-default {
+    margin-top: 5%;
+}
+
+.panel-body {
+    margin-top: 35px;
+}
+
+.btn-facebook {
+    background-color: #4568b2;
+    color: white;
+    width: 100%;
+    border: 2px solid #4568b2;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.btn-facebook:hover {
+    color: white;
+}
+
+.btn-google {
+    background-color: #ffffff;
+    color: #5d5d5d;
+    font-weight: bold;
+    width: 100%;
+    border: 2px solid #5d5d5d;
+    border-radius: 4px;
+}
+
+hr {
+    border-top: 1px solid #e4e4e4;
+}
+
+.lineOverall {
+    overflow: hidden;
+    text-align: center;
+}
+
+.line {
+    position: relative;
+    padding: 16px;
+}
+
+.line::before {
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid #e4e4e4;
+    top: 50%;
+    right: 100%;
+    width: 500px;
+}
+
+.line::after {
+    content: '';
+    position: absolute;
+    border-bottom: 1px solid #e4e4e4;
+    top: 50%;
+    width: 500px;
+    margin-left: 15px;
+}
+
+.textOu {
+    font-weight: normal;
+    font-family: Helvetica, sans-serif;
+}
+
+form.form-horizontal {
+    margin-top: 85px;
 }

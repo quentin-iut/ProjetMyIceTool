@@ -13,7 +13,7 @@ class ConstituantsSeeder extends Seeder
     {
         if(DB::table('constituants')->count() == 0) {
             DB::table('constituants')->insert([
-                'libelle' => 'salactites'
+                'libelle' => 'stalactites'
             ]);
             DB::table('constituants')->insert([
                 'libelle' => 'rideaux'
@@ -41,6 +41,9 @@ class ConstituantsSeeder extends Seeder
             ]);
             DB::table('constituants')->insert([
                 'libelle' => 'cônes'
+            ]);
+            DB::table('constituants')->insert([
+                'libelle' => 'autres'
             ]);
         }
     }

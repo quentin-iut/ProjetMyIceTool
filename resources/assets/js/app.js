@@ -15,9 +15,11 @@ import Vue from 'vue'
  */
 import Home from './components/HomeComponent.vue'
 import Info from './components/InfoComponent.vue'
+import InfoZone from './components/InfoZoneComponent.vue'
 import Modal from './components/ModalComponent.vue'
 
 Vue.component('info', Info)
+Vue.component('infoZone', InfoZone)
 Vue.component('modal', Modal)
 
 const app = new Vue({
@@ -28,5 +30,6 @@ const app = new Vue({
 try {
     window.$app = Home
     window.$cascade = Info
+    window.$zone = InfoZone
     window.$modal = Modal
 } catch (e) {}
