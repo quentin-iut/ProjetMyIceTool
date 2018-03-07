@@ -43378,6 +43378,9 @@ var _data = {
   },
   mounted: function mounted() {
     document.querySelector('#pills-info-tab').click();
+  },
+  updated: function updated() {
+    document.querySelector('#pills-info-tab').click();
   }
 });
 
