@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class DetailController extends Controller
 {
     public function getDetails(){
-        $currentUser = Auth::user();
+        $currentUser = User::where('id', Auth::user()->id)->first();
 
         $listePays = Pays::all();
         $listeNiveaux = Niveau::all();
