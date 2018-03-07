@@ -17,6 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+// Page perso
+Route::get('/user/details', 'DetailController@getDetails')->name('details');
+Route::post('/user/details','DetailController@updateUser')->name('enreModif');
+
+// Page Favoris
+Route::get('/user/favoris','FavorisController@getFavoris')->name('favoris');
+Route::get('/user/retirerFavoris/{id_cascade}','FavorisController@retirerFavoris')->name('retirerFavoris');
+Route::get('/user/detailsCascade/{id_cascade}','DetailCascadeController@afficherDetails')->name('detailsCascade');
+
+
 /* ----- Api ----- */
 
 // Cascade

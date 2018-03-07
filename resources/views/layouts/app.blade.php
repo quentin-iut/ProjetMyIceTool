@@ -59,9 +59,14 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Déconnexion
                                         </a>
-
+                                        <a href="{{ route('details') }}">
+                                            Page perso
+                                        </a>
+                                        <a href="{{ route('favoris') }}">
+                                            Favoris
+                                        </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
