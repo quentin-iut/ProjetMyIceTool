@@ -292,6 +292,7 @@ hr {
     font-family: Helvetica, sans-serif;
 }
 
+<<<<<<< HEAD
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-text-fill-color: #5d5d5d !important;
@@ -320,4 +321,8 @@ input:-webkit-autofill {
 
 .inscription {
     color: #76bcca !important;
+=======
+form.form-horizontal {
+    margin-top: 90px;
+>>>>>>> 64caefca617c505f6c431911bfee156ec164f885
 }
