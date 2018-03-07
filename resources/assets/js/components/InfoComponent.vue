@@ -156,6 +156,6 @@ export default {
 	},
 	updated() {
 		document.querySelector('#pills-info-tab').click();
-	}  
+	}
 };
 </script>
