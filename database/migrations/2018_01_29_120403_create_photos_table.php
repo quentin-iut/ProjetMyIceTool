@@ -15,7 +15,7 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url', 45);
+            $table->string('url', 255);
             $table->integer('commentaire_id');
 
             $table->foreign('commentaire_id')->references('id')->on('commentaires');
