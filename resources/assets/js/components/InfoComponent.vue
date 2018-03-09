@@ -1,6 +1,6 @@
 <template>
 	<div class="info">
-		<h1><span data-id="nom">{{ cascade.nom }}</span></h1>
+		<h1 style="text-align:center;" ><span data-id="nom" class="styleNom">{{ cascade.nom }}</span></h1>
 		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link" id="pills-info-tab" data-toggle="pill" href="#pills-info" role="tab" aria-controls="pills-info" aria-selected="true">Informations</a>

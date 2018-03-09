@@ -1,7 +1,7 @@
 class Autocompletion {
     constructor(map) {
         var $input = document.getElementById('pac-input')
-        map.$maps.controls[google.maps.ControlPosition.TOP_LEFT].push($input)
+            //map.$maps.controls[google.maps.ControlPosition.TOP_LEFT].push($input)
 
         this.$autocomplete = new google.maps.places.Autocomplete($input)
         this.$autocomplete.bindTo('bounds', map.$maps)
