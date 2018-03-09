@@ -8419,6 +8419,7 @@ section {
 nav.navbar.navbar-default.navbar-static-top {
   border: 0;
   margin: 0;
+  z-index: 1;
 }
 
 .controls {
@@ -8444,7 +8445,8 @@ nav.navbar.navbar-default.navbar-static-top {
   text-overflow: ellipsis;
   width: 300px;
   position: absolute;
-  left: 110px;
+  left: 145px;
+  top: 0;
   z-index: 2;
 }
 
@@ -8581,11 +8583,28 @@ nav.navbar.navbar-default.navbar-static-top {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    position: inherit;
   }
 
   .footer-right li {
     display: block;
     text-align: center;
+  }
+
+  #pac-input {
+    width: 405px;
+    left: 0;
+    top: 47px;
+  }
+
+  .logo1 {
+    width: 100%;
+  }
+
+  .burgerhead {
+    float: left;
+    top: -48px;
+    left: 372px;
   }
 }
 
@@ -8689,5 +8708,47 @@ input:-webkit-autofill {
 
 .info {
   overflow: auto !important;
+}
+
+.styleNom {
+  color: #85d1e3;
+  font-weight: bold;
+}
+
+.nav-pills > li {
+  width: 133.3px;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  color: #fff;
+  background-color: #bbb9ba;
+  padding: 5px;
+  border-radius: 0px !important;
+  text-align: center;
+}
+
+.nav-pills > li > a,
+.nav-pills > li > a:focus,
+.nav-pills > li > a:hover {
+  color: #5c5c5c;
+  background-color: #e6e6e6;
+  padding: 5px;
+  border-radius: 0px !important;
+  text-align: center;
+}
+
+#pills-info > ul {
+  list-style-type: none;
+  margin-left: -15px;
+}
+
+#pills-info > ul > li > strong {
+  color: #5c5c5c;
+}
+
+#pills-info > ul > li > span {
+  color: #8d8d8d;
 }
 

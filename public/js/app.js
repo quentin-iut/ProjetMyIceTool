@@ -43375,8 +43375,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "info" }, [
     _c("div", [
-      _c("h1", [
-        _c("span", { attrs: { "data-id": "nom" } }, [
+      _c("h1", { staticStyle: { "text-align": "center" } }, [
+        _c("span", { staticClass: "styleNom", attrs: { "data-id": "nom" } }, [
           _vm._v(_vm._s(_vm.cascade.nom))
         ])
       ]),

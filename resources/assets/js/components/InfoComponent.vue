@@ -1,7 +1,7 @@
 <template>
 	<div class="info">
     	<div>
-      		<h1><span data-id="nom">{{ cascade.nom }}</span></h1>
+      		<h1 style="text-align:center;"><span data-id="nom" class="styleNom">{{ cascade.nom }}</span></h1>
 			<ul>
 				<li><strong>Nombre voies: </strong><span data-id="nombre_voies">{{ cascade.nombre_voies}}</span></li>
 				<li><strong>Altitude minimum: </strong><span data-id="altitude_minimum">{{ cascade.altitude_minimum }}</span></li>
