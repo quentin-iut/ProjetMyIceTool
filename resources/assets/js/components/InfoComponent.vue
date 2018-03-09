@@ -153,6 +153,9 @@ export default {
   	},
 	mounted() {
 		document.querySelector('#pills-info-tab').click();
-  	}
+	},
+	updated() {
+		document.querySelector('#pills-info-tab').click();
+	}
 };
 </script>

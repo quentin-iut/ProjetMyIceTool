@@ -17,6 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+// Page perso
+Route::get('/user/details', 'DetailController@getDetails')->name('details');
+Route::post('/user/details','DetailController@updateUser')->name('enreModif');
+
+// Page Favoris
+Route::get('/user/favoris','FavorisController@getFavoris')->name('favoris');
+Route::get('/user/retirerFavoris/{id_cascade}','FavorisController@retirerFavoris')->name('retirerFavoris');
+Route::get('/user/detailsCascade/{id_cascade}','DetailCascadeController@afficherDetails')->name('detailsCascade');
+
+
 /* ----- Api ----- */
 
 // Cascade
@@ -48,6 +59,7 @@ Route::post('/api/cascades/name', 'CascadeController@getCascadesByName')->name('
 // Route::get('/api/commentaires/{commentaire_id}/cascade', 'CommentaireController@getCommentaireCascade')->name('CommentaireCascade');
 // Route::get('/api/commentaires/{commentaire_id}/photos', 'CommentaireController@getCommentairePhotos')->name('CommentairePhotos');
 Route::get('/api/commentaires/{commentaire_id}/user', 'CommentaireController@getUserCommentaire')->name('CommentaireUser');
+Route::post('/api/commentaires/{commentaire_id}/image', 'CommentaireController@insertImage')->name('CommentaireImage');
 
 // // Constituant
 Route::get('/api/constituants', 'ConstituantController@getConstituants')->name('Constituants');
