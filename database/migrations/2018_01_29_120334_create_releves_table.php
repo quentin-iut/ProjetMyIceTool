@@ -15,11 +15,11 @@ class CreateRelevesTable extends Migration
     {
         Schema::create('releves', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date');
+            $table->dateTime('date'); // date y a pas l'heure minute seconde
             $table->float('temperature_moyenne');
             $table->tinyInteger('niveau_danger');
             $table->integer('zone_id')->unsigned();
-            
+
             $table->foreign('zone_id')->references('id')->on('zones');
         });
     }

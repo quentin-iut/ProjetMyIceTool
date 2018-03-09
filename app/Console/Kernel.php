@@ -12,9 +12,9 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        //
-    ];
+    // protected $commands = [
+    //     '\App\Console\Commands\NetatmoData',
+    // ];
 
     /**
      * Define the application's command schedule.
@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('NetatmoData:setData')
+                  ->cron('0 */2 * * *');
     }
 
     /**
