@@ -31,20 +31,20 @@ class CommentaireController extends Controller
         return $this->getCommentaire($commentaire_id)->user;
     }
 
-    public function insertImage(Request $req, $commentaire_id) {
+    public function insertPhoto(Request $req, $commentaire_id) {
         $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
-        if($req->hash_file('photo')) {
-            $file = $req->file('photo');
-            
-            $path = $file->putFile('/uploads');
-            $i = new Photo();
-            $i->commentaire_id = $commentaire_id;
-            $i->url = $root . 'uploads/' . $name;
-            $i->save();
-            
-            return response()->json(['success' => 'true']);
-        }
 
-        return response()->json(['success' => 'false']);
+        if ($req->hasFile('photo')) {
+            $file = $req->file('photo');
+            $name = uniqid('img_').'.'.$file->getClientOriginalExtension();
+            $path = $file->move('uploads', $name);
+            $p = new Photo();
+            $p->commentaire_id = $commentaire_id;
+            $p->url = $root . $name;
+            $p->save();
+
+            return ["success" => true];
+        }
+        return ["success" => false];
     }
 }
