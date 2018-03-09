@@ -5,7 +5,7 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 .brand {
-    width: 130px;
+    width: 100px;
     margin-top: -6px;
 }
 
@@ -70,6 +70,7 @@ section {
 nav.navbar.navbar-default.navbar-static-top {
     border: 0;
     margin: 0;
+    z-index: 1;
 }
 
 .controls {
@@ -93,7 +94,8 @@ nav.navbar.navbar-default.navbar-static-top {
     text-overflow: ellipsis;
     width: 300px;
     position: absolute;
-    left: 110px;
+    left: 145px;
+    top: 0;
     z-index: 2;
 }
 
@@ -218,9 +220,24 @@ nav.navbar.navbar-default.navbar-static-top {
 @media (max-width: 500px) {
     .footer {
         flex-direction: column;
+        position: inherit;
     }
     .footer-right li {
         display: block;
+        text-align: center;
+    }
+    #pac-input {
+        width: 405px;
+        left: 0;
+        top: 47px;
+    }
+    .logo1 {
+        width: 100%;
+    }
+    .burgerhead {
+        float: left;
+        top: -48px;
+        left: 372px;
     }
 }
 
@@ -291,6 +308,85 @@ hr {
     font-family: Helvetica, sans-serif;
 }
 
-form.form-horizontal {
-    margin-top: 85px;
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-text-fill-color: #5d5d5d !important;
+    font-weight: 100 !important;
+}
+
+.afficheMDP {
+    color: #76bcca !important;
+    border: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    font-weight: 100;
+    background-color: white !important;
+}
+
+.connexion {
+    background-color: #fa5c62 !important;
+    border-color: #fa5c62 !important;
+    width: 100%;
+}
+
+.forgetMDP {
+    color: #76bcca !important;
+    font-weight: 100;
+    width: 100%;
+}
+
+.inscription {
+    color: #76bcca !important;
+}
+
+.info {
+    overflow: auto !important;
+}
+
+.styleNom {
+    color: #85d1e3;
+    font-weight: bold;
+}
+#pills-tab {
+    display: flex;
+}
+
+.nav-pills>li {
+    flex: 1;
+}
+.nav-pills>li+li {
+    margin-left: 0!important;
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #bbb9ba;
+    padding: 5px;
+    border-radius: 0px !important;
+    text-align: center;
+}
+
+.nav-pills>li>a,
+.nav-pills>li>a:focus,
+.nav-pills>li>a:hover {
+    color: #5c5c5c;
+    background-color: #e6e6e6;
+    padding: 5px;
+    border-radius: 0px !important;
+    text-align: center;
+}
+
+#pills-info>ul {
+    list-style-type: none;
+    margin-left: -15px;
+}
+
+#pills-info>ul>li>strong {
+    color: #5c5c5c;
+}
+
+#pills-info>ul>li>span {
+    color: #8d8d8d;
 }
