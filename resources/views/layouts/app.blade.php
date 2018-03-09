@@ -72,20 +72,20 @@
         </nav>
 
         @yield('content')
-        
+
     </div>
 
     <!-- Scripts -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD98FXPoiMBf85KTc2IszcA6Zj0L9x9Ids&libraries=geometry,places,drawing"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    
+
     <script src="{{ asset('js/Marker.js') }}"></script>
     <script src="{{ asset('js/Zone.js') }}"></script>
     <script src="{{ asset('js/Cascade.js') }}"></script>
     <script src="{{ asset('js/Autocompletion.js') }}"></script>
     <script src="{{ asset('js/Map.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    
+
 
     @auth
         @if(Auth::user()->isAdmin == 1)
