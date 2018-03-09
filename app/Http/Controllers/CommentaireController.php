@@ -31,7 +31,7 @@ class CommentaireController extends Controller
         return $this->getCommentaire($commentaire_id)->user;
     }
 
-    public function insertImages(Request $req, $commentaire_id) {
+    public function insertImage(Request $req, $commentaire_id) {
         $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
         if($req->hash_file('photo')) {
             $file = $req->file('photo');
