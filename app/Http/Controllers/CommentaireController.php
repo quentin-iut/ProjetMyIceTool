@@ -36,7 +36,7 @@ class CommentaireController extends Controller
 
         if ($req->hasFile('photo')) {
             $file = $req->file('photo');
-            $name = uniqid('img_').'.'.$file->getClientOriginalExtension();
+            $name = 'uploads/' . uniqid('img_').'.'.$file->getClientOriginalExtension();
             $path = $file->move('uploads', $name);
             $p = new Photo();
             $p->commentaire_id = $commentaire_id;
