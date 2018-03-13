@@ -19,6 +19,16 @@ class CommentaireController extends Controller
         return Commentaire::findOrFail($commentaire_id);
     }
 
+    public function getCommentaireDetails($commentaire_id) {
+        $c = $this->getCommentaire($commentaire_id);
+        $c->load(
+            'photos',
+            'user'
+        );
+
+        return $c;
+    }
+
     public function getCommmentaireCascade($commentaire_id) {
         return $this->getCommentaire($commentaire_id)->cascade;
     }
