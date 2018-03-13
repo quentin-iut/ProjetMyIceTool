@@ -33,21 +33,20 @@ class NetatmoData extends Command
 
 
         $client = new NAWSApiClient($config);
-
+		
         // Récupération du token
         $tokens = $client->getAccessToken();
 
         $data = json_decode(file_get_contents("https://api.netatmo.com/api/getpublicdata?access_token=". $tokens['access_token'] . "&lat_ne=" . $lat_ne . "&lon_ne=" . $lon_ne . "&lat_sw=" . $lat_sw . "&lon_sw=" . $lon_sw), true);
 
-        $temp = 0;
-        $alt = 0;
-        for ($i=0; $i < count($data['body']); $i++) {
-             $temp += array_shift(array_shift($data['body'][$i]['measures'])['res'])[0];
-        }
-        $temp =  $temp / count($data['body']);
-
+		$temp = 0;
+		for ($i=0; $i < count($data['body']); $i++) {
+			if(count($data['body'][$i]['measures']) > 1) {
+				$temp += array_shift(array_shift($data['body'][$i]['measures'])['res'])[0];
+			}
+		}
+		$temp =  $temp / count($data['body']);
         return $temp;
-
     }
 
     /**
