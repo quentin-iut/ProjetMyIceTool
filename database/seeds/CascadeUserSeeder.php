@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class CascadeUserSeeder extends Seeder
-{
+class CascadeUserSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('cascade_user')->count() == 0) {
             DB::table('cascade_user')->insert([
                 'user_id' => 1,

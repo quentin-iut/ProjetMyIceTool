@@ -8,15 +8,12 @@ namespace Netatmo\Clients;
  * For more details upon NETATMO API, please check https://dev.netatmo.com/doc
  * @author Originally written by Enzo Macri <enzo.macri@netatmo.com>
  */
-class NAThermApiClient extends NAApiClient
-{
+class NAThermApiClient extends NAApiClient {
 
-    private function setThermPoint($device_id, $module_id, $mode, $endtime = NULL, $temp = NULL)
-    {
+    private function setThermPoint($device_id, $module_id, $mode, $endtime = NULL, $temp = NULL) {
         $params = array('device_id' => $device_id,
                         'module_id' => $module_id,
                         'setpoint_mode' => $mode);
-
         if(!is_null($endtime)) $params['setpoint_endtime'] = $endtime;
         if(!is_null($temp)) $params['setpoint_temp'] = $temp;
 
@@ -29,14 +26,12 @@ class NAThermApiClient extends NAApiClient
      * @return array of devices
      * @brief Method used to retrieve data for the given Thermostat or all the thermostats belonging to the user
      */
-    public function getData($device_id = NULL)
-    {
+    public function getData($device_id = NULL) {
         $params = array();
         if(!is_null($device_id)) $params['device_id'] = $device_id;
 
         return $this->api('getthermostatsdata', 'GET', $params);
     }
-
 
     /*
      * @type PRIVATE & PARTNER API
@@ -45,8 +40,7 @@ class NAThermApiClient extends NAApiClient
      * @param timestamp (utc) $endtime (optional)
      * @brief Sets the given thermostat to away mode until the given date or until change.
      */
-    public function setToAwayMode($device_id, $module_id, $endtime = NULL)
-    {
+    public function setToAwayMode($device_id, $module_id, $endtime = NULL) {
         return $this->setThermPoint($device_id, $module_id, 'away', $endtime);
     }
 
@@ -57,8 +51,7 @@ class NAThermApiClient extends NAApiClient
      * @param timestamp (utc) $endtime (optional)
      * @brief Sets the given thermostat to frost-guard mode until the given date or until change
      */
-    public function setToFrostGuardMode($device_id, $module_id, $endtime = NULL)
-    {
+    public function setToFrostGuardMode($device_id, $module_id, $endtime = NULL) {
         return $this->setThermPoint($device_id, $module_id, 'hg', $endtime);
     }
 
@@ -68,8 +61,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $module_id
      * @brief Turn off the given thermostat
      */
-    public function turnOff($device_id, $module_id)
-    {
+    public function turnOff($device_id, $module_id) {
         return $this->setThermPoint($device_id, $module_id, 'off');
     }
 
@@ -79,8 +71,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $module_id
      * @brief Order the given thermostat to follow its schedule
      */
-    public function setToProgramMode($device_id, $module_id)
-    {
+    public function setToProgramMode($device_id, $module_id) {
         return $this->setThermPoint($device_id, $module_id, 'program');
     }
 
@@ -92,8 +83,7 @@ class NAThermApiClient extends NAApiClient
      * @param timestamp (utc) $endtime (optional)
      * @brief Sets a manual temperature to the given thermostat for a specified amount of time
      */
-    public function setToManualMode($device_id, $module_id, $temp, $endtime = NULL)
-    {
+    public function setToManualMode($device_id, $module_id, $temp, $endtime = NULL) {
         return $this->setThermPoint($device_id, $module_id, 'manual', $endtime, $temp);
     }
 
@@ -104,9 +94,8 @@ class NAThermApiClient extends NAApiClient
      * @param timestamp(utc) $endtime
      * @brief Order the given thermostat to heat to its max temperature
      */
-    public function setToMaxMode($device_id, $module_id, $endtime)
-    {
-         return $this->setThermPoint($device_id, $module_id, 'max', $endtime);
+    public function setToMaxMode($device_id, $module_id, $endtime) {
+        return $this->setThermPoint($device_id, $module_id, 'max', $endtime);
     }
 
     /*
@@ -118,8 +107,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $name
      * @brief Create a new heating schedule for the given thermostat
      */
-    public function createSchedule($device_id, $module_id, $zones, $timetable, $name)
-    {
+    public function createSchedule($device_id, $module_id, $zones, $timetable, $name) {
         $params = array('device_id' => $device_id,
                         'module_id' => $module_id,
                         'zones' => $zones,
@@ -135,8 +123,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $schedule_id
      * @brief switch to the given existing heating schedule
      */
-    public function switchSchedule($device_id, $module_id, $schedule_id)
-    {
+    public function switchSchedule($device_id, $module_id, $schedule_id) {
         $params = array('device_id' => $device_id,
                         'module_id' => $module_id,
                         'schedule_id' => $schedule_id);
@@ -151,8 +138,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $name
      * @brief Rename an existing heating schedule
      */
-    public function renameSchedule($device_id, $module_id, $schedule_id, $name)
-    {
+    public function renameSchedule($device_id, $module_id, $schedule_id, $name) {
         $params= array('device_id' => $device_id,
                        'module_id' => $module_id,
                        'schedule_id' => $schedule_id,
@@ -167,8 +153,7 @@ class NAThermApiClient extends NAApiClient
      * @param string $schedule_id
      * @brief Delete the given heating schedule. Beware, there should always be at least one schedule left for the device.
      */
-    public function deleteSchedule($device_id, $module_id, $schedule_id)
-    {
+    public function deleteSchedule($device_id, $module_id, $schedule_id) {
         $params = array('device_id' => $device_id,
                         'module_id' => $module_id,
                         'schedule_id' => $schedule_id);
@@ -183,8 +168,7 @@ class NAThermApiClient extends NAApiClient
      * @param array $timetable
      * @brief change the thermostat's heating schedule the given one
      */
-    public function syncSchedule($device_id, $module_id, $zones, $timetable)
-    {
+    public function syncSchedule($device_id, $module_id, $zones, $timetable) {
         $params = array('device_id' => $device_id,
                         'module_id' => $module_id,
                         'zones' => $zones,
@@ -207,8 +191,7 @@ class NAThermApiClient extends NAApiClient
     * @brief Method used to retrieve specifig measures of the given weather station
     */
 
-    public function getMeasure($device_id, $module_id = NULL, $scale, $type, $start = NULL, $end = NULL, $limit = NULL, $optimize = NULL, $realtime = NULL)
-    {
+    public function getMeasure($device_id, $module_id = NULL, $scale, $type, $start = NULL, $end = NULL, $limit = NULL, $optimize = NULL, $realtime = NULL) {
         $params = array('device_id' => $device_id,
                         'scale' => $scale,
                         'type' => $type);
@@ -223,7 +206,6 @@ class NAThermApiClient extends NAApiClient
         {
             if(!is_null($value)) $params[$key] = $value;
         }
-
         return $this->api('getmeasure', 'GET', $params);
     }
 }

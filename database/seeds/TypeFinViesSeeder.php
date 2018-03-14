@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class TypeFinViesSeeder extends Seeder
-{
+class TypeFinViesSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('type_fin_vies')->count() == 0) {
             DB::table('type_fin_vies')->insert([
                 'libelle' => 'par éffondrement'

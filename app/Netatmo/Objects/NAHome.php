@@ -10,38 +10,30 @@ use Netatmo\Common\NASDKErrorCode;
 * Class NAHome
 *
 */
-class NAHome extends NAObject
-{
+class NAHome extends NAObject {
 
-    public function __construct($array)
-    {
+    public function __construct($array) {
         parent::__construct($array);
 
-        if(isset($array[NACameraHomeInfo::CHI_PERSONS]))
-        {
+        if(isset($array[NACameraHomeInfo::CHI_PERSONS])) {
             $personArray = array();
-            foreach($array[NACameraHomeInfo::CHI_PERSONS] as $person)
-            {
+            foreach($array[NACameraHomeInfo::CHI_PERSONS] as $person) {
                 $personArray[] = new NAPerson($person);
             }
             $this->object[NACameraHomeInfo::CHI_PERSONS] = $personArray;
         }
 
-        if(isset($array[NACameraHomeInfo::CHI_EVENTS]))
-        {
+        if(isset($array[NACameraHomeInfo::CHI_EVENTS])) {
             $eventArray = array();
-            foreach($array[NACameraHomeInfo::CHI_EVENTS] as $event)
-            {
+            foreach($array[NACameraHomeInfo::CHI_EVENTS] as $event) {
                 $eventArray[] = new NAEvent($event);
             }
             $this->object[NACameraHomeInfo::CHI_EVENTS] = $eventArray;
         }
 
-        if(isset($array[NACameraHomeInfo::CHI_CAMERAS]))
-        {
+        if(isset($array[NACameraHomeInfo::CHI_CAMERAS])) {
             $cameraArray = array();
-            foreach($array[NACameraHomeInfo::CHI_CAMERAS] as $camera)
-            {
+            foreach($array[NACameraHomeInfo::CHI_CAMERAS] as $camera) {
                 $cameraArray[] = new NACamera($camera);
             }
             $this->object[NACameraHomeInfo::CHI_CAMERAS] = $cameraArray;
@@ -52,8 +44,7 @@ class NAHome extends NAObject
     * @return string
     * @brief returns home's name
     */
-    public function getName()
-    {
+    public function getName() {
         return $this->getVar(NACameraHomeInfo::CHI_NAME);
     }
 
@@ -61,8 +52,7 @@ class NAHome extends NAObject
     * @return array of event objects
     * @brief returns home timeline of event
     */
-    public function getEvents()
-    {
+    public function getEvents() {
         return $this->getVar(NACameraHomeInfo::CHI_EVENTS, array());
     }
 
@@ -70,8 +60,7 @@ class NAHome extends NAObject
     * @return array of person objects
     * @brief returns every person belonging to this home
     */
-    public function getPersons()
-    {
+    public function getPersons() {
         return $this->getVar(NACameraHomeInfo::CHI_PERSONS, array());
     }
 
@@ -79,11 +68,9 @@ class NAHome extends NAObject
     * @return array of person objects
     * @brief returns every known person belonging to this home
     */
-    public function getKnownPersons()
-    {
+    public function getKnownPersons() {
         $knowns = array();
-        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person)
-        {
+        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person) {
             if($person->isKnown())
                 $knowns[] = $person;
         }
@@ -94,14 +81,11 @@ class NAHome extends NAObject
     * @return array of person objects
     * @brief returns every unknown person belonging to this home
     */
-    public function getUnknownPersons()
-    {
+    public function getUnknownPersons() {
         $unknowns = array();
-        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person)
-        {
+        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person) {
             if($person->isUnknown())
-                $unknowns[] = $person;
-        }
+                $unknowns[] = $person; }
         return $unknowns;
     }
 
@@ -109,8 +93,7 @@ class NAHome extends NAObject
     * @return array of camera objects
     * @brief returns every camera belonging to this home
     */
-    public function getCameras()
-    {
+    public function getCameras() {
         return $this->getVar(NACameraHomeInfo::CHI_CAMERAS, array());
     }
 
@@ -118,8 +101,7 @@ class NAHome extends NAObject
     * @return string
     * @brief returns home's timezone
     */
-    public function getTimezone()
-    {
+    public function getTimezone() {
         $place = $this->getVar(NACameraHomeInfo::CHI_PLACE);
         return isset($place['timezone'])? $place['timezone'] : 'GMT';
     }
@@ -129,12 +111,9 @@ class NAHome extends NAObject
     * @brief return the camera object corresponding to the id asked
     * @throw NASDKErrorException
     */
-    public function getCamera($camera_id)
-    {
-        foreach($this->getVar(NACameraHomeInfo::CHI_CAMERAS, array()) as $camera)
-        {
-            if($camera->getId() === $camera_id)
-            {
+    public function getCamera($camera_id) {
+        foreach($this->getVar(NACameraHomeInfo::CHI_CAMERAS, array()) as $camera) {
+            if($camera->getId() === $camera_id) {
                 return $camera;
             }
         }
@@ -146,14 +125,11 @@ class NAHome extends NAObject
     * @brief returns NAPerson object corresponding to the id in parameter
     * @throw NASDKErrorException
     */
-    public function getPerson($person_id)
-    {
-        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $camera)
-        {
+    public function getPerson($person_id) {
+        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $camera) {
             if($person->getId() === $person_id)
                 return $person;
         }
-
         throw new NASDKException(NASDKErrorCode::NOT_FOUND, "person $person_id not found in home: " . $this->getId());
     }
 
@@ -161,12 +137,9 @@ class NAHome extends NAObject
     * @return array of NAPerson
     * @brief returns every person that are not home
     */
-    public function getPersonAway()
-    {
+    public function getPersonAway() {
         $away = array();
-
-        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person)
-        {
+        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person) {
             if($person->isAway())
                 $away[] = $person;
         }
@@ -177,12 +150,9 @@ class NAHome extends NAObject
     * @return array of NAPerson
     * @brief returns every person that are home
     */
-    public function getPersonAtHome()
-    {
+    public function getPersonAtHome() {
         $home = array();
-
-        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person)
-        {
+        foreach($this->getVar(NACameraHomeInfo::CHI_PERSONS, array()) as $person) {
             if(!$person->isAway())
                 $home[] = $person;
         }

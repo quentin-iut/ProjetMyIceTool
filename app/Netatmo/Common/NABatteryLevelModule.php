@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NABatteryLevelModule
-{
+class NABatteryLevelModule {
     /* Battery range: 6000 ... 3600 */
     const BATTERY_LEVEL_0 = 5500;/*full*/
     const BATTERY_LEVEL_1 = 5000;/*high*/

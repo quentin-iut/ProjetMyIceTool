@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraSDEvent
-{
+class NACameraSDEvent {
     const CSDE_ABSENT = 1;
     const CSDE_INSERTED = 2;
     const CSDE_FORMATED = 3;

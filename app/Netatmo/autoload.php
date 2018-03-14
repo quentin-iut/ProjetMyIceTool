@@ -1,19 +1,16 @@
 <?php
 
     //PHP version check
-    if (version_compare(PHP_VERSION, '5.4.0', '<'))
-    {
+    if (version_compare(PHP_VERSION, '5.4.0', '<')) {
         throw new Exception('Netatmo SDK requires PHP 5.3.0 or higher.');
     }
 
     //required libraries
-    if (!function_exists('curl_version'))
-    {
+    if (!function_exists('curl_version')) {
         throw new Exception('Netatmo SDK requires cURL extension.');
     }
 
-    if(!function_exists('json_decode'))
-    {
+    if(!function_exists('json_decode')) {
         throw new Exception('Netatmo SDK requires JSON extension.');
     }
 
@@ -26,8 +23,7 @@
     * @return void
     */
 
-    spl_autoload_register(function($class)
-    {
+    spl_autoload_register(function($class) {
         //project-specific namespace prefix
         $prefix = 'Netatmo\\';
 
@@ -36,8 +32,7 @@
 
         //does the class use the namespace prefix?
         $len = strlen($prefix);
-        if (strncmp($prefix, $class, $len) !== 0)
-        {
+        if (strncmp($prefix, $class, $len) !== 0) {
             //no move to the next registered autoloader
             return;
         }
@@ -51,8 +46,7 @@
         $file = $baseDir . str_replace('\\', '/', $relative_class) . '.php';
 
         //if the file exists, require it
-        if (file_exists($file))
-        {
+        if (file_exists($file)) {
             require $file;
         }
     });

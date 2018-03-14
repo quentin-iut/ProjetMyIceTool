@@ -13,8 +13,7 @@ define('NOT_LOGGED_ERROR_TYPE', 4); //unable to get access token
  *
  * @author Originally written by Thomas Rosenblatt <thomas.rosenblatt@netatmo.com>.
  */
-class NAClientException extends NASDKException
-{
+class NAClientException extends NASDKException {
     public $error_type;
     /**
     * Make a new API Exception with the given result.
@@ -22,8 +21,7 @@ class NAClientException extends NASDKException
     * @param $result
     *   The result from the API server.
     */
-    public function __construct($code, $message, $error_type)
-    {
+    public function __construct($code, $message, $error_type) {
         $this->error_type = $error_type;
         parent::__construct($code, $message);
     }

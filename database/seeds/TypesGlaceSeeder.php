@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class TypeGlacesSeeder extends Seeder
-{
+class TypeGlacesSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('type_glaces')->count() == 0) {
             DB::table('type_glaces')->insert([
                 'libelle' => 'glace transparente'

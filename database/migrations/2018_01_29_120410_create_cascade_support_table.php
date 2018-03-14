@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCascadeSupportTable extends Migration
-{
+class CreateCascadeSupportTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('cascade_support', function (Blueprint $table) {
             $table->integer('cascade_id');
             $table->foreign('cascade_id')->references('id')->on('cascades');
@@ -27,8 +25,7 @@ class CreateCascadeSupportTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('cascade_support');
     }
 }

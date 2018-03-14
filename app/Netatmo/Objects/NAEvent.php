@@ -10,16 +10,14 @@ use Netatmo\Common\NASDKErrorCode;
 /**
 * Class NAEvent
 */
-class NAEvent extends NAObjectWithPicture
-{
+class NAEvent extends NAObjectWithPicture {
     private static $videoEvents = array(NACameraEventType::CET_PERSON, NACameraEventType::CET_MOVEMENT);
 
     /**
     *
     * @brief returns event's snapshot
     */
-    public function getSnapshot()
-    {
+    public function getSnapshot() {
         $snapshot = $this->getVar(NACameraEventInfo::CEI_SNAPSHOT);
         return $this->getPictureURL($snapshot);
     }
@@ -28,8 +26,7 @@ class NAEvent extends NAObjectWithPicture
     * @return string
     * @brief returns event's description
     */
-    public function getMessage()
-    {
+    public function getMessage() {
         return $this->getVar(NACameraEventInfo::CEI_MESSAGE);
     }
 
@@ -37,8 +34,7 @@ class NAEvent extends NAObjectWithPicture
     * @return timestamp
     * @brief returns at which time the event has been triggered
     */
-    public function getTime()
-    {
+    public function getTime() {
         return $this->getVar(NACameraEventInfo::CEI_TIME);
     }
 
@@ -46,8 +42,7 @@ class NAEvent extends NAObjectWithPicture
     * @return string
     * @brief returns the event's type
     */
-    public function getEventType()
-    {
+    public function getEventType() {
         return $this->getVar(NACameraEventInfo::CEI_TYPE);
     }
 
@@ -56,11 +51,9 @@ class NAEvent extends NAObjectWithPicture
     * @brief returns event's subtype for SD Card & power adapter events
     * @throw NASDKException
     */
-    public function getEventSubType()
-    {
+    public function getEventSubType() {
         if($this->getEventType() === NACameraEventType::CET_SD
-            || $this->getEventType() === NACameraEventType::CET_ALIM)
-        {
+            || $this->getEventType() === NACameraEventType::CET_ALIM) {
             return $this->getVar(NACameraEventInfo::CEI_SUB_TYPE);
         }
         else throw new NASDKException(NASDKErrorCode::INVALID_FIELD, "This field does not exist for this type of event");
@@ -70,8 +63,7 @@ class NAEvent extends NAObjectWithPicture
     * @return string
     * @brief returns id of the camera that triggered the event
     */
-    public function getCameraId()
-    {
+    public function getCameraId() {
         return $this->getVar(NACameraEventInfo::CEI_CAMERA_ID);
     }
 
@@ -80,20 +72,17 @@ class NAEvent extends NAObjectWithPicture
     * @brief returns id of the person seen in the event
     * @throw NASDKException
     */
-    public function getPersonId()
-    {
+    public function getPersonId() {
         if($this->getEventType() === NACameraEventType::CET_PERSON
             || $this->getEventType() === NACameraEventType::CET_PERSON_AWAY
-        )
-        {
+        ) {
             return $this->getVar(NACameraEventInfo::CEI_PERSON_ID);
         }
         else throw new NASDKException(NASDKErrorCode::INVALID_FIELD, "This field does not exist for this type of event");
 
     }
 
-    public function hasVideo()
-    {
+    public function hasVideo() {
         if(in_array($this->getEventType(), $this->videoEvents))
             return TRUE;
         else return FALSE;
@@ -104,8 +93,7 @@ class NAEvent extends NAObjectWithPicture
     * @brief returns event's video id
     * @throw NASDKException
     */
-    public function getVideo()
-    {
+    public function getVideo() {
         if($this->hasVideo())
             return $this->getVar(NACameraEventInfo::CEI_VIDEO_ID);
         else throw new NASDKException(NASDKErrorCode::INVALID_FIELD, "This type of event does not have videos");
@@ -116,8 +104,7 @@ class NAEvent extends NAObjectWithPicture
     * @brief returns event's video status
     * @throw NASDKException
     */
-    public function getVideoStatus()
-    {
+    public function getVideoStatus() {
         if($this->hasVideo())
             return $this->getVar(NACameraEventInfo::CEI_VIDEO_STATUS);
         else throw new NASDKException(NASDKErrorCode::INVALID_FIELD, "This type of event does not have videos");
@@ -129,10 +116,8 @@ class NAEvent extends NAObjectWithPicture
     * @brief returns whether or not this event corresponds to the moment where the person arrived home
     * @throw NASDKException
     */
-    public function isPersonArrival()
-    {
-        if($this->getEventType() === NACameraEventType::CET_PERSON)
-        {
+    public function isPersonArrival() {
+        if($this->getEventType() === NACameraEventType::CET_PERSON) {
             return $this->getVar(NACameraEventInfo::CEI_IS_ARRIVAL);
         }
         else throw new NASDKException(NASDKErrorCode::INVALID_FIELD, "This field does not exist for this type of event");

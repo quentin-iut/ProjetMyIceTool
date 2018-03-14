@@ -1,8 +1,7 @@
 <?php
 namespace Netatmo\Common;
 
-class NABatteryLevelIndoorModule
-{
+class NABatteryLevelIndoorModule {
     /* Battery range: 6000 ... 4200 */
     const INDOOR_BATTERY_LEVEL_0 = 5640;/*full*/
     const INDOOR_BATTERY_LEVEL_1 = 5280;/*high*/

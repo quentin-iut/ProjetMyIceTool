@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraInfo
-{
+class NACameraInfo {
     const CI_ID = "id";
     const CI_NAME = "name";
     const CI_LIVE_URL = "live_url";

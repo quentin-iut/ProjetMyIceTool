@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraHomeInfo
-{
+class NACameraHomeInfo {
     const CHI_ID = "id";
     const CHI_NAME = "name";
     const CHI_PLACE = "place";

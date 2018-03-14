@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class PaysSeeder extends Seeder
-{
+class PaysSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('pays')->count() == 0) {
             DB::table('pays')->insert([
                 'code' => 'FRA',

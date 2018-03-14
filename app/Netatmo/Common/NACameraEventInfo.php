@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraEventInfo
-{
+class NACameraEventInfo {
     const CEI_ID = "id";
     const CEI_TYPE = "type";
     const CEI_TIME = "time";

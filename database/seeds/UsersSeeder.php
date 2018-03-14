@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersSeeder extends Seeder
-{
+class UsersSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('users')->count() == 0) {
             DB::table('users')->insert([
                 'nom' => 'Bezes',

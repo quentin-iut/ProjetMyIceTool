@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NARestErrorCode
-{
+class NARestErrorCode {
     const ACCESS_TOKEN_MISSING = 1;
     const INVALID_ACCESS_TOKEN = 2;
     const ACCESS_TOKEN_EXPIRED = 3;
