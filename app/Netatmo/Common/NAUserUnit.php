@@ -1,8 +1,7 @@
 <?php
 namespace Netatmo\Common;
 
-class NAUserUnit
-{
+class NAUserUnit {
     const UNIT_METRIC = 0;
     const UNIT_US = 1;
     const UNIT_TYPE_NUMBER = 2;

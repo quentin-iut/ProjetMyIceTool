@@ -1,8 +1,7 @@
 <?php
 namespace Netatmo\Common;
 
-class NAScopes
-{
+class NAScopes {
     const SCOPE_READ_STATION = "read_station";
     const SCOPE_READ_THERM = "read_thermostat";
     const SCOPE_WRITE_THERM = "write_thermostat";

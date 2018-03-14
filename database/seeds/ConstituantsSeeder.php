@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class ConstituantsSeeder extends Seeder
-{
+class ConstituantsSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('constituants')->count() == 0) {
             DB::table('constituants')->insert([
                 'libelle' => 'stalactites'

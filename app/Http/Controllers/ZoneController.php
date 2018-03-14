@@ -6,10 +6,8 @@ use Illuminate\Http\Request;
 use App\Zone;
 use DB;
 
-class ZoneController extends Controller
-{
+class ZoneController extends Controller {
     public function getZones() {
-        // header("Access-Control-Allow-Origin: *");
         return Zone::all();
     }
 
@@ -28,13 +26,12 @@ class ZoneController extends Controller
 
     public function update(Request $req, $zone_id) {
         $z = $this->getZone($zone_id);
+
         $z->nom = $req->input('nom');
         $z->latNE = $req->input('latNE');
         $z->lngNE = $req->input('lngNE');
-
         $z->latSW = $req->input('latSW');
         $z->lngSW = $req->input('lngSW');
-
         $z->save();
 
         return $z;
@@ -56,5 +53,4 @@ class ZoneController extends Controller
     public function delete(Request $req) {
         Zone::destroy($req->all()[0]);
     }
-
 }

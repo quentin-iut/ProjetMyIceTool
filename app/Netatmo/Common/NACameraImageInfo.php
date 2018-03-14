@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraImageInfo
-{
+class NACameraImageInfo {
     const CII_ID = "id";
     const CII_VERSION = "version";
     const CII_KEY = "key";

@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraVideoStatus
-{
+class NACameraVideoStatus {
     const CVS_RECORDING = "recording";
     const CVS_DELETED = "deleted";
     const CVS_AVAILABLE = "available";

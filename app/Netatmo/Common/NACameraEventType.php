@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraEventType
-{
+class NACameraEventType {
     const CET_PERSON = "person";
     const CET_PERSON_AWAY = "person_away";
     const CET_MODEL_IMPROVED = "model_improved";

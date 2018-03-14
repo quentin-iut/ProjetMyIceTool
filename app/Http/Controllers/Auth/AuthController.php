@@ -6,16 +6,13 @@ use App\User;
 use Auth;
 use Socialite;
 
-
 class AuthController extends Controller {
     // Some methods which were generated with the app
     /**
      * Redirect the user to the OAuth Provider.
-     *
      * @return Response
      */
-    public function redirectToProvider($provider)
-    {
+    public function redirectToProvider($provider) {
         return Socialite::driver($provider)->redirect();
     }
 
@@ -27,15 +24,12 @@ class AuthController extends Controller {
      *
      * @return Response
      */
-    public function handleProviderCallback($provider)
-    {
+    public function handleProviderCallback($provider) {
         $user = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
-        //dd($this);
         return redirect()->route('home');
-        
     }
 
     /**
@@ -45,8 +39,7 @@ class AuthController extends Controller {
      * @param $provider Social auth provider
      * @return  User
      */
-    public function findOrCreateUser($user, $provider)
-    {
+    public function findOrCreateUser($user, $provider) {
         $authUser = User::where('provider_id', $user->id)->first();
         if ($authUser) {
             return $authUser;

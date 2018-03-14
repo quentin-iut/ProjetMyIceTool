@@ -6,12 +6,10 @@ namespace Netatmo\Objects;
 * NAObject Class
 * Abstact class, parent of every objects
 */
-abstract class NAObject
-{
+abstract class NAObject {
     protected $object = array();
 
-    public function __construct($array)
-    {
+    public function __construct($array) {
         $this->object = $array;
     }
 
@@ -21,8 +19,7 @@ abstract class NAObject
     * @return object field or default if field is not set
     * @brief returns an object's field
     */
-    public function getVar($field, $default = NULL)
-    {
+    public function getVar($field, $default = NULL) {
         if(isset($this->object[$field]))
             return $this->object[$field];
         else return $default;
@@ -33,8 +30,7 @@ abstract class NAObject
     * @param $value value to set to field
     * @brief set an object's field
     */
-    public function setVar($field, $value)
-    {
+    public function setVar($field, $value) {
         $this->object[$field] = $value;
     }
 
@@ -42,8 +38,7 @@ abstract class NAObject
     * @return id
     * @btief returns object id
     */
-    public function getId()
-    {
+    public function getId() {
         return $this->getVar("id");
     }
 
@@ -51,8 +46,7 @@ abstract class NAObject
     * @return array $object
     * @brief return this object as an array
     */
-    public function toArray()
-    {
+    public function toArray() {
         return $this->object;
     }
 
@@ -60,8 +54,7 @@ abstract class NAObject
     * @return JSON document
     * @brief returns object as a JSON document
     */
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this->toArray());
     }
 
@@ -69,11 +62,9 @@ abstract class NAObject
     * @return string
     * @brief return string representation of object : JSON doc
     */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->toJson();
     }
-
 }
 
 ?>

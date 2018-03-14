@@ -9,11 +9,9 @@ use App\Niveau;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
-
-class DetailController extends Controller
-{
-    public function getDetails(){
-        $currentUser = User::where('id', Auth::user()->id)->first();
+class DetailController extends Controller {
+    public function getDetails() {
+        $currentUser = Auth::user();
 
         $listePays = Pays::all();
         $listeNiveaux = Niveau::all();
@@ -21,7 +19,7 @@ class DetailController extends Controller
         return view('details', ['currentUser' => $currentUser, 'listePays' => $listePays, 'listeniveaux' => $listeNiveaux, 'listeFavoris' => $listeFavoris]);
     }
 
-    public function updateUser(){
+    public function updateUser() {
         $currentUser = Auth::user();
         $news = isset(($_POST['newsletters']))?true:false;
         DB::table('users')
@@ -35,7 +33,6 @@ class DetailController extends Controller
                         'niveau_id'    => $_POST["niveau"],
                         'langue_id'    => $_POST["pays"]
                     ]);
-
         return $this->getDetails();
     }
 }

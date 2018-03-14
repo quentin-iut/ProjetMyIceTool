@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NABatteryLevelThermostat
-{
+class NABatteryLevelThermostat {
     /* Battery range: 4500 ... 3000 */
     const THERMOSTAT_BATTERY_LEVEL_0 = 4100;/*full*/
     const THERMOSTAT_BATTERY_LEVEL_1 = 3600;/*high*/

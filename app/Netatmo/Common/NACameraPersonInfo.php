@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraPersonInfo
-{
+class NACameraPersonInfo {
     const CPI_ID = "id";
     const CPI_LAST_SEEN = "last_seen";
     const CPI_FACE = "face";

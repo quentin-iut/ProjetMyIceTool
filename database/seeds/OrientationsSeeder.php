@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class OrientationsSeeder extends Seeder
-{
+class OrientationsSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('orientations')->count() == 0) {
             DB::table('orientations')->insert([
                 'libelle' => 'N'

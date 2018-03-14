@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NABatteryLevelWindGaugeModule
-{
+class NABatteryLevelWindGaugeModule {
     /* Battery range: 6000 ... 3950 */
     const WG_BATTERY_LEVEL_0 = 5590;/*full*/
     const WG_BATTERY_LEVEL_1 = 5180;/*high*/

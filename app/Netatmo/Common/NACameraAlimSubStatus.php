@@ -2,8 +2,7 @@
 
 namespace Netatmo\Common;
 
-class NACameraAlimSubStatus
-{
+class NACameraAlimSubStatus {
     const CASS_DEFECT = 1;
     const CASS_OK = 2;
 }

@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class ZonesSeeder extends Seeder
-{
+class ZonesSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('zones')->count() == 0) {
             DB::table('zones')->insert([
                 'nom' => 'zone n°1',

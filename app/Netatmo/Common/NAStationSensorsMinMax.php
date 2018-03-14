@@ -4,8 +4,7 @@ namespace Netatmo\Common;
 /*
  * Defines the min and max values of the sensors.
  */
-class NAStationSensorsMinMax
-{
+class NAStationSensorsMinMax {
     const TEMP_MIN = -40;
     const TEMP_MAX = 60;
     const HUM_MIN = 1;

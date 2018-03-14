@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Niveau;
 
-class NiveauController extends Controller
-{
+class NiveauController extends Controller {
     public function getNiveaux() {
-        // header("Access-Control-Allow-Origin: *");
         return Niveau::all();
     }
 
     public function getNiveau($niveau_id) {
-        // header("Access-Control-Allow-Origin: *");
         return Niveau::findOrFail($niveau_id);
     }
 
