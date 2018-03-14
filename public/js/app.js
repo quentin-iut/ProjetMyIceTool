@@ -43301,8 +43301,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 var _data = {
   cascade: {
@@ -43544,8 +43542,6 @@ var render = function() {
             }
           },
           [
-            _c("strong", [_vm._v("Images")]),
-            _vm._v(":\n\t\t\t\t\t"),
             _c(
               "ul",
               _vm._l(_vm.cascade.images, function(image) {
@@ -43568,8 +43564,6 @@ var render = function() {
             }
           },
           [
-            _c("strong", [_vm._v("Commentaires")]),
-            _vm._v(":\n\t\t\t\t"),
             _c(
               "ul",
               _vm._l(_vm.cascade.commentaires, function(commentaire) {
