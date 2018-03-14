@@ -38,11 +38,19 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                            <li><a href="#">Devenir admin</a></li>
+                        
+                        @auth
+                            @if(Auth::user()->isAdmin != 1)
+                                <li><a href="#">Devenir admin</a></li>
+                            @endif
+                        @endauth
+                        
                         @guest
+                            <li><a href="#">Devenir admin</a></li>
                             <li><a href="{{ route('login') }}">Connexion</a></li>
                         @else
-                            <li><a href="{{ route('favoris') }}">Favoris</a></li>
+                        
+                        <li><a href="{{ route('favoris') }}">Favoris</a></li>
                         
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -52,7 +60,7 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{{ route('details') }}">
-                                                Modifier le profil
+                                                Modifier mon profil
                                         </a>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -105,9 +113,9 @@
         </div>
         <div class="footer-right">
             <ul>
-                <li><a href="#">Conditions</a></li>
-                <li><a href="#">Politique de confidentialité</a></li>
-                <li><a href="#">Plan du site</a></li>
+                <li><a href="{{ route('conditions') }}">Conditions</a></li>
+                <li><a href="{{ route('confidentialite') }}">Politique de confidentialité</a></li>
+                <li><a href="{{ route('mentions') }}">Mentions légales</a></li>
                 <li>
                     <a href="{{ url('https://www.facebook.com/myicetool') }}" target="blank" class="btn" style="margin-left: -15px;">
                         <svg viewBox="0 0 32 32" role="presentation" aria-hidden="true" focusable="false" style="height: 15px; width: 15px; fill: currentcolor; margin-right: 5px;">

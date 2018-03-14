@@ -21,13 +21,13 @@
 
 .info {
     position: absolute;
-    top: 110px;
+    top: 50px;
     background: #fff;
-    height: 840px;
+    height: 850px;
     width: 400px;
     border-radius: 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    transition: 0.5s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .3);
+    transition: .5s;
 }
 
 .toggle-button-container {
@@ -347,6 +347,7 @@ input:-webkit-autofill {
     color: #85d1e3;
     font-weight: bold;
 }
+
 #pills-tab {
     display: flex;
 }
@@ -354,6 +355,7 @@ input:-webkit-autofill {
 .nav-pills>li {
     flex: 1;
 }
+
 .nav-pills>li+li {
     margin-left: 0!important;
 }
