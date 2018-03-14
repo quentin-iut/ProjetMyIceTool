@@ -45,7 +45,6 @@
 				</ul>
 			</div>
 			<div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
-				<strong>Images</strong>:
 					<ul>
 						<li v-for="image in cascade.images">
 							<img v-bind:src="image.url" alt="">
@@ -53,7 +52,6 @@
 					</ul>
 			</div>
 			<div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
-				<strong>Commentaires</strong>:
 				<ul>
 					<li v-for="commentaire in cascade.commentaires">
 						{{ commentaire.libelle }}
