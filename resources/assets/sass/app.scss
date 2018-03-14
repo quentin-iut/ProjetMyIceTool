@@ -339,10 +339,6 @@ input:-webkit-autofill {
     color: #76bcca !important;
 }
 
-.info {
-    overflow: auto !important;
-}
-
 .styleNom {
     color: #85d1e3;
     font-weight: bold;
@@ -391,4 +387,34 @@ input:-webkit-autofill {
 
 #pills-info>ul>li>span {
     color: #8d8d8d;
+}
+
+div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+    bottom: 110px!important;
+}
+
+.tab-content {
+    overflow-wrap: break-word;
+    max-height: 740px;
+    overflow-x: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #e6e6e6; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bbb9ba; 
 }
