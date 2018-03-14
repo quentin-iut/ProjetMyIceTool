@@ -7,12 +7,10 @@ use App\User;
 use Auth;
 use Hash;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
 
     public function getUser($user_id) {
         if(!Auth::check() || Auth::user()->id != $user_id) return response()->json(['error' => 'Not authorized.'],403);
-
         return User::findOrFail($user_id);
     }
 

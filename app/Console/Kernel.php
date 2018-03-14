@@ -8,7 +8,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel {
     /**
      * The Artisan commands provided by your application.
-     *
      * @var array
      */
     // protected $commands = [
@@ -17,7 +16,6 @@ class Kernel extends ConsoleKernel {
 
     /**
      * Define the application's command schedule.
-     *
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
@@ -27,13 +25,10 @@ class Kernel extends ConsoleKernel {
 
     /**
      * Register the commands for the application.
-     *
      * @return void
      */
-    protected function commands()
-    {
+    protected function commands() {
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }
