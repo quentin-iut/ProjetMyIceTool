@@ -52,11 +52,17 @@
 					</ul>
 			</div>
 			<div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
-				<ul>
-					<li v-for="commentaire in cascade.commentaires">
-						{{ commentaire.libelle }}
-					</li>
-				</ul>
+				<div class="comments">
+					<ul>
+						<li v-for="commentaire in cascade.commentaires">
+							{{ commentaire.libelle }}
+						</li>
+					</ul>
+				</div>
+				<form action="" id="post-comment">
+					<textarea name="message"></textarea>
+					<input type="button" value="Envoyer">
+				</form>
 			</div>
 		</div>
     	<div class="toggle-button-container">

@@ -43301,6 +43301,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var _data = {
   cascade: {
@@ -43564,18 +43570,22 @@ var render = function() {
             }
           },
           [
-            _c(
-              "ul",
-              _vm._l(_vm.cascade.commentaires, function(commentaire) {
-                return _c("li", [
-                  _vm._v(
-                    "\n\t\t\t\t\t\t" +
-                      _vm._s(commentaire.libelle) +
-                      "\n\t\t\t\t\t"
-                  )
-                ])
-              })
-            )
+            _c("div", { staticClass: "comments" }, [
+              _c(
+                "ul",
+                _vm._l(_vm.cascade.commentaires, function(commentaire) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t\t\t" +
+                        _vm._s(commentaire.libelle) +
+                        "\n\t\t\t\t\t\t"
+                    )
+                  ])
+                })
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
           ]
         )
       ]
@@ -43653,6 +43663,16 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { attrs: { action: "", id: "post-comment" } }, [
+      _c("textarea", { attrs: { name: "message" } }),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "button", value: "Envoyer" } })
+    ])
   }
 ]
 render._withStripped = true
