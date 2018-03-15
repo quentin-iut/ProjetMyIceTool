@@ -94,8 +94,14 @@
     <script src="{{ asset('js/Map.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
+    
 
     @auth
+        <script>
+            $cascade.data().showPostComment = true
+            $cascade.data().user_id = {{Auth::user()->id}}
+        </script>
+
         @if(Auth::user()->isAdmin == 1)
             <script src="{{ asset('js/Tooltip.js') }}"></script>
             <script src="{{ asset('js/Drawing.js') }}"></script>

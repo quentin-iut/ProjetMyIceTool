@@ -59,15 +59,15 @@
 						</li>
 					</ul>
 				</div>
-				<form action="" id="post-comment">
-					<textarea name="message"></textarea>
-					<input type="button" value="Envoyer">
+				<form id="post-comment" v-show="showPostComment">
+					<textarea id="message"></textarea>
+					<input type="button" value="Envoyer" v-on:click="sendComment">
 				</form>
 			</div>
 		</div>
     	<div class="toggle-button-container">
-      		<button class="toggle-button" v-on:click="hide"></button>
-      	</div>
+				<button class="toggle-button" v-on:click="hide"></button>
+			</div>
 	</div>
 </template>
 
@@ -142,7 +142,10 @@ var data = {
         nom: 0
       }
     ]
-  }
+  },
+	showPostComment: false,
+	user_id: 0,
+	post: false
 };
 
 export default {
@@ -153,13 +156,34 @@ export default {
   	methods: {
     	hide() {
       	$app.data().show = false;
-    	}
+    	},
+			sendComment() {
+				const textarea = document.getElementById('message')
+				fetch(`api/cascades/${this.cascade.id}/commentaire`, {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({contenu : textarea.value, user_id: this.user_id})
+				}).then(res => res.json())
+				.then(data => {
+					this.cascade.commentaires.push(data)
+					textarea.value = ''
+					this.post = true
+				})
+				.catch(err => console.warn(err))
+			}
   	},
 	mounted() {
 		document.querySelector('#pills-info-tab').click();
 	},
 	updated() {
-		document.querySelector('#pills-info-tab').click();
+		if(this.post) {
+			document.querySelector('#pills-comments-tab').click()
+			this.post = false
+		} else {
+			document.querySelector('#pills-info-tab').click();
+		}
 	}
 };
 </script>
