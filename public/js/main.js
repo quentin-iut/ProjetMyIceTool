@@ -55,3 +55,21 @@ function throttle(callback, delay) {
         }
     }
 }
+
+let ctx = document.getElementById("lineChartTest")
+window.lineChartTest = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: $cascade.data().graphique.horaires,
+        datasets: [{
+            "label":"temp\u00e9ratures (en \u00b0C)",
+            "backgroundColor":"rgba(38, 185, 154, 0.31)",
+            "borderColor":"rgba(38, 185, 154, 0.7)",
+            "pointBorderColor":"rgba(38, 185, 154, 0.7)",
+            "pointBackgroundColor":"rgba(38, 185, 154, 0.7)",
+            "pointHoverBackgroundColor":"#fff",
+            "pointHoverBorderColor":"rgba(220,220,220,1)",
+            "data": $cascade.data().graphique.temperatures
+        }]
+    },
+})

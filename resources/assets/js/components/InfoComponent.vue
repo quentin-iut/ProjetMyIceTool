@@ -21,6 +21,12 @@
 					<li><strong>Niveau engagement: </strong><span data-id="niveau_engagement">{{ cascade.niveau_engagement }}</span></li>
 					<li><strong>Lat: </strong><span data-id="lat">{{ cascade.lat }}</span></li>
 					<li><strong>Lng: </strong><span data-id="lng">{{ cascade.lng }}</span></li>
+					<li>
+						<strong>temperatures: </strong>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+							Voir les dernières températures
+						</button>
+					</li>
 					<li><strong>Type de fin de vie: </strong><span data-id="type_fin_vie.libelle">{{ cascade.type_fin_vie.libelle }}</span></li>
 					<li><strong>Type de glace: </strong><span data-id="type_glace.libelle">{{ cascade.type_glace.libelle }}</span></li>
 					<li><strong>Structure: </strong><span data-id="structure.libelle">{{ cascade.structure.libelle }}</span></li>
@@ -59,15 +65,15 @@
 						</li>
 					</ul>
 				</div>
-				<form action="" id="post-comment">
-					<textarea name="message"></textarea>
-					<input type="button" value="Envoyer">
+				<form id="post-comment" v-show="showPostComment">
+					<textarea id="message"></textarea>
+					<input type="button" value="Envoyer" v-on:click="sendComment">
 				</form>
 			</div>
 		</div>
     	<div class="toggle-button-container">
-      		<button class="toggle-button" v-on:click="hide"></button>
-      	</div>
+				<button class="toggle-button" v-on:click="hide"></button>
+			</div>
 	</div>
 </template>
 
@@ -142,7 +148,14 @@ var data = {
         nom: 0
       }
     ]
-  }
+  },
+	showPostComment: false,
+	user_id: 0,
+	post: false,
+	graphique: {
+		temperatures: [],
+		horaires: []
+	}
 };
 
 export default {
@@ -153,13 +166,55 @@ export default {
   	methods: {
     	hide() {
       	$app.data().show = false;
-    	}
+    	},
+			sendComment() {
+				const textarea = document.getElementById('message')
+				fetch(`api/cascades/${this.cascade.id}/commentaire`, {
+					method: 'post',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({contenu : textarea.value, user_id: this.user_id})
+				}).then(res => res.json())
+				.then(data => {
+					this.cascade.commentaires.push(data)
+					textarea.value = ''
+					this.post = true
+				})
+				.catch(err => console.warn(err))
+			}
   	},
 	mounted() {
 		document.querySelector('#pills-info-tab').click();
 	},
-	updated() {
-		document.querySelector('#pills-info-tab').click();
+	async updated() {
+		if(this.post) {
+			document.querySelector('#pills-comments-tab').click()
+			this.post = false
+		} else {
+			document.querySelector('#pills-info-tab').click();
+
+			if(this.cascade.zones.length > 0) {
+				const RES = await fetch(`/api/zones/${this.cascade.zones[0].id}/releves`)
+				let releves = await RES.json()
+	
+				var arrayTemp = [];
+				var arrayHeure = [];
+				var arr_jour=new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+				releves.forEach(el => {
+					var dateTemp = new Date(el.date)
+					var today = new Date(Date.now());
+					var jour = (today.getDay() == dateTemp.getDay())?"Aujourdh'ui":arr_jour[dateTemp.getDay()];
+					arrayTemp.push(el.temperature_moyenne)
+					arrayHeure.push(jour +' à '+ (dateTemp.getHours()+1) +':'+dateTemp.getMinutes())
+				})
+				this.graphique.temperatures = arrayTemp;
+				this.graphique.horaires = arrayHeure;
+	
+				lineChartTest.data.labels = arrayHeure
+				lineChartTest.data.datasets[0].data = arrayTemp
+			}
+		}
 	}
 };
 </script>

@@ -65,7 +65,7 @@ Route::get('/api/cascades/{cascade_id}/constituants', 'CascadeController@getCasc
 Route::post('/api/cascades/{cascade_id}/constituants/update', 'CascadeController@updateConstituants')->name('CascadeUpdateConstituants');
 Route::post('/api/cascades/{cascade_id}/supports/update', 'CascadeController@updateSupports')->name('CascadeUpdateSupports');
 Route::post('/api/cascades/{cascade_id}/update', 'CascadeController@update')->name('CascadeUpdate');
-Route::post('/api/cascades/{cascade_id}/commentaire/', 'CascadeController@insertComment')->name('CascadeInsertComment');
+Route::post('/api/cascades/{cascade_id}/commentaire', 'CascadeController@insertComment')->name('CascadeInsertComment');
 Route::post('/api/cascades','CascadeController@insert')->name('CascadeInsert');
 Route::post('/api/cascades/delete', 'CascadeController@delete')->name('CascadeDelete');
 Route::post('/api/cascades/name', 'CascadeController@getCascadesByName')->name('CascadesByName');

@@ -97,10 +97,8 @@ nav.navbar.navbar-default.navbar-static-top {
     left: 145px;
     top: 0;
     z-index: 2;
-}
-
-#pac-input:focus {
-    border-color: #4d90fe;
+    box-shadow: inset 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
+    border: 1px solid gainsboro;
 }
 
 #googleMap {
@@ -309,6 +307,7 @@ hr {
 }
 
 input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset !important;
     -webkit-box-shadow: 0 0 0px 1000px white inset !important;
     -webkit-text-fill-color: #5d5d5d !important;
     font-weight: 100 !important;

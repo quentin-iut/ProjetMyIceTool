@@ -81,9 +81,25 @@
 
         @yield('content')
 
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <center><h4>Voici les dernières temperatures de la Zone</h4></center>
+                <div class="modal-body">
+                    <div style="width:75%;">
+                        <canvas id="lineChartTest" width="400" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD98FXPoiMBf85KTc2IszcA6Zj0L9x9Ids&libraries=geometry,places,drawing"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 
@@ -94,8 +110,14 @@
     <script src="{{ asset('js/Map.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
+    
 
     @auth
+        <script>
+            $cascade.data().showPostComment = true
+            $cascade.data().user_id = {{Auth::user()->id}}
+        </script>
+
         @if(Auth::user()->isAdmin == 1)
             <script src="{{ asset('js/Tooltip.js') }}"></script>
             <script src="{{ asset('js/Drawing.js') }}"></script>
