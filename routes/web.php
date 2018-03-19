@@ -154,6 +154,7 @@ Route::get('/api/zones', 'ZoneController@getZones')->name('Zones');
 Route::get('/api/zones/{zone_id}', 'ZoneController@getZone')->name('Zone');
 Route::get('/api/zones/{zone_id}/cascades', 'ZoneController@getZoneCascades')->name('ZoneCascades');
 Route::get('/api/zones/{zone_id}/releves', 'ZoneController@getZoneReleves')->name('ZoneReleves');
+Route::get('/api/zones/{zone_id}/dangerosite', 'ZoneController@getDangerosite')->name('ZoneDangerosite');
 
 Route::post('/api/zones/{zone_id}/update', 'ZoneController@update')->name('ZoneUpdate');
 Route::post('/api/zones','ZoneController@insert')->name('ZoneInsert');

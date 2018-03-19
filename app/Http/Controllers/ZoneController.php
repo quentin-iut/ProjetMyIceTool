@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Zone;
 use DB;
+use App\Releve;
 
 class ZoneController extends Controller {
     public function getZones() {
@@ -52,5 +53,11 @@ class ZoneController extends Controller {
 
     public function delete(Request $req) {
         Zone::destroy($req->all()[0]);
+    }
+
+    public function getDangerosite($zone_id) {
+        $r = Releve::where('zone_id', $zone_id)->orderBy('date', 'DESC')->first();
+
+        return response()->json([ 'niveau_danger' => $r->niveau_danger]);
     }
 }

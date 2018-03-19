@@ -8,17 +8,33 @@ class Zone {
         }
 
         if (args.rectange === undefined) {
-            this.$rectangle = new google.maps.Rectangle({
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
-                map: map.$maps,
-                bounds: new google.maps.LatLngBounds(
-                    new google.maps.LatLng(args.zone.latSW, args.zone.lngSW),
-                    new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
-                )
+            fetch(`api/zones/${args.zone.id}/dangerosite`)
+            .then(res => res.json())
+            .then(data => {
+                let color = ''
+                switch (data.niveau_danger) {
+                    case 1:
+                        color = '#33CC33'
+                        break;
+                    case 2:
+                        color = '#FF9900'
+                        break;
+                    case 3:
+                        color = '#FF0000'
+                        break;
+                }
+                this.$rectangle = new google.maps.Rectangle({
+                    strokeColor: color,
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: color,
+                    fillOpacity: 0.35,
+                    map: map.$maps,
+                    bounds: new google.maps.LatLngBounds(
+                        new google.maps.LatLng(args.zone.latSW, args.zone.lngSW),
+                        new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
+                    )
+                })
             })
         } else {
             this.$rectangle = args.rectange
