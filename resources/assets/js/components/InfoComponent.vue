@@ -23,9 +23,9 @@
 					<li><strong>Lng: </strong><span data-id="lng">{{ cascade.lng }}</span></li>
 					<li>
 						<strong>temperatures: </strong>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+						<a href="#" data-toggle="modal" data-target="#exampleModal">
 							Voir les dernières températures
-						</button>
+						</a>
 					</li>
 					<li><strong>Type de fin de vie: </strong><span data-id="type_fin_vie.libelle">{{ cascade.type_fin_vie.libelle }}</span></li>
 					<li><strong>Type de glace: </strong><span data-id="type_glace.libelle">{{ cascade.type_glace.libelle }}</span></li>
