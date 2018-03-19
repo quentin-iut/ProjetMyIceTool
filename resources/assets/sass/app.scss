@@ -73,6 +73,11 @@ nav.navbar.navbar-default.navbar-static-top {
     z-index: 1;
 }
 
+.navbar-collapse {
+    border-top: 1px solid black;
+    background-color: white;
+}
+
 .controls {
     margin-top: 10px;
     border: 1px solid transparent;
@@ -225,17 +230,32 @@ nav.navbar.navbar-default.navbar-static-top {
         text-align: center;
     }
     #pac-input {
-        width: 405px;
-        left: 0;
-        top: 47px;
+        width: 160px;
+        left: 120px;
     }
     .logo1 {
-        width: 100%;
+        width: 80%;
     }
     .burgerhead {
-        float: left;
-        top: -48px;
-        left: 372px;
+        float: right;
+    }
+    nav.navbar.navbar-default.navbar-static-top,
+    .navbar-header {
+        height: 50px;
+    }
+    .info {
+        height: 900px;
+        width: 100%;
+        box-shadow: none;
+    }
+    .toggle-button-container {
+        position: relative;
+        right: 0px;
+        float: right;
+    }
+    .toggle-button {
+        border: 1px solid #d4d4d4;
+        border-right: 0;
     }
 }
 

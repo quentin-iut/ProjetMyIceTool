@@ -1,5 +1,9 @@
 <template>
 	<div class="info">
+		<div class="toggle-button-container">
+			<button class="toggle-button" v-on:click="hide"></button>
+		</div>
+		
 		<h1 style="text-align:center;" ><span data-id="nom" class="styleNom">{{ cascade.nom }}</span></h1>
 		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 			<li class="nav-item">
@@ -71,9 +75,6 @@
 				</form>
 			</div>
 		</div>
-    	<div class="toggle-button-container">
-				<button class="toggle-button" v-on:click="hide"></button>
-			</div>
 	</div>
 </template>
 
