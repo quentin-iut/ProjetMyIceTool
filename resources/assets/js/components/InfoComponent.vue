@@ -1,10 +1,18 @@
 <template>
+<transition name="info">
 	<div class="info">
 		<div class="toggle-button-container">
 			<button class="toggle-button" v-on:click="hide"></button>
 		</div>
-		
-		<h1 style="text-align:center;" ><span data-id="nom" class="styleNom">{{ cascade.nom }}</span></h1>
+		<div class="toggle-button-container-mobile">
+			<button class="toggle-button-mobile" v-on:click="hide">Retour</button>
+		</div>
+
+		<div class="favorites-container" v-show="showPostComment">
+			<img src="/img/favorite.png" alt="Ajouter au favoris" class="favorites" v-on:click="updateFavorite" id="favorite-img">
+		</div>
+
+		<h1><span data-id="nom" class="styleNom">{{ cascade.nom }}</span></h1>
 		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link" id="pills-info-tab" data-toggle="pill" href="#pills-info" role="tab" aria-controls="pills-info" aria-selected="true">Informations</a>
@@ -73,6 +81,7 @@
 			</div>
 		</div>
 	</div>
+</transition>
 </template>
 
 
@@ -141,10 +150,6 @@ var data = {
       libelle: "selectionnez une valeur"
     },
     zones: [
-      {
-        id: 0,
-        nom: 0
-      }
     ]
   },
 	showPostComment: false,
@@ -153,7 +158,7 @@ var data = {
 	graphique: {
 		temperatures: [],
 		horaires: []
-	}
+	},
 };
 
 export default {
@@ -163,45 +168,53 @@ export default {
   	},
   	methods: {
     	hide() {
-      	$app.data().show = false;
+      		$app.data().show = false;
     	},
-			sendComment() {
-				const textarea = document.getElementById('message')
-				fetch(`api/cascades/${this.cascade.id}/commentaire`, {
-					method: 'post',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({contenu : textarea.value, user_id: this.user_id})
-				}).then(res => res.json())
-				.then(data => {
-					this.cascade.commentaires.push(data)
-					textarea.value = ''
-					this.post = true
-				})
-				.catch(err => console.warn(err))
+		sendComment() {
+			const textarea = document.getElementById('message')
+			fetch(`api/cascades/${this.cascade.id}/commentaire`, {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({contenu : textarea.value, user_id: this.user_id})
+			}).then(res => res.json())
+			.then(data => {
+				this.cascade.commentaires.push(data)
+				textarea.value = ''
+				this.post = true
+			})
+			.catch(err => console.warn(err))
+		},
+		updateFavorite() {
+			fetch(`/api/users/${this.user_id}/favoris`, {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({cascade_id: this.cascade.id})
+			})
+			.then(res => res.json())
+			.then(data => console.log(data))
+			let img = document.querySelector('#favorite-img')
+			if(img.src.split('/')[4] === 'favorite.png') {
+				img.src = '/img/favorite-full.png'
+			} else {
+				img.src = '/img/favorite.png'
 			}
-  	},
-	mounted() {
-		document.querySelector('#pills-info-tab').click();
-	},
-	async updated() {
-		if(this.post) {
-			document.querySelector('#pills-comments-tab').click()
-			this.post = false
-		} else {
-			document.querySelector('#pills-info-tab').click();
-
+		},
+		heighComments() {
 			if(!this.showPostComment) {
 				document.querySelector('.comments').style.height = '728px'
 			} else {
-				document.querySelector('.comments').style.height = '653px'
+				document.querySelector('.comments').style.height = '629px'
 			}
-
+		},
+		async getReleve() {
 			if(this.cascade.zones.length > 0) {
 				const RES = await fetch(`/api/zones/${this.cascade.zones[0].id}/releves`)
 				let releves = await RES.json()
-	
+
 				var arrayTemp = [];
 				var arrayHeure = [];
 				var arr_jour=new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
@@ -214,10 +227,42 @@ export default {
 				})
 				this.graphique.temperatures = arrayTemp;
 				this.graphique.horaires = arrayHeure;
-	
+
 				lineChartTest.data.labels = arrayHeure
 				lineChartTest.data.datasets[0].data = arrayTemp
 			}
+		},
+		async getFavorites() {
+			const RES = await fetch(`/api/users/${this.user_id}/favoris`)
+			let favorites = await RES.json()
+			let find = false
+			let img = document.querySelector('#favorite-img')
+			favorites.forEach(el =>{
+				if(this.cascade.id === el.id) {
+					find = true	
+				}
+			})
+			if(find) {
+				img.src = '/img/favorite-full.png'
+			} else {
+				img.src = '/img/favorite.png'
+			}
+		}
+
+  	},
+	mounted() {
+		document.querySelector('#pills-info-tab').click();
+	},
+	updated() {
+		if(this.post) {
+			document.querySelector('#pills-comments-tab').click()
+			this.post = false
+		} else {
+			document.querySelector('#pills-info-tab').click();
+
+			this.heighComments()
+			this.getFavorites()
+			this.getReleve()
 		}
 	}
 };

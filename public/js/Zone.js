@@ -8,11 +8,14 @@ class Zone {
         }
 
         if (args.rectange === undefined) {
-            fetch(`api/zones/${args.zone.id}/dangerosite`)
+            fetch(`/api/zones/${args.zone.id}/dangerosite`)
             .then(res => res.json())
             .then(data => {
                 let color = ''
                 switch (data.niveau_danger) {
+                    case 0:
+                        color: '#000000'
+                        break;
                     case 1:
                         color = '#33CC33'
                         break;
@@ -35,22 +38,11 @@ class Zone {
                         new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
                     )
                 })
-            }).catch(err => {
-                this.$rectangle = new google.maps.Rectangle({
-                    strokeColor: '#000000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#000000',
-                    fillOpacity: 0.35,
-                    map: map.$maps,
-                    bounds: new google.maps.LatLngBounds(
-                        new google.maps.LatLng(args.zone.latSW, args.zone.lngSW),
-                        new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
-                    )
-                })
+                this.addEvent()
             })
         } else {
             this.$rectangle = args.rectange
+            this.addEvent()
         }
 
         if (args.zone !== undefined) {
@@ -77,7 +69,6 @@ class Zone {
                     rectangles[this.zone.id] = this
                 })
         }
-        this.addEvent()
     }
 
     get bounds() {

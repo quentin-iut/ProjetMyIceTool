@@ -13,7 +13,7 @@ use App\Http\Controllers\UserController;
 class FavorisController extends Controller {
     public function getFavoris() {
         $currentUser = Auth::user();
-        $listeFavoris = app()->make(UserController::class)->callAction('getUserFavoris', [$currentUser->id])->cascades;
+        $listeFavoris = $currentUser->cascades;
         return view('favoris', ['currentUser' => $currentUser, 'listeFavoris' => $listeFavoris]);
     }
 

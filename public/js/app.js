@@ -43317,181 +43317,253 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var _data = {
-  cascade: {
-    id: 0,
-    nom: "entrez une valeur",
-    nombre_voies: "entrez une valeur",
-    altitude_minimum: "entrez une valeur",
-    hauteur: "entrez une valeur",
-    niveau_engagement: "entrez une valeur",
-    lat: "entrez une valeur",
-    lng: "entrez une valeur",
-    commentaires: [{
-      id: 0,
-      libelle: "",
-      date: ""
-    }],
-    constituants: [{
-      id: 0,
-      libelle: "selectionnez une valeur"
-    }],
-    images: [{
-      id: 0,
-      libelle: "",
-      date: "",
-      url: ""
-    }],
-    niveau: {
-      id: 1,
-      libelle: "selectionnez une valeur"
-    },
-    orientation: {
-      id: 0,
-      libelle: "selectionnez une valeur"
-    },
-    pays: {
-      id: 0,
-      code: "",
-      resume: ""
-    },
-    structure: {
-      id: 0,
-      libelle: "selectionnez une valeur"
-    },
-    supports: [{
-      id: 0,
-      libelle: "selectionnez une valeur"
-    }],
-    type_fin_vie: {
-      id: 0,
-      libelle: "selectionnez une valeur"
-    },
-    type_glace: {
-      id: 0,
-      libelle: "selectionnez une valeur"
-    },
-    zones: [{
-      id: 0,
-      nom: 0
-    }]
-  },
-  showPostComment: false,
-  user_id: 0,
-  post: false,
-  graphique: {
-    temperatures: [],
-    horaires: []
-  }
+	cascade: {
+		id: 0,
+		nom: "entrez une valeur",
+		nombre_voies: "entrez une valeur",
+		altitude_minimum: "entrez une valeur",
+		hauteur: "entrez une valeur",
+		niveau_engagement: "entrez une valeur",
+		lat: "entrez une valeur",
+		lng: "entrez une valeur",
+		commentaires: [{
+			id: 0,
+			libelle: "",
+			date: ""
+		}],
+		constituants: [{
+			id: 0,
+			libelle: "selectionnez une valeur"
+		}],
+		images: [{
+			id: 0,
+			libelle: "",
+			date: "",
+			url: ""
+		}],
+		niveau: {
+			id: 1,
+			libelle: "selectionnez une valeur"
+		},
+		orientation: {
+			id: 0,
+			libelle: "selectionnez une valeur"
+		},
+		pays: {
+			id: 0,
+			code: "",
+			resume: ""
+		},
+		structure: {
+			id: 0,
+			libelle: "selectionnez une valeur"
+		},
+		supports: [{
+			id: 0,
+			libelle: "selectionnez une valeur"
+		}],
+		type_fin_vie: {
+			id: 0,
+			libelle: "selectionnez une valeur"
+		},
+		type_glace: {
+			id: 0,
+			libelle: "selectionnez une valeur"
+		},
+		zones: []
+	},
+	showPostComment: false,
+	user_id: 0,
+	post: false,
+	graphique: {
+		temperatures: [],
+		horaires: []
+	}
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "info",
-  data: function data() {
-    return _data;
-  },
+	name: "info",
+	data: function data() {
+		return _data;
+	},
 
-  methods: {
-    hide: function hide() {
-      $app.data().show = false;
-    },
-    sendComment: function sendComment() {
-      var _this = this;
+	methods: {
+		hide: function hide() {
+			$app.data().show = false;
+		},
+		sendComment: function sendComment() {
+			var _this = this;
 
-      var textarea = document.getElementById('message');
-      fetch("api/cascades/" + this.cascade.id + "/commentaire", {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ contenu: textarea.value, user_id: this.user_id })
-      }).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        _this.cascade.commentaires.push(data);
-        textarea.value = '';
-        _this.post = true;
-      }).catch(function (err) {
-        return console.warn(err);
-      });
-    }
-  },
-  mounted: function mounted() {
-    document.querySelector('#pills-info-tab').click();
-  },
-  updated: function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-      var RES, releves, arrayTemp, arrayHeure, arr_jour;
-      return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              if (!this.post) {
-                _context.next = 5;
-                break;
-              }
+			var textarea = document.getElementById('message');
+			fetch("api/cascades/" + this.cascade.id + "/commentaire", {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ contenu: textarea.value, user_id: this.user_id })
+			}).then(function (res) {
+				return res.json();
+			}).then(function (data) {
+				_this.cascade.commentaires.push(data);
+				textarea.value = '';
+				_this.post = true;
+			}).catch(function (err) {
+				return console.warn(err);
+			});
+		},
+		updateFavorite: function updateFavorite() {
+			fetch("/api/users/" + this.user_id + "/favoris", {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ cascade_id: this.cascade.id })
+			}).then(function (res) {
+				return res.json();
+			}).then(function (data) {
+				return console.log(data);
+			});
+			var img = document.querySelector('#favorite-img');
+			if (img.src.split('/')[4] === 'favorite.png') {
+				img.src = '/img/favorite-full.png';
+			} else {
+				img.src = '/img/favorite.png';
+			}
+		},
+		heighComments: function heighComments() {
+			if (!this.showPostComment) {
+				document.querySelector('.comments').style.height = '728px';
+			} else {
+				document.querySelector('.comments').style.height = '629px';
+			}
+		},
+		getReleve: function () {
+			var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+				var RES, releves, arrayTemp, arrayHeure, arr_jour;
+				return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+					while (1) {
+						switch (_context.prev = _context.next) {
+							case 0:
+								if (!(this.cascade.zones.length > 0)) {
+									_context.next = 15;
+									break;
+								}
 
-              document.querySelector('#pills-comments-tab').click();
-              this.post = false;
-              _context.next = 22;
-              break;
+								_context.next = 3;
+								return fetch("/api/zones/" + this.cascade.zones[0].id + "/releves");
 
-            case 5:
-              document.querySelector('#pills-info-tab').click();
+							case 3:
+								RES = _context.sent;
+								_context.next = 6;
+								return RES.json();
 
-              if (!this.showPostComment) {
-                document.querySelector('.comments').style.height = '728px';
-              } else {
-                document.querySelector('.comments').style.height = '653px';
-              }
+							case 6:
+								releves = _context.sent;
+								arrayTemp = [];
+								arrayHeure = [];
+								arr_jour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
 
-              if (!(this.cascade.zones.length > 0)) {
-                _context.next = 22;
-                break;
-              }
+								releves.forEach(function (el) {
+									var dateTemp = new Date(el.date);
+									var today = new Date(Date.now());
+									var jour = today.getDay() == dateTemp.getDay() ? "Aujourdh'ui" : arr_jour[dateTemp.getDay()];
+									arrayTemp.push(el.temperature_moyenne);
+									arrayHeure.push(jour + ' à ' + (dateTemp.getHours() + 1) + ':' + dateTemp.getMinutes());
+								});
+								this.graphique.temperatures = arrayTemp;
+								this.graphique.horaires = arrayHeure;
 
-              _context.next = 10;
-              return fetch("/api/zones/" + this.cascade.zones[0].id + "/releves");
+								lineChartTest.data.labels = arrayHeure;
+								lineChartTest.data.datasets[0].data = arrayTemp;
 
-            case 10:
-              RES = _context.sent;
-              _context.next = 13;
-              return RES.json();
+							case 15:
+							case "end":
+								return _context.stop();
+						}
+					}
+				}, _callee, this);
+			}));
 
-            case 13:
-              releves = _context.sent;
-              arrayTemp = [];
-              arrayHeure = [];
-              arr_jour = new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+			function getReleve() {
+				return _ref.apply(this, arguments);
+			}
 
-              releves.forEach(function (el) {
-                var dateTemp = new Date(el.date);
-                var today = new Date(Date.now());
-                var jour = today.getDay() == dateTemp.getDay() ? "Aujourdh'ui" : arr_jour[dateTemp.getDay()];
-                arrayTemp.push(el.temperature_moyenne);
-                arrayHeure.push(jour + ' à ' + (dateTemp.getHours() + 1) + ':' + dateTemp.getMinutes());
-              });
-              this.graphique.temperatures = arrayTemp;
-              this.graphique.horaires = arrayHeure;
+			return getReleve;
+		}(),
+		getFavorites: function () {
+			var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+				var _this2 = this;
 
-              lineChartTest.data.labels = arrayHeure;
-              lineChartTest.data.datasets[0].data = arrayTemp;
+				var RES, favorites, find, img;
+				return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+					while (1) {
+						switch (_context2.prev = _context2.next) {
+							case 0:
+								_context2.next = 2;
+								return fetch("/api/users/" + this.user_id + "/favoris");
 
-            case 22:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
+							case 2:
+								RES = _context2.sent;
+								_context2.next = 5;
+								return RES.json();
 
-    function updated() {
-      return _ref.apply(this, arguments);
-    }
+							case 5:
+								favorites = _context2.sent;
+								find = false;
+								img = document.querySelector('#favorite-img');
 
-    return updated;
-  }()
+								favorites.forEach(function (el) {
+									if (_this2.cascade.id === el.id) {
+										find = true;
+									}
+								});
+								if (find) {
+									img.src = '/img/favorite-full.png';
+								} else {
+									img.src = '/img/favorite.png';
+								}
+
+							case 10:
+							case "end":
+								return _context2.stop();
+						}
+					}
+				}, _callee2, this);
+			}));
+
+			function getFavorites() {
+				return _ref2.apply(this, arguments);
+			}
+
+			return getFavorites;
+		}()
+	},
+	mounted: function mounted() {
+		document.querySelector('#pills-info-tab').click();
+	},
+	updated: function updated() {
+		if (this.post) {
+			document.querySelector('#pills-comments-tab').click();
+			this.post = false;
+		} else {
+			document.querySelector('#pills-info-tab').click();
+
+			this.heighComments();
+			this.getFavorites();
+			this.getReleve();
+		}
+	}
 });
 
 /***/ }),
@@ -44283,316 +44355,345 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "info" }, [
-    _c("div", { staticClass: "toggle-button-container" }, [
-      _c("button", { staticClass: "toggle-button", on: { click: _vm.hide } })
-    ]),
-    _vm._v(" "),
-    _c("h1", { staticStyle: { "text-align": "center" } }, [
-      _c("span", { staticClass: "styleNom", attrs: { "data-id": "nom" } }, [
-        _vm._v(_vm._s(_vm.cascade.nom))
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
-      [
+  return _c("transition", { attrs: { name: "info" } }, [
+    _c("div", { staticClass: "info" }, [
+      _c("div", { staticClass: "toggle-button-container" }, [
+        _c("button", { staticClass: "toggle-button", on: { click: _vm.hide } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "toggle-button-container-mobile" }, [
         _c(
-          "div",
-          {
-            staticClass: "tab-pane fade",
-            attrs: {
-              id: "pills-info",
-              role: "tabpanel",
-              "aria-labelledby": "pills-info-tab"
-            }
-          },
-          [
-            _c("ul", [
-              _c("li", [
-                _c("strong", [_vm._v("Nombre voies: ")]),
-                _c("span", { attrs: { "data-id": "nombre_voies" } }, [
-                  _vm._v(_vm._s(_vm.cascade.nombre_voies))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Altitude minimum: ")]),
-                _c("span", { attrs: { "data-id": "altitude_minimum" } }, [
-                  _vm._v(_vm._s(_vm.cascade.altitude_minimum))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Hauteur: ")]),
-                _c("span", { attrs: { "data-id": "hauteur" } }, [
-                  _vm._v(_vm._s(_vm.cascade.hauteur))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Niveau engagement: ")]),
-                _c("span", { attrs: { "data-id": "niveau_engagement" } }, [
-                  _vm._v(_vm._s(_vm.cascade.niveau_engagement))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Lat: ")]),
-                _c("span", { attrs: { "data-id": "lat" } }, [
-                  _vm._v(_vm._s(_vm.cascade.lat))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Lng: ")]),
-                _c("span", { attrs: { "data-id": "lng" } }, [
-                  _vm._v(_vm._s(_vm.cascade.lng))
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Type de fin de vie: ")]),
-                _c("span", { attrs: { "data-id": "type_fin_vie.libelle" } }, [
-                  _vm._v(_vm._s(_vm.cascade.type_fin_vie.libelle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Type de glace: ")]),
-                _c("span", { attrs: { "data-id": "type_glace.libelle" } }, [
-                  _vm._v(_vm._s(_vm.cascade.type_glace.libelle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Structure: ")]),
-                _c("span", { attrs: { "data-id": "structure.libelle" } }, [
-                  _vm._v(_vm._s(_vm.cascade.structure.libelle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Orientation: ")]),
-                _c("span", { attrs: { "data-id": "orientation.libelle" } }, [
-                  _vm._v(_vm._s(_vm.cascade.orientation.libelle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", [_vm._v("Niveau: ")]),
-                _c("span", { attrs: { "data-id": "niveau.libelle" } }, [
-                  _vm._v(_vm._s(_vm.cascade.niveau.libelle))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", { attrs: { checkbox: "" } }, [
-                  _vm._v("Constituants")
-                ]),
-                _vm._v(":\n\t\t\t\t\t"),
-                _c(
-                  "ul",
-                  _vm._l(_vm.cascade.constituants, function(constituant) {
-                    return _c("li", [
-                      _vm._v(
-                        "\n\t\t\t\t\t\t\t" +
-                          _vm._s(constituant.libelle) +
-                          "\n\t\t\t\t\t\t"
-                      )
-                    ])
-                  })
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("strong", { attrs: { checkbox: "" } }, [_vm._v("Supports")]),
-                _vm._v(":\n\t\t\t\t\t"),
-                _c(
-                  "ul",
-                  _vm._l(_vm.cascade.supports, function(support) {
-                    return _c("li", [
-                      _vm._v(
-                        "\n\t\t\t\t\t\t\t" +
-                          _vm._s(support.libelle) +
-                          "\n\t\t\t\t\t\t"
-                      )
-                    ])
-                  })
-                )
-              ])
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "tab-pane fade",
-            attrs: {
-              id: "pills-images",
-              role: "tabpanel",
-              "aria-labelledby": "pills-images-tab"
-            }
-          },
-          _vm._l(_vm.cascade.images, function(image) {
-            return _c("div", { staticClass: "container-images" }, [
-              _c("img", {
-                staticClass: "image-cascade",
-                attrs: { src: image.url, alt: image.libelle }
-              })
-            ])
-          })
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "tab-pane fade",
-            attrs: {
-              id: "pills-comments",
-              role: "tabpanel",
-              "aria-labelledby": "pills-comments-tab"
-            }
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "comments" },
-              _vm._l(_vm.cascade.commentaires, function(commentaire) {
-                return _c("div", { staticClass: "div-comments" }, [
-                  _c("img", {
-                    staticClass: "img-comments",
-                    attrs: { src: "/img/user.png", alt: "user profile" }
-                  }),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(commentaire.libelle))])
-                ])
-              })
-            ),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.showPostComment,
-                    expression: "showPostComment"
-                  }
-                ],
-                attrs: { id: "post-comment" }
-              },
-              [
-                _c("textarea", { attrs: { id: "message" } }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: { type: "button", value: "Envoyer" },
-                  on: { click: _vm.sendComment }
-                })
-              ]
-            )
-          ]
+          "button",
+          { staticClass: "toggle-button-mobile", on: { click: _vm.hide } },
+          [_vm._v("Retour")]
         )
-      ]
-    )
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      {
-        staticClass: "nav nav-pills mb-3",
-        attrs: { id: "pills-tab", role: "tablist" }
-      },
-      [
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "pills-info-tab",
-                "data-toggle": "pill",
-                href: "#pills-info",
-                role: "tab",
-                "aria-controls": "pills-info",
-                "aria-selected": "true"
-              }
-            },
-            [_vm._v("Informations")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "pills-images-tab",
-                "data-toggle": "pill",
-                href: "#pills-images",
-                role: "tab",
-                "aria-controls": "pills-images",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("Images")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "nav-link",
-              attrs: {
-                id: "pills-comments-tab",
-                "data-toggle": "pill",
-                href: "#pills-comments",
-                role: "tab",
-                "aria-controls": "pills-comments",
-                "aria-selected": "false"
-              }
-            },
-            [_vm._v("Commentaires")]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("strong", [_vm._v("temperatures: ")]),
+      ]),
       _vm._v(" "),
       _c(
-        "a",
+        "div",
         {
-          attrs: {
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#exampleModal"
-          }
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.showPostComment,
+              expression: "showPostComment"
+            }
+          ],
+          staticClass: "favorites-container"
         },
-        [_vm._v("\n\t\t\t\t\t\tVoir les dernières températures\n\t\t\t\t\t")]
+        [
+          _c("img", {
+            staticClass: "favorites",
+            attrs: {
+              src: "/img/favorite.png",
+              alt: "Ajouter au favoris",
+              id: "favorite-img"
+            },
+            on: { click: _vm.updateFavorite }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c("h1", [
+        _c("span", { staticClass: "styleNom", attrs: { "data-id": "nom" } }, [
+          _vm._v(_vm._s(_vm.cascade.nom))
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-pills mb-3",
+          attrs: { id: "pills-tab", role: "tablist" }
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "pills-info-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-info",
+                  role: "tab",
+                  "aria-controls": "pills-info",
+                  "aria-selected": "true"
+                }
+              },
+              [_vm._v("Informations")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "pills-images-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-images",
+                  role: "tab",
+                  "aria-controls": "pills-images",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Images")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link",
+                attrs: {
+                  id: "pills-comments-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-comments",
+                  role: "tab",
+                  "aria-controls": "pills-comments",
+                  "aria-selected": "false"
+                }
+              },
+              [_vm._v("Commentaires")]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "tab-pane fade",
+              attrs: {
+                id: "pills-info",
+                role: "tabpanel",
+                "aria-labelledby": "pills-info-tab"
+              }
+            },
+            [
+              _c("ul", [
+                _c("li", [
+                  _c("strong", [_vm._v("Nombre voies: ")]),
+                  _c("span", { attrs: { "data-id": "nombre_voies" } }, [
+                    _vm._v(_vm._s(_vm.cascade.nombre_voies))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Altitude minimum: ")]),
+                  _c("span", { attrs: { "data-id": "altitude_minimum" } }, [
+                    _vm._v(_vm._s(_vm.cascade.altitude_minimum))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Hauteur: ")]),
+                  _c("span", { attrs: { "data-id": "hauteur" } }, [
+                    _vm._v(_vm._s(_vm.cascade.hauteur))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Niveau engagement: ")]),
+                  _c("span", { attrs: { "data-id": "niveau_engagement" } }, [
+                    _vm._v(_vm._s(_vm.cascade.niveau_engagement))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Lat: ")]),
+                  _c("span", { attrs: { "data-id": "lat" } }, [
+                    _vm._v(_vm._s(_vm.cascade.lat))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Lng: ")]),
+                  _c("span", { attrs: { "data-id": "lng" } }, [
+                    _vm._v(_vm._s(_vm.cascade.lng))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("temperatures: ")]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href: "#",
+                        "data-toggle": "modal",
+                        "data-target": "#exampleModal"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n\t\t\t\t\t\t\tVoir les dernières températures\r\n\t\t\t\t\t\t"
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Type de fin de vie: ")]),
+                  _c("span", { attrs: { "data-id": "type_fin_vie.libelle" } }, [
+                    _vm._v(_vm._s(_vm.cascade.type_fin_vie.libelle))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Type de glace: ")]),
+                  _c("span", { attrs: { "data-id": "type_glace.libelle" } }, [
+                    _vm._v(_vm._s(_vm.cascade.type_glace.libelle))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Structure: ")]),
+                  _c("span", { attrs: { "data-id": "structure.libelle" } }, [
+                    _vm._v(_vm._s(_vm.cascade.structure.libelle))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Orientation: ")]),
+                  _c("span", { attrs: { "data-id": "orientation.libelle" } }, [
+                    _vm._v(_vm._s(_vm.cascade.orientation.libelle))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", [_vm._v("Niveau: ")]),
+                  _c("span", { attrs: { "data-id": "niveau.libelle" } }, [
+                    _vm._v(_vm._s(_vm.cascade.niveau.libelle))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", { attrs: { checkbox: "" } }, [
+                    _vm._v("Constituants")
+                  ]),
+                  _vm._v(":\r\n\t\t\t\t\t\t"),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.cascade.constituants, function(constituant) {
+                      return _c("li", [
+                        _vm._v(
+                          "\r\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(constituant.libelle) +
+                            "\r\n\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    })
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("strong", { attrs: { checkbox: "" } }, [
+                    _vm._v("Supports")
+                  ]),
+                  _vm._v(":\r\n\t\t\t\t\t\t"),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.cascade.supports, function(support) {
+                      return _c("li", [
+                        _vm._v(
+                          "\r\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(support.libelle) +
+                            "\r\n\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    })
+                  )
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "tab-pane fade",
+              attrs: {
+                id: "pills-images",
+                role: "tabpanel",
+                "aria-labelledby": "pills-images-tab"
+              }
+            },
+            _vm._l(_vm.cascade.images, function(image) {
+              return _c("div", { staticClass: "container-images" }, [
+                _c("img", {
+                  staticClass: "image-cascade",
+                  attrs: { src: image.url, alt: image.libelle }
+                })
+              ])
+            })
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "tab-pane fade",
+              attrs: {
+                id: "pills-comments",
+                role: "tabpanel",
+                "aria-labelledby": "pills-comments-tab"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "comments" },
+                _vm._l(_vm.cascade.commentaires, function(commentaire) {
+                  return _c("div", { staticClass: "div-comments" }, [
+                    _c("img", {
+                      staticClass: "img-comments",
+                      attrs: { src: "/img/user.png", alt: "user profile" }
+                    }),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(commentaire.libelle))])
+                  ])
+                })
+              ),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.showPostComment,
+                      expression: "showPostComment"
+                    }
+                  ],
+                  attrs: { id: "post-comment" }
+                },
+                [
+                  _c("textarea", { attrs: { id: "message" } }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "button", value: "Envoyer" },
+                    on: { click: _vm.sendComment }
+                  })
+                ]
+              )
+            ]
+          )
+        ]
       )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -44674,6 +44775,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 var _data = {
 	zone: {
@@ -44708,46 +44812,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "info" }, [
+    _c("div", { staticClass: "toggle-button-container" }, [
+      _c("button", { staticClass: "toggle-button", on: { click: _vm.hide } })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "toggle-button-container-mobile" }, [
+      _c(
+        "button",
+        { staticClass: "toggle-button-mobile", on: { click: _vm.hide } },
+        [_vm._v("Retour")]
+      )
+    ]),
+    _vm._v(" "),
     _c("div", [
       _c("h1", [
-        _c("span", { attrs: { "data-id": "nom" } }, [
+        _c("span", { staticClass: "styleNom", attrs: { "data-id": "nom" } }, [
           _vm._v(_vm._s(_vm.zone.nom))
         ])
       ]),
       _vm._v(" "),
-      _c("ul", [
-        _c("li", [
+      _c("div", { staticClass: "container-details-zone" }, [
+        _c("p", [
           _c("strong", [_vm._v("Latitude Nord Est ")]),
           _c("span", { attrs: { "data-id": "latNE" } }, [
             _vm._v(_vm._s(_vm.zone.latNE))
           ])
         ]),
         _vm._v(" "),
-        _c("li", [
+        _c("p", [
           _c("strong", [_vm._v("Longitude Nord Est: ")]),
           _c("span", { attrs: { "data-id": "lngNE" } }, [
             _vm._v(_vm._s(_vm.zone.lngNE))
           ])
         ]),
         _vm._v(" "),
-        _c("li", [
+        _c("p", [
           _c("strong", [_vm._v("Latitude Sud Ouest: ")]),
           _c("span", { attrs: { "data-id": "latSW" } }, [
             _vm._v(_vm._s(_vm.zone.latSW))
           ])
         ]),
         _vm._v(" "),
-        _c("li", [
+        _c("p", [
           _c("strong", [_vm._v("Longitude Sud Ouest: ")]),
           _c("span", { attrs: { "data-id": "lngSW" } }, [
             _vm._v(_vm._s(_vm.zone.lngSW))
           ])
         ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "toggle-button-container" }, [
-      _c("button", { staticClass: "toggle-button", on: { click: _vm.hide } })
     ])
   ])
 }

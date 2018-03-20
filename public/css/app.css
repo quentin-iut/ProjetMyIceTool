@@ -8782,7 +8782,7 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
   background: #bbb9ba;
 }
 
-#pills-images {
+#pills-images.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8845,6 +8845,52 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
   margin: 5px;
 }
 
+.container-details-zone {
+  margin: 30px 20px;
+}
+
+.toggle-button-container-mobile {
+  visibility: hidden;
+}
+
+.toggle-button-mobile {
+  border: 0;
+  background: #bcb9ba;
+  cursor: pointer;
+}
+
+.info h1 {
+  text-align: center;
+}
+
+.favorites-container {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.favorites {
+  width: 25px;
+  cursor: pointer;
+}
+
+.info-enter-active {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.info-leave-active {
+  -webkit-transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.info-enter,
+.info-leave-to {
+  -webkit-transform: translateX(-100px);
+          transform: translateX(-100px);
+  opacity: 0;
+}
+
 @media (max-width: 500px) {
   .footer {
     -webkit-box-orient: vertical;
@@ -8885,14 +8931,29 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
   }
 
   .toggle-button-container {
-    position: relative;
-    right: 0px;
-    float: right;
+    display: none;
   }
 
-  .toggle-button {
-    border: 1px solid #d4d4d4;
-    border-right: 0;
+  .toggle-button-container-mobile {
+    visibility: visible;
+    position: absolute;
+    right: 10px;
+    top: 61px;
+  }
+
+  .info h1 {
+    margin-bottom: 25px;
+  }
+
+  .favorites-container {
+    top: 5px;
+  }
+}
+
+@media (max-width: 355px) {
+  #pac-input {
+    width: 90px;
+    left: 120px;
   }
 }
 
