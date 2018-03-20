@@ -455,11 +455,9 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
     margin: 30px 20px;
 }
 .toggle-button-container-mobile {
-    visibility: hidden;
+    display: none;
 }
 .toggle-button-mobile {
-    border: 0;
-    background: #bcb9ba;
     cursor: pointer;
 }
 .info h1 {
@@ -519,10 +517,9 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
         display: none;
     }
     .toggle-button-container-mobile {
-        visibility: visible;
+        display: block;
         position: absolute;
-        right: 10px;
-        top: 61px;
+        left: 10px;
     }
     .info h1 {
         margin-bottom: 25px;

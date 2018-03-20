@@ -88,18 +88,18 @@ class NetatmoData extends Command {
                 ]
             );
 
-            //suppression des releves supperieurs à 3 jours
-            $listeReleve = Releve::where('zone_id', $zone->id)->orderBy('date', 'ASC')->get();
-            $nombreReleves = count($listeReleve);
-            if ($nombreReleves > 36) { // car 1 releve toutes les 2h
-                for($i=0; $nombreReleves > 36; $i++) {
-                    DB:table('releves')->where('id', $listeReleve[$i]->id)->delete();
-                    $nombreReleves--;
-                }
-                // for ($i=$nombreReleves-36; $i > 0 ; $i--) {
-                //     DB::table('releves')->where('id', '=', $listeReleve[$i]->id)->delete();
-                // }
-            }
+            // //suppression des releves supperieurs à 3 jours
+            // $listeReleve = Releve::where('zone_id', $zone->id)->orderBy('date', 'ASC')->get();
+            // $nombreReleves = count($listeReleve);
+            // if ($nombreReleves > 36) { // car 1 releve toutes les 2h
+            //     for($i=0; $nombreReleves > 36; $i++) {
+            //         DB:table('releves')->where('id', $listeReleve[$i]->id)->delete();
+            //         $nombreReleves--;
+            //     }
+            //     // for ($i=$nombreReleves-36; $i > 0 ; $i--) {
+            //     //     DB::table('releves')->where('id', '=', $listeReleve[$i]->id)->delete();
+            //     // }
+            // }
         }
     }
 }

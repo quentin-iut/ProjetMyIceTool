@@ -50,6 +50,7 @@ class Cascade extends Marker {
                     $app.data().showZone = false
                     $app.data().show = true
                     $cascade.data().cascade = cascadeInfo
+                    scrollTo(0, 45)
                 })
             }
         })
