@@ -4,22 +4,22 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-body">
+            <div class="panel panel-body" style="overflow: auto">
                 <h2>Favoris</h2>
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Nom de la cascade</th>
-                            <th>nombre de voies</th>
-                            <th>altitude minimum</th>
-                            <th>hauteur</th>
-                            <th>Plus de details</th>
-                            <th>Retirer des favoris</th>
+                            <th scope="col">Nom de la cascade</th>
+                            <th scope="col">nombre de voies</th>
+                            <th scope="col">altitude minimum</th>
+                            <th scope="col">hauteur</th>
+                            <th scope="col">Plus de details</th>
+                            <th scope="col">Retirer des favoris</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($listeFavoris as $favoris)
-                        <tr>
+                        <tr scope="row">
                             <td>{{$favoris->nom}}</td>
                             <td>{{$favoris->nombre_voies}}</td>
                             <td>{{$favoris->altitude_minimum}}</td>
@@ -30,7 +30,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <br><br>
                 <span><a href="{{route('home')}}"> ← Ajouter d'autres favoris ! (retour à la maps)</a></span>
             </div>
         </div>

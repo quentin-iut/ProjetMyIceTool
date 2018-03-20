@@ -1,17 +1,20 @@
 <template>
 	<div class="info">
-    	<div>
-      		<h1><span data-id="nom">{{ zone.nom }}</span></h1>
-			<ul>
-                <li><strong>Latitude Nord Est </strong><span data-id="latNE">{{ zone.latNE}}</span></li>
-				<li><strong>Longitude Nord Est: </strong><span data-id="lngNE">{{ zone.lngNE }}</span></li>
-				<li><strong>Latitude Sud Ouest: </strong><span data-id="latSW">{{ zone.latSW }}</span></li>
-				<li><strong>Longitude Sud Ouest: </strong><span data-id="lngSW">{{ zone.lngSW }}</span></li>
-			</ul>
-    	</div>
     	<div class="toggle-button-container">
       		<button class="toggle-button" v-on:click="hide"></button>
       	</div>
+		<div class="toggle-button-container-mobile">
+			<button class="toggle-button-mobile" v-on:click="hide">Retour</button>
+		</div>
+    	<div>
+      		<h1><span data-id="nom" class="styleNom">{{ zone.nom }}</span></h1>
+			<div class="container-details-zone">
+                <p><strong>Latitude Nord Est </strong><span data-id="latNE">{{ zone.latNE}}</span></p>
+				<p><strong>Longitude Nord Est: </strong><span data-id="lngNE">{{ zone.lngNE }}</span></p>
+				<p><strong>Latitude Sud Ouest: </strong><span data-id="latSW">{{ zone.latSW }}</span></p>
+				<p><strong>Longitude Sud Ouest: </strong><span data-id="lngSW">{{ zone.lngSW }}</span></p>
+			</div>
+    	</div>
 	</div>
 </template>
 

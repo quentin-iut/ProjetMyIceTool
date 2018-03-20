@@ -144,6 +144,7 @@ Route::get('/api/type_glaces', 'TypeGlaceController@getTypeGlaces')->name('TypeG
 Route::get('/api/users/{user_id}', 'UserController@getUser')->name('User');
 Route::get('/api/users/{user_id}/details', 'UserController@getUserDetails')->name('UserDetails');
 Route::get('/api/users/{user_id}/favoris', 'UserController@getUserFavoris')->name('UserFavoris');
+Route::post('/api/users/{user_id}/favoris', 'UserController@updateUserFavoris')->name('UserAddFavoris');
 Route::get('/api/users/{user_id}/langue', 'UserController@getUserLangue')->name('UserLangue');
 Route::get('/api/users/{user_id}/niveau', 'UserController@getUserNiveau')->name('UserNiveau');
 
@@ -154,6 +155,7 @@ Route::get('/api/zones', 'ZoneController@getZones')->name('Zones');
 Route::get('/api/zones/{zone_id}', 'ZoneController@getZone')->name('Zone');
 Route::get('/api/zones/{zone_id}/cascades', 'ZoneController@getZoneCascades')->name('ZoneCascades');
 Route::get('/api/zones/{zone_id}/releves', 'ZoneController@getZoneReleves')->name('ZoneReleves');
+Route::get('/api/zones/{zone_id}/dangerosite', 'ZoneController@getDangerosite')->name('ZoneDangerosite');
 
 Route::post('/api/zones/{zone_id}/update', 'ZoneController@update')->name('ZoneUpdate');
 Route::post('/api/zones','ZoneController@insert')->name('ZoneInsert');
