@@ -64,7 +64,7 @@
 }
 
 section {
-    height: 899px;
+    height: 898px;
 }
 
 nav.navbar.navbar-default.navbar-static-top {
@@ -220,44 +220,6 @@ nav.navbar.navbar-default.navbar-static-top {
     text-decoration: none;
 }
 
-@media (max-width: 500px) {
-    .footer {
-        flex-direction: column;
-        position: inherit;
-    }
-    .footer-right li {
-        display: block;
-        text-align: center;
-    }
-    #pac-input {
-        width: 160px;
-        left: 120px;
-    }
-    .logo1 {
-        width: 80%;
-    }
-    .burgerhead {
-        float: right;
-    }
-    nav.navbar.navbar-default.navbar-static-top,
-    .navbar-header {
-        height: 50px;
-    }
-    .info {
-        height: 900px;
-        width: 100%;
-        box-shadow: none;
-    }
-    .toggle-button-container {
-        position: relative;
-        right: 0px;
-        float: right;
-    }
-    .toggle-button {
-        border: 1px solid #d4d4d4;
-        border-right: 0;
-    }
-}
 
 .panel-default {
     margin-top: 5%;
@@ -414,7 +376,7 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
 
 .comments {
     overflow-wrap: break-word;
-    max-height: 653px;
+    height: 653px;
     overflow-x: auto;
 }
 
@@ -445,4 +407,87 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #bbb9ba; 
+}
+
+#pills-images {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    max-height: 730px;
+}
+.container-images {
+    flex: 1 1 auto;
+    padding: 5px;
+    padding-top: 0;
+}
+.image-cascade {
+    width: 100%;
+}
+
+.container-images-favoris {
+    display: flex;
+    overflow: auto;
+}
+.img-fluid {
+    flex: 1 1 auto;
+    padding: 5px;
+    height: 230px;
+}
+.table {
+    margin-bottom: 22px!important;
+}
+.details-div {
+    padding: 25px;
+}
+
+.div-comments {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 10px;
+}
+.img-comments {
+    height: 35px;
+    margin: 5px;
+}
+
+
+
+@media (max-width: 500px) {
+    .footer {
+        flex-direction: column;
+        position: inherit;
+    }
+    .footer-right li {
+        display: block;
+        text-align: center;
+    }
+    #pac-input {
+        width: 160px;
+        left: 120px;
+    }
+    .logo1 {
+        width: 80%;
+    }
+    .burgerhead {
+        float: right;
+    }
+    nav.navbar.navbar-default.navbar-static-top,
+    .navbar-header {
+        height: 50px;
+    }
+    .info {
+        height: 900px;
+        width: 100%;
+        box-shadow: none;
+    }
+    .toggle-button-container {
+        position: relative;
+        right: 0px;
+        float: right;
+    }
+    .toggle-button {
+        border: 1px solid #d4d4d4;
+        border-right: 0;
+    }
 }

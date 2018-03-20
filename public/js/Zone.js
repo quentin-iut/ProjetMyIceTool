@@ -35,6 +35,19 @@ class Zone {
                         new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
                     )
                 })
+            }).catch(err => {
+                this.$rectangle = new google.maps.Rectangle({
+                    strokeColor: '#000000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#000000',
+                    fillOpacity: 0.35,
+                    map: map.$maps,
+                    bounds: new google.maps.LatLngBounds(
+                        new google.maps.LatLng(args.zone.latSW, args.zone.lngSW),
+                        new google.maps.LatLng(args.zone.latNE, args.zone.lngNE)
+                    )
+                })
             })
         } else {
             this.$rectangle = args.rectange

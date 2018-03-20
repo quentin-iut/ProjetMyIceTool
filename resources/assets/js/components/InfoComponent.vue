@@ -55,19 +55,16 @@
 				</ul>
 			</div>
 			<div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
-					<ul>
-						<li v-for="image in cascade.images">
-							<img v-bind:src="image.url" alt="">
-						</li>
-					</ul>
+				<div v-for="image in cascade.images" class="container-images">
+					<img v-bind:src="image.url" :alt="image.libelle" class="image-cascade">
+				</div>
 			</div>
 			<div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
 				<div class="comments">
-					<ul>
-						<li v-for="commentaire in cascade.commentaires">
-							{{ commentaire.libelle }}
-						</li>
-					</ul>
+					<div v-for="commentaire in cascade.commentaires" class="div-comments">
+						<img src="/img/user.png" alt="user profile" class="img-comments">
+							<p>{{ commentaire.libelle }}</p>
+					</div>
 				</div>
 				<form id="post-comment" v-show="showPostComment">
 					<textarea id="message"></textarea>
@@ -194,6 +191,12 @@ export default {
 			this.post = false
 		} else {
 			document.querySelector('#pills-info-tab').click();
+
+			if(!this.showPostComment) {
+				document.querySelector('.comments').style.height = '728px'
+			} else {
+				document.querySelector('.comments').style.height = '653px'
+			}
 
 			if(this.cascade.zones.length > 0) {
 				const RES = await fetch(`/api/zones/${this.cascade.zones[0].id}/releves`)

@@ -43317,9 +43317,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
 
 var _data = {
   cascade: {
@@ -43437,26 +43434,32 @@ var _data = {
 
               document.querySelector('#pills-comments-tab').click();
               this.post = false;
-              _context.next = 21;
+              _context.next = 22;
               break;
 
             case 5:
               document.querySelector('#pills-info-tab').click();
 
+              if (!this.showPostComment) {
+                document.querySelector('.comments').style.height = '728px';
+              } else {
+                document.querySelector('.comments').style.height = '653px';
+              }
+
               if (!(this.cascade.zones.length > 0)) {
-                _context.next = 21;
+                _context.next = 22;
                 break;
               }
 
-              _context.next = 9;
+              _context.next = 10;
               return fetch("/api/zones/" + this.cascade.zones[0].id + "/releves");
 
-            case 9:
+            case 10:
               RES = _context.sent;
-              _context.next = 12;
+              _context.next = 13;
               return RES.json();
 
-            case 12:
+            case 13:
               releves = _context.sent;
               arrayTemp = [];
               arrayHeure = [];
@@ -43475,7 +43478,7 @@ var _data = {
               lineChartTest.data.labels = arrayHeure;
               lineChartTest.data.datasets[0].data = arrayTemp;
 
-            case 21:
+            case 22:
             case "end":
               return _context.stop();
           }
@@ -44437,16 +44440,14 @@ var render = function() {
               "aria-labelledby": "pills-images-tab"
             }
           },
-          [
-            _c(
-              "ul",
-              _vm._l(_vm.cascade.images, function(image) {
-                return _c("li", [
-                  _c("img", { attrs: { src: image.url, alt: "" } })
-                ])
+          _vm._l(_vm.cascade.images, function(image) {
+            return _c("div", { staticClass: "container-images" }, [
+              _c("img", {
+                staticClass: "image-cascade",
+                attrs: { src: image.url, alt: image.libelle }
               })
-            )
-          ]
+            ])
+          })
         ),
         _vm._v(" "),
         _c(
@@ -44460,20 +44461,20 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "comments" }, [
-              _c(
-                "ul",
-                _vm._l(_vm.cascade.commentaires, function(commentaire) {
-                  return _c("li", [
-                    _vm._v(
-                      "\n\t\t\t\t\t\t" +
-                        _vm._s(commentaire.libelle) +
-                        "\n\t\t\t\t\t"
-                    )
-                  ])
-                })
-              )
-            ]),
+            _c(
+              "div",
+              { staticClass: "comments" },
+              _vm._l(_vm.cascade.commentaires, function(commentaire) {
+                return _c("div", { staticClass: "div-comments" }, [
+                  _c("img", {
+                    staticClass: "img-comments",
+                    attrs: { src: "/img/user.png", alt: "user profile" }
+                  }),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(commentaire.libelle))])
+                ])
+              })
+            ),
             _vm._v(" "),
             _c(
               "form",
