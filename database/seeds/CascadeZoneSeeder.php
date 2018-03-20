@@ -16,11 +16,11 @@ class CascadeZoneSeeder extends Seeder {
             ]);
             DB::table('cascade_zone')->insert([
                 'cascade_id' => 2,
-                'zone_id' => 2
+                'zone_id' => 1
             ]);
             DB::table('cascade_zone')->insert([
-                'cascade_id' => 3,
-                'zone_id' => 6
+                'cascade_id' => 6,
+                'zone_id' => 1
             ]);
         }
     }
