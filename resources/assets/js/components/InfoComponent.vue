@@ -5,7 +5,7 @@
 			<button class="toggle-button" v-on:click="hide"></button>
 		</div>
 		<div class="toggle-button-container-mobile">
-			<button class="toggle-button-mobile" v-on:click="hide">Retour</button>
+			<a class="toggle-button-mobile" v-on:click="hide">← Retour</a>
 		</div>
 
 		<div class="favorites-container" v-show="showPostComment">
@@ -83,7 +83,6 @@
 	</div>
 </transition>
 </template>
-
 
 
 <script>
@@ -211,7 +210,13 @@ export default {
 			}
 		},
 		async getReleve() {
+			let error = document.querySelector('#noTemperature')
+			let lineChart = document.getElementById("lineChartTest")
+
 			if(this.cascade.zones.length > 0) {
+				lineChart.style.display = 'block'
+				error.style.display = 'none'
+
 				const RES = await fetch(`/api/zones/${this.cascade.zones[0].id}/releves`)
 				let releves = await RES.json()
 
@@ -228,24 +233,43 @@ export default {
 				this.graphique.temperatures = arrayTemp;
 				this.graphique.horaires = arrayHeure;
 
-				lineChartTest.data.labels = arrayHeure
-				lineChartTest.data.datasets[0].data = arrayTemp
+				new Chart(lineChart, {
+					type: 'line',
+					data: {
+						labels: arrayHeure,
+						datasets: [{
+							"label":"temp\u00e9ratures (en \u00b0C)",
+							"backgroundColor":"rgba(38, 185, 154, 0.31)",
+							"borderColor":"rgba(38, 185, 154, 0.7)",
+							"pointBorderColor":"rgba(38, 185, 154, 0.7)",
+							"pointBackgroundColor":"rgba(38, 185, 154, 0.7)",
+							"pointHoverBackgroundColor":"#fff",
+							"pointHoverBorderColor":"rgba(220,220,220,1)",
+							"data": arrayTemp
+						}]
+					}
+				})
+			} else {
+				lineChart.style.display = 'none'
+				error.style.display = 'block'
 			}
 		},
 		async getFavorites() {
-			const RES = await fetch(`/api/users/${this.user_id}/favoris`)
-			let favorites = await RES.json()
-			let find = false
-			let img = document.querySelector('#favorite-img')
-			favorites.forEach(el =>{
-				if(this.cascade.id === el.id) {
-					find = true	
+			if(this.user_id !== 0) {
+				const RES = await fetch(`/api/users/${this.user_id}/favoris`)
+				let favorites = await RES.json()
+				let find = false
+				let img = document.querySelector('#favorite-img')
+				favorites.forEach(el =>{
+					if(this.cascade.id === el.id) {
+						find = true	
+					}
+				})
+				if(find) {
+					img.src = '/img/favorite-full.png'
+				} else {
+					img.src = '/img/favorite.png'
 				}
-			})
-			if(find) {
-				img.src = '/img/favorite-full.png'
-			} else {
-				img.src = '/img/favorite.png'
 			}
 		}
 

@@ -86,9 +86,11 @@
                 <div class="modal-content">
                 <center><h4>Voici les dernières temperatures de la Zone</h4></center>
                 <div class="modal-body">
-                    <div style="width:75%;">
+                    <div>
+                        <center id="noTemperature"><strong>Aucune température pour cette cascade !</strong></center>
                         <canvas id="lineChartTest" width="400" height="200"></canvas>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
