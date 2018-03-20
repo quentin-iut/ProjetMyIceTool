@@ -4,7 +4,7 @@
       		<button class="toggle-button" v-on:click="hide"></button>
       	</div>
 		<div class="toggle-button-container-mobile">
-			<a class="toggle-button-mobile" v-on:click="hide">Retour</a>
+			<a class="toggle-button-mobile" v-on:click="hide">← Retour</a>
 		</div>
     	<div>
       		<h1><span data-id="nom" class="styleNom">{{ zone.nom }}</span></h1>

@@ -121,6 +121,7 @@ Cascade.prototype.addEvent = function() {
         }
         $app.data().show = true
         $app.data().showZone = false
+        scrollTo(0, 45)
     })
 
     this.$marker.addListener('position_changed', () => {
@@ -162,6 +163,7 @@ Zone.prototype.addEvent = function() {
         }
         $app.data().show = false
         $app.data().showZone = true
+        scrollTo(0, 45)
     })
 
     this.$rectangle.addListener('bounds_changed', () => {
