@@ -34,9 +34,9 @@
 					<li><strong>Lat: </strong><span data-id="lat">{{ cascade.lat }}</span></li>
 					<li><strong>Lng: </strong><span data-id="lng">{{ cascade.lng }}</span></li>
 					<li>
-						<strong>temperatures: </strong>
+						<strong>Temperatures: </strong>
 						<a href="#" data-toggle="modal" data-target="#exampleModal">
-							Voir les dernières températures
+							Voir ici
 						</a>
 					</li>
 					<li><strong>Type de fin de vie: </strong><span data-id="type_fin_vie.libelle">{{ cascade.type_fin_vie.libelle }}</span></li>
@@ -70,8 +70,11 @@
 			<div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
 				<div class="comments">
 					<div v-for="commentaire in cascade.commentaires" class="div-comments">
-						<img src="/img/user.png" alt="user profile" class="img-comments">
+						<div class="paragraph-comments">
+							<img src="/img/user.png" alt="user profile" class="img-comments">
 							<p>{{ commentaire.libelle }}</p>
+						</div>
+						<img v-if="commentaire.photos[0]" v-bind:src="commentaire.photos[0].url" alt="photo commentaires" class="photo-comments">
 					</div>
 				</div>
 				<form id="post-comment" v-show="showPostComment">
@@ -100,7 +103,14 @@ var data = {
       {
         id: 0,
         libelle: "",
-        date: ""
+        date: "",
+				photos: [
+					{
+						id: 0,
+						url: "",
+						commentaire_id: ''
+					}
+				]
       }
     ],
     constituants: [
@@ -195,16 +205,18 @@ export default {
 			})
 			let img = document.querySelector('#favorite-img')
 			if(img.src.split('/')[4] === 'favorite.png') {
+				alert('Cascade ajoutée à vos favoris')
 				img.src = '/img/favorite-full.png'
 			} else {
+				alert('Cascade retirée de vos favoris')
 				img.src = '/img/favorite.png'
 			}
 		},
 		heighComments() {
 			if(!this.showPostComment) {
-				document.querySelector('.comments').style.height = '728px'
+				document.querySelector('.comments').style.height = '709px'
 			} else {
-				document.querySelector('.comments').style.height = '653px'
+				document.querySelector('.comments').style.height = '634px'
 			}
 		},
 		async getReleve() {

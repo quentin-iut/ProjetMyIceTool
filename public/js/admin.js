@@ -32,7 +32,6 @@ Marker.prototype.delete = function() {
     }).catch((e) => console.error(e))
 }
 
-
 Zone.prototype.valid = function() {
     edit = false
     tlp.$tooltip.close()
@@ -154,6 +153,7 @@ Zone.prototype.addEvent = function() {
         if (this.new == false) {
             $zone.data().zone = this.zone
         } else {
+            this.new = false
             $zone.data().zone.id = this.zone.id
             $zone.data().zone.nom = "Entrez une valeur"
             $zone.data().zone.latNE = this.northEastLat
@@ -238,16 +238,19 @@ document.querySelectorAll('strong[checkbox]').forEach(el => {
 
 function clickSpan(span) {
     edit = true
-    try {
-        markers.cascades[$cascade.data().cascade.id].valid()
-    } catch(e) {
-        rectangles[$zone.data().zone.id].valid()
-    }
-    var value = span.textContent
 
+    let className = span.className
+    if(span.offsetParent.classList[1] === 'zone') {
+        rectangles[$zone.data().zone.id].valid()
+        className= `${className} zone`
+    } else {
+        markers.cascades[$cascade.data().cascade.id].valid()
+    }
+    let value = span.textContent
     let id = span.dataset.id
+    
     if (id.split('.').length < 2) {
-        var input = document.createElement('input')
+        let input = document.createElement('input')
 
         input.dataset.id = span.dataset.id
         inputTypeNumber = ['hauteur', 'altitude_minimum', 'lat', 'lng', 'nombre_voies', 'latNE', 'lngNE', 'latSW', 'lngSW']
@@ -261,6 +264,7 @@ function clickSpan(span) {
             }
         }
         input.value = value
+        input.classList = className
 
         input.addEventListener('blur', function() {
             eventInput(this)
@@ -271,7 +275,6 @@ function clickSpan(span) {
             }
         })
         span.parentElement.appendChild(input)
-        
         input.focus()
     } else if(id.split('.').length > 1) {
         let field
@@ -292,6 +295,7 @@ function clickSpan(span) {
             select.selectedIndex = $cascade.data().cascade[`${id.split('.')[0]}_id`] - 1
             span.parentElement.appendChild(select)
             select.focus()
+            select.classList = className
 
             select.addEventListener('blur', function() {
                 eventInput(this)
@@ -302,13 +306,14 @@ function clickSpan(span) {
                 }
             })
         })
-    }  
+    }
     span.className += ' hidden'
 }
 
 function eventInput(input) {
     if (input.value.length != 0) {
         edit = false
+
         let span
         if (input.parentElement.children.length < 3) {
             span = input.parentElement.children[0]
@@ -316,18 +321,20 @@ function eventInput(input) {
             span = input.parentElement.children[1]
         }
 
-        let f
-        try {
-            f = markers.cascades[$cascade.data().cascade.id]
-            if (!f) {
-                throw new Exception()
-            }
-        } catch (e) {
-            f = rectangles[$zone.data().zone.id]
-        }
-        
         let id = span.dataset.id.split('.')
-        if(f instanceof Cascade) {
+        let f
+        if(input.classList.length > 1 && input.classList[1] === 'zone') {
+            f = rectangles[$zone.data().zone.id]
+    
+            $zone.data().zone[id[0]] = input.value
+            if (input.type === "number") {
+                f.zone[id[0]] = parseFloat(input.value)
+            } else {
+                f.zone[id[0]] = input.value
+            }
+        } else {
+            f = markers.cascades[$cascade.data().cascade.id]
+
             if (id.length > 1) {
                 f.cascade[`${id[0]}_id`] = input.selectedIndex + 1
                 $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
@@ -341,21 +348,17 @@ function eventInput(input) {
                     f.cascade[id[0]] = input.value
                 }
             }
-        } else {
-            $zone.data().zone[id[0]] = input.value
-            if (input.type === "number") {
-                f.zone[id[0]] = parseFloat(input.value)
-            } else {
-                f.zone[id[0]] = input.value
-            }
         }
         f.update()
         input.parentElement.removeChild(input)
-        span.className -= ' hidden'
-
+        
+        if(span.className.split(' ')[0] !== 'hidden') {
+            span.className = span.className.split(' ')[0]
+        } else {
+            span.className = ''
+        }
     }
 }
-
 
 
 function moveMarker(input) {

@@ -36,6 +36,9 @@ class CascadeController extends Controller {
             'typeGlace',
             'zones'
         );
+        foreach ($c->commentaires as $commentaire) {
+            $commentaire->photos;
+        }
         return $c;
     }
 
