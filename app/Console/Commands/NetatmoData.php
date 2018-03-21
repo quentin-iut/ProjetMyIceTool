@@ -22,8 +22,8 @@ class NetatmoData extends Command {
 
     public function getTempVille($lat_ne,$lon_ne,$lat_sw,$lon_sw) {
         $config = array(
-                    "client_id" => "5a21092e902a4088a18bb88e",
-                    "client_secret" => "TdYXw4ACmuJbngKt3rCPKgduasWwZjc8",
+                    "client_id" => "5ab22ef62b2b46e43a8b5f94",
+                    "client_secret" => "SAdyEUn0AbJJK0lIyhU3Rj3J0UNeVT",
                     "username" => "yannick.bezes@gmail.com",
                     "password" => "oz]9K20DmK{;",
                     "scope" => "read_station read_thermostat"
@@ -35,8 +35,13 @@ class NetatmoData extends Command {
 
 		$temp = 0;
 		for ($i=0; $i < count($data['body']); $i++) {
-			if(count($data['body'][$i]['measures']) > 1) {
-				$temp += array_shift(array_shift($data['body'][$i]['measures'])['res'])[0];
+			if(count($data['body'][$i]['measures']) >= 2) {
+                $measures = array_shift($data['body'][$i]['measures']);
+                if(array_key_exists('type', $measures)) {
+                    if($measures['type'][0] === "temperature") {
+                        $temp += array_shift($measures['res'])[0];
+                    }
+                }
 			}
 		}
 		$temp =  $temp / count($data['body']);
@@ -88,18 +93,15 @@ class NetatmoData extends Command {
                 ]
             );
 
-            // //suppression des releves supperieurs à 3 jours
-            // $listeReleve = Releve::where('zone_id', $zone->id)->orderBy('date', 'ASC')->get();
-            // $nombreReleves = count($listeReleve);
-            // if ($nombreReleves > 36) { // car 1 releve toutes les 2h
-            //     for($i=0; $nombreReleves > 36; $i++) {
-            //         DB:table('releves')->where('id', $listeReleve[$i]->id)->delete();
-            //         $nombreReleves--;
-            //     }
-            //     // for ($i=$nombreReleves-36; $i > 0 ; $i--) {
-            //     //     DB::table('releves')->where('id', '=', $listeReleve[$i]->id)->delete();
-            //     // }
-            // }
+            //suppression des releves supperieurs à 3 jours
+            $listeReleve = Releve::where('zone_id', $zone->id)->orderBy('date', 'ASC')->get();
+            $nombreReleves = count($listeReleve);
+            if ($nombreReleves > 36) { // car 1 releve toutes les 2h
+                for($i=0; $nombreReleves > 36; $i++) {
+                    DB::table('releves')->where('id', $listeReleve[$i]->id)->delete();
+                    $nombreReleves--;
+                }
+            }
         }
     }
 }
