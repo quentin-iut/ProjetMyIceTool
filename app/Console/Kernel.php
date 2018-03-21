@@ -10,9 +10,9 @@ class Kernel extends ConsoleKernel {
      * The Artisan commands provided by your application.
      * @var array
      */
-    // protected $commands = [
-    //     '\App\Console\Commands\NetatmoData',
-    // ];
+    protected $commands = [
+        '\App\Console\Commands\NetatmoData',
+    ];
 
     /**
      * Define the application's command schedule.
