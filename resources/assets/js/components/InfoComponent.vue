@@ -193,8 +193,6 @@ export default {
 				},
 				body: JSON.stringify({cascade_id: this.cascade.id})
 			})
-			.then(res => res.json())
-			.then(data => console.log(data))
 			let img = document.querySelector('#favorite-img')
 			if(img.src.split('/')[4] === 'favorite.png') {
 				img.src = '/img/favorite-full.png'
@@ -228,7 +226,7 @@ export default {
 					var today = new Date(Date.now());
 					var jour = (today.getDay() == dateTemp.getDay())?"Aujourdh'ui":arr_jour[dateTemp.getDay()];
 					arrayTemp.push(el.temperature_moyenne)
-					arrayHeure.push(jour +' à '+ (dateTemp.getHours()+1) +':'+dateTemp.getMinutes())
+					arrayHeure.push(jour +' à '+ (dateTemp.getHours()) +':'+dateTemp.getMinutes())
 				})
 				this.graphique.temperatures = arrayTemp;
 				this.graphique.horaires = arrayHeure;
