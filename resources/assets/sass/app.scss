@@ -498,6 +498,10 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
 .error {
     margin: 20px;
 }
+input.styleNom {
+    max-width: 400px;
+    padding-left: 20px;
+}
 
 @media (max-width: 500px) {
     .footer {

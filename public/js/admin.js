@@ -94,8 +94,26 @@ Cascade.prototype.addEvent = function() {
         tlp.$tooltip.content.children[0].value = this
 
         if (this.new == false) {
-            getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
-                $cascade.data().cascade = cascadeInfo
+            getFile(`api/cascades/${this.cascade.id}/details`, (cascade) => {
+                for (const key in cascade) {
+                    let el = cascade[key]
+                    if (el === null) {
+                        if (key === 'niveau' || key === 'orientation' || key === 'structure' || key === 'type_fin_vie' || key === 'type_glace') {
+                            $cascade.data().cascade[key] = { id: 0, libelle: 'selectionnez une valeur' }
+                        } else {
+                            $cascade.data().cascade[key] = 'entrez une valeur'
+                        }
+                    } else if (Array.isArray(el) && el.length < 1) {
+                        if (key === 'commentaires' || key === 'images') {
+                            $cascade.data().cascade[key] = []
+                        } else {
+                            $cascade.data().cascade[key] = [{ id: 0, libelle: 'selectionnez une valeur' }]
+                        }
+                    } else {
+                        $cascade.data().cascade[key] = el
+                    }
+                }
+                // $cascade.data().cascade = cascade
             })
         } else {
             $cascade.data().cascade.nom = 'entrez une valeur'
@@ -151,7 +169,14 @@ Zone.prototype.addEvent = function() {
         tlp.$tooltip.setPosition(this.northEast)
 
         if (this.new == false) {
-            $zone.data().zone = this.zone
+            for (const key in this.zone) {
+                const el = this.zone[key]
+                if (el === null) {
+                    $zone.data().zone[key] = "Entrez une valeur"
+                } else {
+                    $zone.data().zone[key] = el
+                }
+            }
         } else {
             this.new = false
             $zone.data().zone.id = this.zone.id
@@ -168,7 +193,7 @@ Zone.prototype.addEvent = function() {
 
     this.$rectangle.addListener('bounds_changed', () => {
         tlp.$tooltip.setPosition(this.northEast)
-        
+
         this.zone.latNE = this.northEastLat
         this.zone.lngNE = this.northEastLng
         this.zone.latSW = this.southWestLat
@@ -242,13 +267,17 @@ function clickSpan(span) {
     let className = span.className
     if(span.offsetParent.classList[1] === 'zone') {
         rectangles[$zone.data().zone.id].valid()
-        className= `${className} zone`
+        if (span.classList.length >= 1) {
+            className= `${className} zone`
+        } else {
+            className= `zone`
+        }
     } else {
         markers.cascades[$cascade.data().cascade.id].valid()
     }
     let value = span.textContent
     let id = span.dataset.id
-    
+
     if (id.split('.').length < 2) {
         let input = document.createElement('input')
 
@@ -323,9 +352,9 @@ function eventInput(input) {
 
         let id = span.dataset.id.split('.')
         let f
-        if(input.classList.length > 1 && input.classList[1] === 'zone') {
+        if(input.classList.length === 1 && input.className === 'zone' || input.classList.length > 1 && input.className.split(' ').includes('zone')) {
             f = rectangles[$zone.data().zone.id]
-    
+
             $zone.data().zone[id[0]] = input.value
             if (input.type === "number") {
                 f.zone[id[0]] = parseFloat(input.value)
@@ -339,7 +368,7 @@ function eventInput(input) {
                 f.cascade[`${id[0]}_id`] = input.selectedIndex + 1
                 $cascade.data().cascade[`${id[0]}_id`] = input.selectedIndex + 1
                 $cascade.data().cascade[id[0]].libelle = input.children[input.selectedIndex].text
-    
+
             } else {
                 $cascade.data().cascade[id[0]] = input.value
                 if (input.type === "number") {
@@ -351,7 +380,7 @@ function eventInput(input) {
         }
         f.update()
         input.parentElement.removeChild(input)
-        
+
         if(span.className.split(' ')[0] !== 'hidden') {
             span.className = span.className.split(' ')[0]
         } else {

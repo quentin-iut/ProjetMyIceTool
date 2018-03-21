@@ -161,6 +161,9 @@ var data = {
       libelle: "selectionnez une valeur"
     },
     zones: [
+			{
+				id:0
+			}
     ]
   },
 	showPostComment: false,
@@ -225,7 +228,7 @@ export default {
 			let error = document.querySelector('#noTemperature')
 			let lineChart = document.getElementById("lineChartTest")
 
-			if(this.cascade.zones.length > 0) {
+			if(this.cascade.zones && this.cascade.zones[0].id !== 0) {
 				lineChart.style.display = 'block'
 				error.style.display = 'none'
 
