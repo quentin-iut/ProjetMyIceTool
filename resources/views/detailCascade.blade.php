@@ -35,6 +35,23 @@
         <h2>Localisation</h2>
         <p>Latitude : {{$infosCascade->lat}}</p>
         <p>Longitude : {{$infosCascade->lng}}</p>
-    </div>    
+    </div>  
+    @if(isset($chartjs))
+        <div class="details-div">
+            <h2>Temperatures</h2>
+            <canvas id="lineChartTest" width="200" height="100"></canvas>
+            {!!$chartjs->render()!!}
+        </div>
+    @endif
+    <div class="details-div">
+        <h2>Commentaire(s)</h2>
+        @foreach ($infosCascade->commentaires as $commentaire)
+        <div id="commentaire{{$commentaire->id}}">
+            <p><em>{{$commentaire->libelle}}</em></p>
+            <p><b>{{$commentaire->user->prenom}}</b> - {{$commentaire->date}}</p>
+            <hr>
+        </div>
+        @endforeach
+    </div>
 </div>
 @endsection
