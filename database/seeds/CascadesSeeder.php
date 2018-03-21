@@ -45,7 +45,7 @@ class CascadesSeeder extends Seeder {
 
 
             DB::table('cascades')->insert([
-                'nom' => 'Cascade de Cubservies',
+                'nom' => 'Cascade Cubservies',
                 'nombre_voies' => 4,
                 'altitude_minimum' => 60,
                 'hauteur' => 20,
