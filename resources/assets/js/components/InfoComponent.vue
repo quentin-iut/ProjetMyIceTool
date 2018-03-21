@@ -204,7 +204,7 @@ export default {
 			if(!this.showPostComment) {
 				document.querySelector('.comments').style.height = '728px'
 			} else {
-				document.querySelector('.comments').style.height = '629px'
+				document.querySelector('.comments').style.height = '653px'
 			}
 		},
 		async getReleve() {
