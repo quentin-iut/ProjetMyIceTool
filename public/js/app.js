@@ -43328,6 +43328,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 var _data = {
 	cascade: {
@@ -44660,14 +44662,23 @@ var render = function() {
                 "aria-labelledby": "pills-images-tab"
               }
             },
-            _vm._l(_vm.cascade.images, function(image) {
-              return _c("div", { staticClass: "container-images" }, [
-                _c("img", {
-                  staticClass: "image-cascade",
-                  attrs: { src: image.url, alt: image.libelle }
-                })
-              ])
-            })
+            [
+              !_vm.cascade.images[0]
+                ? _c("h3", { staticClass: "error" }, [
+                    _vm._v("Aucune images pour la cascade")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.cascade.images, function(image) {
+                return _c("div", { staticClass: "container-images" }, [
+                  _c("img", {
+                    staticClass: "image-cascade",
+                    attrs: { src: image.url, alt: image.libelle }
+                  })
+                ])
+              })
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
@@ -44681,6 +44692,12 @@ var render = function() {
               }
             },
             [
+              !_vm.cascade.commentaires[0]
+                ? _c("h3", { staticClass: "error" }, [
+                    _vm._v("Aucun commentaires pour la cascade")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "comments" },

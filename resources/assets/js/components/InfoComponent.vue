@@ -63,11 +63,13 @@
 				</ul>
 			</div>
 			<div class="tab-pane fade" id="pills-images" role="tabpanel" aria-labelledby="pills-images-tab">
+				<h3 v-if="!cascade.images[0]" class="error">Aucune images pour la cascade</h3>
 				<div v-for="image in cascade.images" class="container-images">
 					<img v-bind:src="image.url" :alt="image.libelle" class="image-cascade">
 				</div>
 			</div>
 			<div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-comments-tab">
+				<h3 v-if="!cascade.commentaires[0]" class="error">Aucun commentaires pour la cascade</h3>
 				<div class="comments">
 					<div v-for="commentaire in cascade.commentaires" class="div-comments">
 						<div class="paragraph-comments">

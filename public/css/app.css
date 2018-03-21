@@ -8907,6 +8907,10 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
   margin-left: 50px;
 }
 
+.error {
+  margin: 20px;
+}
+
 @media (max-width: 500px) {
   .footer {
     -webkit-box-orient: vertical;
