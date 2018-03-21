@@ -323,6 +323,7 @@ input:-webkit-autofill {
 .styleNom {
     color: #85d1e3;
     font-weight: bold;
+    font-size: 37px;
 }
 
 #pills-tab {
@@ -445,6 +446,7 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
     align-items: center;
     border-bottom: 1px solid #e6e6e6;
     padding: 10px;
+    flex-wrap: wrap;
 }
 .img-comments {
     height: 35px;
@@ -461,7 +463,8 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
     cursor: pointer;
 }
 .info h1 {
-    text-align: center
+    text-align: center;
+    margin-top: 40px;
 }
 .favorites-container {
     position: absolute;
@@ -483,7 +486,22 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
   /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(-100px);
     opacity: 0;
-}  
+}
+.paragraph-comments {
+    display: flex;
+    align-items: center;
+}
+.photo-comments {
+    width: 150px;
+    margin-left: 50px;
+}
+.error {
+    margin: 20px;
+}
+input.styleNom {
+    max-width: 400px;
+    padding-left: 20px;
+}
 
 @media (max-width: 500px) {
     .footer {
@@ -521,11 +539,11 @@ div.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
         position: absolute;
         left: 10px;
     }
-    .info h1 {
-        margin-bottom: 25px;
-    }
     .favorites-container {
         top: 5px;
+    }
+    .styleNom {
+        font-size: 35px;
     }
 }
 

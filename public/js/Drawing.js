@@ -30,8 +30,10 @@ class Drawing {
         google.maps.event.addListener(this.$drawingManager, 'overlaycomplete', (event) => {
             switch (event.type) {
                 case 'rectangle': {
+                        let newZone = new Zone(event.overlay)
                         tlp.$tooltip.open(map.$maps, event.overlay)
-                        tlp.$tooltip.content.children[0].value = new Zone(event.overlay)
+                        tlp.$tooltip.content.children[0].value = newZone
+                        tlp.$tooltip.setPosition(newZone.northEast)
                         break
                     }
                 case 'marker': {

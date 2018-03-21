@@ -1,5 +1,6 @@
 <template>
-	<div class="info">
+<transition name="info">
+	<div class="info zone">
     	<div class="toggle-button-container">
       		<button class="toggle-button" v-on:click="hide"></button>
       	</div>
@@ -16,6 +17,7 @@
 			</div>
     	</div>
 	</div>
+</transition>
 </template>
 
 
