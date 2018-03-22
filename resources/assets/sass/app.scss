@@ -545,6 +545,12 @@ input.styleNom {
     .styleNom {
         font-size: 35px;
     }
+    .social-media {
+        display: inline-block!important;
+    }
+    .footer-right ul {
+        padding: 0;
+    }
 }
 
 @media (max-width: 355px) {
