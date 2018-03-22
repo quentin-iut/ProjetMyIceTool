@@ -205,6 +205,7 @@ nav.navbar.navbar-default.navbar-static-top {
 
 .footer-left p {
     color: #777;
+    margin-left: 10px;
 }
 
 .footer-right li {
@@ -550,6 +551,10 @@ input.styleNom {
     }
     .footer-right ul {
         padding: 0;
+    }
+    .footer-left p {
+        margin-top: 10px;
+        margin-left: 0;
     }
     #facebook {
         margin-left: 21%;
