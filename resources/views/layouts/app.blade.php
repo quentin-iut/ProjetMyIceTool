@@ -130,9 +130,6 @@
 
     <div class="footer">
         <div class="footer-left">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('img/logo.png')}}" alt="My Ice Tool" class="brand">
-        </a>
         <p>© My Ice Tool</p>
         </div>
         <div class="footer-right">
