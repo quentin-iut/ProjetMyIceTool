@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class CascadeConstituantSeeder extends Seeder
-{
+class CascadeConstituantSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('cascade_constituant')->count() == 0) {
             DB::table('cascade_constituant')->insert([
                 'cascade_id' => 1,

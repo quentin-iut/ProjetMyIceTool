@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Image;
 
-class ImageController extends Controller
-{
+class ImageController extends Controller {
     public function getImages() {
-        // header("Access-Control-Allow-Origin: *");
         return Image::all();
     }
 
     public function getImage($image_id) {
-        // header("Access-Control-Allow-Origin: *");
         return Image::findOrFail($image_id);
     }
 

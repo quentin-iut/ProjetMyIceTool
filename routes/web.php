@@ -17,6 +17,33 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Page conditions
+Route::get('/conditions',  function () {
+    return view('conditions');
+})->name('conditions');
+
+// Page politique de confidentialité
+Route::get('/confidentialite',  function () {
+    return view('confidentialite');
+})->name('confidentialite');
+
+// Page mentions legales
+Route::get('/mentions',  function () {
+    return view('mentions');
+})->name('mentions');
+
+
+
+// Page perso
+Route::get('/user/details', 'DetailController@getDetails')->name('details');
+Route::post('/user/details','DetailController@updateUser')->name('enreModif');
+
+// Page Favoris
+Route::get('/user/favoris','FavorisController@getFavoris')->name('favoris');
+Route::get('/user/retirerFavoris/{id_cascade}','FavorisController@retirerFavoris')->name('retirerFavoris');
+Route::get('/user/detailsCascade/{id_cascade}','DetailCascadeController@afficherDetails')->name('detailsCascade');
+
+
 /* ----- Api ----- */
 
 // Cascade
@@ -46,8 +73,10 @@ Route::post('/api/cascades/name', 'CascadeController@getCascadesByName')->name('
 // Route::get('/api/commentaires', 'CommentaireController@getCommentaires')->name('Commentaires');
 // Route::get('/api/commentaires/{commentaire_id}', 'CommentaireController@getCommentaire')->name('Commentaire');
 // Route::get('/api/commentaires/{commentaire_id}/cascade', 'CommentaireController@getCommentaireCascade')->name('CommentaireCascade');
-// Route::get('/api/commentaires/{commentaire_id}/photos', 'CommentaireController@getCommentairePhotos')->name('CommentairePhotos');
+Route::get('/api/commentaires/{commentaire_id}/details', 'CommentaireController@getCommentaireDetails')->name('CommenatairesDetails');
+Route::get('/api/commentaires/{commentaire_id}/photos', 'CommentaireController@getCommentairePhotos')->name('CommentairePhotos');
 Route::get('/api/commentaires/{commentaire_id}/user', 'CommentaireController@getUserCommentaire')->name('CommentaireUser');
+Route::post('/api/commentaires/{commentaire_id}/photo', 'CommentaireController@insertPhoto')->name('CommentairePhoto');
 
 // // Constituant
 Route::get('/api/constituants', 'ConstituantController@getConstituants')->name('Constituants');
@@ -115,6 +144,7 @@ Route::get('/api/type_glaces', 'TypeGlaceController@getTypeGlaces')->name('TypeG
 Route::get('/api/users/{user_id}', 'UserController@getUser')->name('User');
 Route::get('/api/users/{user_id}/details', 'UserController@getUserDetails')->name('UserDetails');
 Route::get('/api/users/{user_id}/favoris', 'UserController@getUserFavoris')->name('UserFavoris');
+Route::post('/api/users/{user_id}/favoris', 'UserController@updateUserFavoris')->name('UserAddFavoris');
 Route::get('/api/users/{user_id}/langue', 'UserController@getUserLangue')->name('UserLangue');
 Route::get('/api/users/{user_id}/niveau', 'UserController@getUserNiveau')->name('UserNiveau');
 
@@ -125,6 +155,7 @@ Route::get('/api/zones', 'ZoneController@getZones')->name('Zones');
 Route::get('/api/zones/{zone_id}', 'ZoneController@getZone')->name('Zone');
 Route::get('/api/zones/{zone_id}/cascades', 'ZoneController@getZoneCascades')->name('ZoneCascades');
 Route::get('/api/zones/{zone_id}/releves', 'ZoneController@getZoneReleves')->name('ZoneReleves');
+Route::get('/api/zones/{zone_id}/dangerosite', 'ZoneController@getDangerosite')->name('ZoneDangerosite');
 
 Route::post('/api/zones/{zone_id}/update', 'ZoneController@update')->name('ZoneUpdate');
 Route::post('/api/zones','ZoneController@insert')->name('ZoneInsert');

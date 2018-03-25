@@ -7,12 +7,10 @@ use App\User;
 use Auth;
 use Hash;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
 
     public function getUser($user_id) {
-        if(!Auth::check() || Auth::user()->id != $user_id) return response()->json(['error' => 'Not authorized.'],403);
-
+        if(!Auth::check() || Auth::user()->id != $user_id) return response()->json(['status' => 'failed', 'message' => 'Not authorized.']);
         return User::findOrFail($user_id);
     }
 
@@ -27,11 +25,8 @@ class UserController extends Controller
     }
 
     public function getUserFavoris($user_id) {
-        $u =  $this->getUser($user_id);
-        if(!method_exists($u, 'getData')) {
-            $u->cascades;
-        }
-        return $u;
+        $u =  User::findOrFail($user_id);;
+        return $u->cascades;
     }
 
     public function getUserLangue($user_id) {
@@ -62,5 +57,13 @@ class UserController extends Controller
             }
         }
         return response()->json($success === true ? [ "success" => $success, "user" => $user]: [ "success" => $success]);
+    }
+
+    public function updateUserFavoris(Request $req, $user_id) {
+        $u = User::findOrFail($user_id);
+
+        $u->cascades()->toggle($req->input('cascade_id'));
+
+        return ['status' => 'success', 'data' => $u->cascades];
     }
 }

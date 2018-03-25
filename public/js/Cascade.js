@@ -46,10 +46,28 @@ class Cascade extends Marker {
         this.$marker.addListener('click', () => {
             map.$maps.panTo(this.position)
             if (this.new === false) {
-                getFile(`api/cascades/${this.cascade.id}/details`, (cascadeInfo) => {
+                getFile(`api/cascades/${this.cascade.id}/details`, (cascade) => {
+                    for (const key in cascade) {
+                        let el = cascade[key]
+                        if (el === null) {
+                            if (key === 'niveau' || key === 'orientation' || key === 'structure' || key === 'type_fin_vie' || key === 'type_glace') {
+                                $cascade.data().cascade[key] = { id: 0, libelle: 'selectionnez une valeur' }
+                            } else {
+                                $cascade.data().cascade[key] = 'entrez une valeur'
+                            }
+                        } else if (Array.isArray(el) && el.length < 1) {
+                            if (key === 'commentaires' || key === 'images') {
+                                $cascade.data().cascade[key] = []
+                            } else {
+                                $cascade.data().cascade[key] = [{ id: 0, libelle: 'selectionnez une valeur' }]
+                            }
+                        } else {
+                            $cascade.data().cascade[key] = el
+                        }
+                    }
                     $app.data().showZone = false
                     $app.data().show = true
-                    $cascade.data().cascade = cascadeInfo
+                    scrollTo(0, 45)
                 })
             }
         })

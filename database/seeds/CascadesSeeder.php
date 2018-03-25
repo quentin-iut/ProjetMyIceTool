@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Seeder;
 
-class CascadesSeeder extends Seeder
-{
+class CascadesSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         if(DB::table('cascades')->count() == 0) {
             DB::table('cascades')->insert([
                 'nom' => 'Cascade Arpenaz',
@@ -47,7 +45,7 @@ class CascadesSeeder extends Seeder
 
 
             DB::table('cascades')->insert([
-                'nom' => 'Cascade de Cubservies',
+                'nom' => 'Cascade Cubservies',
                 'nombre_voies' => 4,
                 'altitude_minimum' => 60,
                 'hauteur' => 20,

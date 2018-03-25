@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateZonesTable extends Migration
-{
+class CreateZonesTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('zones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom', 20)->nullable();
@@ -28,8 +26,7 @@ class CreateZonesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('zones');
     }
 }

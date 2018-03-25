@@ -5,7 +5,10 @@ class Map {
                 lat: 46.2,
                 lng: 2.2
             },
-            zoom: 4
+            zoom: 4,
+            zoomControl: true,
+            streetViewControl: false,
+            fullscreenControl: false
         })
         new Autocompletion(this)
         this.addEvent()

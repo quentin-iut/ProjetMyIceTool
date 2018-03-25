@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupportsTable extends Migration
-{
+class CreateSupportsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('supports', function (Blueprint $table) {
             $table->increments('id');
             $table->string('libelle',20);
@@ -24,8 +22,7 @@ class CreateSupportsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('supports');
     }
 }

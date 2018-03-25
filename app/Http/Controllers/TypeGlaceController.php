@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TypeGlace;
 
-class TypeGlaceController extends Controller
-{
+class TypeGlaceController extends Controller {
     public function getTypeGlaces() {
-        // header("Access-Control-Allow-Origin: *");
         return TypeGlace::all();
     }
 
     public function getTypeGlace($typeGlace_id) {
-        // header("Access-Control-Allow-Origin: *");
         return TypeGlace::findOrFail($typeGlace_id);
     }
 

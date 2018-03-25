@@ -7,8 +7,7 @@ use App\Cascade;
 use App\Commentaire;
 use DB;
 
-class CascadeController extends Controller
-{
+class CascadeController extends Controller {
     public function getCascades() {
         return Cascade::all();
     }
@@ -37,7 +36,9 @@ class CascadeController extends Controller
             'typeGlace',
             'zones'
         );
-
+        foreach ($c->commentaires as $commentaire) {
+            $commentaire->photos;
+        }
         return $c;
     }
 
@@ -138,7 +139,6 @@ class CascadeController extends Controller
         $c = $this->getCascade($c->id);
         return $c;
     }
-
 
     public function delete(Request $req) {
         Cascade::destroy($req->all()[0]);
